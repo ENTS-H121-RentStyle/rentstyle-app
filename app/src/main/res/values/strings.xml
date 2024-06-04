@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">RentStyle</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Login and Register Layout -->
+    <string name="welcome_msg">Your Ultimate Fashion Rental App</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="password_conf">Confirm Password</string>
+    <string name="info_register">"Don't have an Account yet?"</string>
+    <string name="register_bt">Register now</string>
+    <string name="info_login">Already have an account?</string>
+    <string name="login_bt">Login now</string>
+    <string name="with_google">Login With Google</string>
+</resources>

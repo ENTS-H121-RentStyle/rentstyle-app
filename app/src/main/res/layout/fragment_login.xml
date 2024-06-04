@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.LoginFragment"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="228dp"
+        android:layout_marginVertical="40dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="282dp"
+            android:layout_height="87dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/logo_company_name" />
+
+        <TextView
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/welcome_msg"
+            android:textAlignment="center"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/card_view_bg"
+        android:orientation="vertical"
+        android:paddingHorizontal="40dp"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="35sp"
+            android:textColor="?android:textColorPrimary"
+            android:layout_marginVertical="30dp"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/input_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                style="@style/EditText.Background"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            android:layout_marginBottom="30dp">
+            <EditText
+                android:id="@+id/input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                style="@style/EditText.Background"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:text="@string/login"/>
+        <Button
+            android:id="@+id/buttonRegisterGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button"
+            android:text="@string/with_google"
+            android:drawableLeft="@drawable/ic_google"
+            android:drawablePadding="10dp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="bottom"
+            android:layout_marginBottom="40dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="15sp"
+                    android:textAlignment="center"
+                    android:text="@string/info_register"/>
+                <TextView
+                    android:id="@+id/register_page"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blue_ocean"
+                    android:fontFamily="sans-serif"
+                    android:textSize="15sp"
+                    android:text="@string/register_bt" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
