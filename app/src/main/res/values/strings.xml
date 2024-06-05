@@ -14,5 +14,37 @@
     <string name="register_bt">Register now</string>
     <string name="info_login">Already have an account?</string>
     <string name="login_bt">Login now</string>
+    <string name="accept">Accept &amp; Continue</string>
     <string name="with_google">Login With Google</string>
+    <string name="rental_terms_and_conditions_title">Terms Of Service</string>
+    <string name="agrement">Agreement</string>
+
+    <!-- Pemesanan dan Pembayaran -->
+    <string name="booking_and_payment">Pemesanan dan Pembayaran:</string>
+    <string name="booking_description">Pemesanan dapat dilakukan melalui aplikasi atau langsung datang ke toko. Pembayaran harus dilakukan penuh sebelum pengambilan barang. Pembatalan pemesanan dapat dilakukan maksimal 24 jam sebelum jadwal pengambilan dengan potongan biaya tertentu.</string>
+
+    <!-- Jadwal Pengambilan dan Pengembalian -->
+    <string name="pickup_and_return">Jadwal Pengambilan dan Pengembalian:</string>
+    <string name="pickup_description">Barang harus diambil sesuai dengan jadwal yang telah ditentukan. Keterlambatan pengembalian akan dikenakan biaya tambahan sesuai dengan perjanjian. Pengembalian barang harus dalam kondisi baik seperti saat diambil, tanpa kerusakan atau noda yang signifikan.</string>
+
+    <!-- Penggantian dan Perbaikan -->
+    <string name="replacement_and_repair">Penggantian dan Perbaikan:</string>
+    <string name="replacement_description">Penggantian barang yang rusak atau tidak sesuai dapat dilakukan maksimal 24 jam setelah pengambilan. Kerusakan yang terjadi selama penggunaan akan ditanggung oleh penyewa, kecuali kerusakan yang disebabkan oleh kesalahan dari pihak penyedia.</string>
+
+    <!-- Kebersihan dan Perawatan -->
+    <string name="cleanliness_and_maintenance">Kebersihan dan Perawatan:</string>
+    <string name="cleanliness_description">Barang harus dikembalikan dalam keadaan bersih dan siap pakai. Jika terdapat noda atau kotoran, biaya pembersihan tambahan akan dikenakan. Penyewa bertanggung jawab atas perawatan barang selama dalam penggunaan.</string>
+
+    <!-- Penggunaan dan Kewajiban Penyewa -->
+    <string name="usage_and_responsibility">Penggunaan dan Kewajiban Penyewa:</string>
+    <string name="usage_description">Barang hanya boleh digunakan untuk keperluan yang sesuai dan tidak melanggar norma sosial atau hukum. Penyewa wajib menjaga dan menggunakan barang dengan baik sesuai dengan fungsi dan tujuan penggunaan.</string>
+
+    <!-- Jaminan dan Tanggung Jawab -->
+    <string name="guarantee_and_responsibility">Jaminan dan Tanggung Jawab:</string>
+    <string name="guarantee_description">Penyewa wajib memberikan jaminan identitas dan deposit tertentu sebelum pengambilan barang. Penyedia tidak bertanggung jawab atas kerugian atau kecelakaan yang terjadi selama penggunaan barang.</string>
+
+    <!-- Button Text -->
+    <string name="button_submit">Setuju</string>
+
+
 </resources>
