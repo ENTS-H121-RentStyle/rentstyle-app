@@ -24,4 +24,8 @@
     <style name="EditText.Background" parent="ThemeOverlay.Material3.TextInputEditText">
         <item name="android:background">@color/white</item>
     </style>
+
+    <style name="SearchBar.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/searchbar_light</item>
+    </style>
 </resources>

@@ -4,4 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="orange_1">#DB4A2B</color>
     <color name="blue_ocean">#FF0085FF</color>
+
+    <color name="searchbar_light">#FFE9E9E9</color>
+    <color name="searchbar_dark">#55FFFFFF</color>
 </resources>

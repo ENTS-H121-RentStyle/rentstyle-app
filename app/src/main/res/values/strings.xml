@@ -22,6 +22,16 @@
     <string name="cd_brand_logo">Brand logo</string>
     <string name="cd_icon_shopping_cart">Icon shopping cart</string>
     <string name="cd_icon_chat">Icon chat</string>
+    <string name="txt_foryou">For you</string>
+    <string name="txt_favorite">Favorites</string>
+    <string name="txt_trending">Trending Now</string>
+    <string name="txt_high_rating">Highest rating</string>
+    <string name="cd_carousel">Banner</string>
+    <string name="cd_promo">Product promo</string>
+    <string name="cd_product_image">Product image</string>
+    <string name="txt_new_product">New products</string>
+    <string name="txt_product_rec">Recommendation for you</string>
+    <string name="cd_fav_product">Favorite product</string>
 
     <!-- Pemesanan dan Pembayaran -->
     <string name="booking_and_payment">Pemesanan dan Pembayaran:</string>

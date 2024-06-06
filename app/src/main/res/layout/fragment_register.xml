@@ -20,7 +20,7 @@
             android:layout_height="87dp"
             android:layout_gravity="center"
             android:scaleType="centerInside"
-            android:src="@drawable/logo_company_name" />
+            android:src="@drawable/ic_brand" />
 
     </LinearLayout>
 

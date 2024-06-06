@@ -5,4 +5,8 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="SearchBar.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/searchbar_dark</item>
+    </style>
 </resources>
