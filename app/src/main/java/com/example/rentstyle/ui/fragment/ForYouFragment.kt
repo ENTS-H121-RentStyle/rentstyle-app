@@ -63,7 +63,7 @@ class ForYouFragment : Fragment() {
         recommendationProductAdapter = RecyclerDummyAdapter()
 
         val spanCount = 2
-        val spacing = 20
+        val spacing = 5
 
         recommendationProductRecyclerView.addItemDecoration(GridSpacingItemDecoration(spanCount, spacing, true))
 

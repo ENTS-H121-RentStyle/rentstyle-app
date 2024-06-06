@@ -9,4 +9,19 @@
         android:id="@+id/navigation_home"
         android:name="com.example.rentstyle.ui.fragment.HomeFragment"
         tools:layout="@layout/fragment_home"/>
+
+    <fragment
+        android:id="@+id/navigation_explore"
+        android:name="com.example.rentstyle.ui.fragment.ExploreFragment"
+        tools:layout="@layout/fragment_explore"/>
+
+    <fragment
+        android:id="@+id/navigation_notification"
+        android:name="com.example.rentstyle.ui.fragment.NotificationFragment"
+        tools:layout="@layout/fragment_notification"/>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.rentstyle.ui.fragment.ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
 </navigation>

@@ -25,10 +25,7 @@ class FavoriteFragment : Fragment() {
         favProductRecyclerView = binding.rvFavProduct
         favProductAdapter = RecyclerDummyAdapter2()
 
-        val spanCount = 3
-        val spacing = 2
-
-        favProductRecyclerView.addItemDecoration(GridSpacingItemDecoration(spanCount = spanCount, spacing = spacing, false))
+        favProductRecyclerView.addItemDecoration(GridSpacingItemDecoration(3, 4, false))
         favProductRecyclerView.adapter = favProductAdapter
 
         return binding.root
