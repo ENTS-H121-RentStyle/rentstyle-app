@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val intent = Intent(this, VerificationActivity::class.java)
-        startActivity(intent)
+//        val intent = Intent(this, VerificationActivity::class.java)
+//        startActivity(intent)
     }
 }

@@ -19,6 +19,10 @@
     <string name="rental_terms_and_conditions_title">Terms Of Service</string>
     <string name="agrement">Agreement</string>
 
+    <string name="cd_brand_logo">Brand logo</string>
+    <string name="cd_icon_shopping_cart">Icon shopping cart</string>
+    <string name="cd_icon_chat">Icon chat</string>
+
     <!-- Pemesanan dan Pembayaran -->
     <string name="booking_and_payment">Pemesanan dan Pembayaran:</string>
     <string name="booking_description">Pemesanan dapat dilakukan melalui aplikasi atau langsung datang ke toko. Pembayaran harus dilakukan penuh sebelum pengambilan barang. Pembatalan pemesanan dapat dilakukan maksimal 24 jam sebelum jadwal pengambilan dengan potongan biaya tertentu.</string>
