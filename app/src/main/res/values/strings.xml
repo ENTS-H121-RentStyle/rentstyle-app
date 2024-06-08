@@ -64,6 +64,24 @@
     <string name="txt_explore">Explore</string>
     <string name="txt_notification">Notification</string>
     <string name="txt_profile">Profile</string>
+    <string name="txt_product_image">Product image</string>
+    <string name="txt_fav_button">Add to favorite</string>
+    <string name="txt_rp">Rp</string>
+    <string name="txt_view_shop">View shop</string>
+    <string name="txt_product_details">Product details</string>
+    <string name="txt_category">Category</string>
+    <string name="txt_color">Color</string>
+    <string name="txt_size">Size</string>
+    <string name="txt_product_detail">: %1$s</string>
+    <string name="txt_view_more">View more</string>
+    <string name="txt_product_reviews">Product reviews</string>
+    <string name="cd_user_photo">User photo</string>
+    <string name="cd_review_photo">Review photo</string>
+    <string name="tv_similar_products">Similar products</string>
+    <string name="txt_rent_now">Rent this product</string>
+    <string name="txt_add_to_cart">Add this to cart</string>
+    <string name="cd_navigate_up">Navigate up</string>
+    <string name="cd_icon">Icon</string>
 
     <!--    Interes layout-->
     <string name="question_color">Pilih 3 warna baju favorit kamu</string>

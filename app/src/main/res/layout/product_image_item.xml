@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="180dp"
-    android:layout_height="305dp"
+    android:layout_width="170dp"
+    android:layout_height="295dp"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="10dp"
     android:layout_gravity="center"
@@ -10,8 +10,10 @@
     android:layout_marginHorizontal="5dp">
 
     <ImageView
+        android:id="@+id/iv_product_image"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="170dp"
+        android:transitionName="shared_product_image"
         android:src="@drawable/img_placeholder"
         android:scaleType="centerCrop"
         android:contentDescription="@string/cd_product_image" />
@@ -80,8 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables">
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -105,8 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables">
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"

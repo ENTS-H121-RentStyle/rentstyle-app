@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.ActivityMainBinding
@@ -20,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar!!.hide()
+
         setBottomNavigation()
 
 //        val intent = Intent(this, VerificationActivity::class.java)
@@ -30,6 +35,19 @@ class MainActivity : AppCompatActivity() {
         navView = binding.mainBottomNavigationView
         val navHostFragment = supportFragmentManager.findFragmentById(binding.navHostFragmentActivityMain.id) as NavHostFragment
         val navController = navHostFragment.navController
+
+        navController.addOnDestinationChangedListener{ _, destination, _ ->
+            navView.isVisible = destination.id in arrayListOf(R.id.navigation_home,
+                R.id.navigation_explore, R.id.navigation_notification,
+                R.id.navigation_profile)
+        }
+
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.navigation_home, R.id.navigation_explore, R.id.navigation_notification, R.id.navigation_profile
+            )
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
         var prevMenuItemClicked: View = navView.findViewById(R.id.navigation_home)

@@ -6,7 +6,10 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -62,21 +65,37 @@ class ForYouFragment : Fragment() {
         newProductAdapter = RecyclerDummyAdapter()
         recommendationProductAdapter = RecyclerDummyAdapter()
 
-        val spanCount = 2
-        val spacing = 5
-
-        recommendationProductRecyclerView.addItemDecoration(GridSpacingItemDecoration(spanCount, spacing, true))
+        recommendationProductRecyclerView.addItemDecoration(GridSpacingItemDecoration(2,25,true))
 
         highestRatingRecyclerView.adapter = highestRatingAdapter
         newProductRecyclerView.adapter = newProductAdapter
         recommendationProductRecyclerView.adapter = recommendationProductAdapter
+
+        highestRatingAdapter.setOnClickListener(object : RecyclerDummyAdapter.OnClickListener {
+            override fun onClick(position: Int, image: ImageView) {
+                val extras = FragmentNavigatorExtras(image to "shared_product_image")
+                findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToNavigationProductDetail(), navigatorExtras = extras)
+            }
+        })
+
+        newProductAdapter.setOnClickListener(object : RecyclerDummyAdapter.OnClickListener {
+            override fun onClick(position: Int, image: ImageView) {
+                findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToNavigationProductDetail())
+            }
+        })
+
+        recommendationProductAdapter.setOnClickListener(object : RecyclerDummyAdapter.OnClickListener {
+            override fun onClick(position: Int, image: ImageView) {
+                findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToNavigationProductDetail())
+            }
+        })
     }
 
     private fun createCarouselInstance() {
         carousel = binding.vpCarousel
 
         val imageList = arrayListOf(R.drawable.img_placeholder, R.drawable.img_placeholder, R.drawable.img_placeholder)
-        carouselAdapter = ImageSliderAdapter(requireContext(), imageList)
+        carouselAdapter = ImageSliderAdapter(requireContext(), imageList, "Banner")
 
         carousel.apply {
             adapter = carouselAdapter
