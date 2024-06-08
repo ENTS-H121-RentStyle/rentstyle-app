@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +27,7 @@ class ProductDetailFragment : Fragment() {
     private lateinit var productName: TextView
     private lateinit var productPrice: TextView
     private lateinit var productRating: TextView
+    private lateinit var groupShop: ConstraintLayout
     private lateinit var productShopName: TextView
     private lateinit var productShopLocation: TextView
     private lateinit var productCategory: TextView
@@ -52,6 +54,7 @@ class ProductDetailFragment : Fragment() {
             productName = tvProductName
             productPrice = tvProductPrice
             productRating = tvProductRating
+            groupShop = groupProductShop
             productShopName = tvProductShopName
             productShopLocation = tvShopLocation
             productCategory = tvProductCategory
@@ -105,6 +108,10 @@ class ProductDetailFragment : Fragment() {
                 findNavController().navigate(ProductDetailFragmentDirections.actionNavigationProductDetailSelf())
             }
         })
+
+        groupShop.setOnClickListener {
+            findNavController().navigate(ProductDetailFragmentDirections.actionNavigationProductDetailToNavigationShopDetail())
+        }
 
         return binding.root
     }

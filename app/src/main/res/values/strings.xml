@@ -82,6 +82,7 @@
     <string name="txt_add_to_cart">Add this to cart</string>
     <string name="cd_navigate_up">Navigate up</string>
     <string name="cd_icon">Icon</string>
+    <string name="txt_all_products">All products</string>
 
     <!--    Interes layout-->
     <string name="question_color">Pilih 3 warna baju favorit kamu</string>
@@ -97,6 +98,5 @@
     <string name="krem">Krem</string>
     <string name="orange">Oren</string>
     <string name="white">putih</string>
-
 
 </resources>

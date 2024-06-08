@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.rentstyle.databinding.FragmentExploreBinding
 import com.example.rentstyle.helpers.adapter.RecyclerDummyShopAdapter
 
@@ -22,6 +23,12 @@ class ExploreFragment : Fragment() {
 
         shopListAdapter = RecyclerDummyShopAdapter()
         binding.rvShopList.adapter = shopListAdapter
+
+        shopListAdapter.setOnClickListener(object : RecyclerDummyShopAdapter.OnClickListener {
+            override fun onClick(position: Int) {
+                findNavController().navigate(ExploreFragmentDirections.actionNavigationExploreToNavigationShopDetail())
+            }
+        })
 
         return binding.root
     }
