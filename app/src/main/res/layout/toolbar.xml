@@ -34,7 +34,7 @@
             android:fontFamily="@font/inter_bold"
             android:textSize="20sp"
             android:layout_marginStart="20dp"
-            tools:text="Product Detail"
+            tools:text="Page Name"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_back_button"/>

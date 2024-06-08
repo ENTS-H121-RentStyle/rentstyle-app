@@ -51,6 +51,10 @@ class ShopDetailFragment : Fragment() {
             }
         })
 
+        binding.btnShoppingCart.setOnClickListener {
+            findNavController().navigate(ShopDetailFragmentDirections.actionNavigationShopDetailToNavigationShoppingCart())
+        }
+
         return binding.root
     }
 }

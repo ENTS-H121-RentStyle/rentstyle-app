@@ -30,6 +30,10 @@ class ExploreFragment : Fragment() {
             }
         })
 
+        binding.btnShoppingCart.setOnClickListener {
+            findNavController().navigate(ExploreFragmentDirections.actionNavigationExploreToNavigationShoppingCart())
+        }
+
         return binding.root
     }
 }
