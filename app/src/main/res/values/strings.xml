@@ -64,6 +64,45 @@
     <string name="txt_explore">Explore</string>
     <string name="txt_notification">Notification</string>
     <string name="txt_profile">Profile</string>
+    <string name="txt_product_image">Product image</string>
+    <string name="txt_fav_button">Add to favorite</string>
+    <string name="txt_rp">Rp</string>
+    <string name="txt_view_shop">View shop</string>
+    <string name="txt_product_details">Product details</string>
+    <string name="txt_category">Category</string>
+    <string name="txt_color">Color</string>
+    <string name="txt_size">Size</string>
+    <string name="txt_product_detail">: %1$s</string>
+    <string name="txt_view_more">View more</string>
+    <string name="txt_product_reviews">Product reviews</string>
+    <string name="cd_user_photo">User photo</string>
+    <string name="cd_review_photo">Review photo</string>
+    <string name="tv_similar_products">Similar products</string>
+    <string name="txt_rent_now">Rent this product</string>
+    <string name="txt_add_to_cart">Add this to cart</string>
+    <string name="cd_navigate_up">Navigate up</string>
+    <string name="cd_icon">Icon</string>
+    <string name="txt_all_products">All products</string>
+    <string name="txt_days">days</string>
+    <string name="txt_delete_all">Delete All</string>
+    <string name="txt_check_out">Check out</string>
+    <string name="txt_product_lists">Product lists</string>
+    <string name="txt_search_results_for">Search results for</string>
+    <string name="txt_edit_profile">Edit profile</string>
+    <string name="txt_join_us">Join us!</string>
+    <string name="txt_settings">Settings</string>
+    <string name="txt_order_history">Order history</string>
+    <string name="txt_order_status">Order status</string>
+    <string name="txt_order_information">Order information</string>
+    <string name="txt_order_id">Order ID</string>
+    <string name="txt_order_date">Order date</string>
+    <string name="txt_delivery_address">Delivery address</string>
+    <string name="txt_product_information">Product information</string>
+    <string name="tv_order_total">Order total</string>
+    <string name="txt_deposit_total">Deposit total</string>
+    <string name="txt_deposit_info">*Your deposit will be returned once you return the rented items</string>
+    <string name="txt_payment_total">Payment total</string>
+    <string name="txt_payment_method">Payment method</string>
 
     <!--    Interes layout-->
     <string name="question_color">Pilih 3 warna baju favorit kamu</string>
@@ -80,6 +119,5 @@
     <string name="orange">Oren</string>
     <string name="white">putih</string>
     <string name="next">Next</string>
-
 
 </resources>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.ShopDetailFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            style="@style/SearchBar.CardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteX="15dp">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconifiedByDefault="false"
+                app:queryBackground="@android:color/transparent"
+                app:queryHint="Search products in XXX" />
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/btn_shopping_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cart"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="26dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/cd_icon_shopping_cart" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_shop_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/img_placeholder"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardView" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toEndOf="@id/iv_shop_image"
+            app:layout_constraintTop_toBottomOf="@id/cardView"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_shop_name"
+                style="@style/TextView.Paragraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="Toko xxx" />
+
+            <TextView
+                style="@style/TextView.Paragraph"
+                android:id="@+id/tv_shop_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="11sp"
+                tools:text="Rating 4.6"/>
+
+            <TextView
+                style="@style/TextView.Paragraph"
+                android:id="@+id/tv_shop_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                tools:text="Jakarta"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/group_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:paddingHorizontal="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_shop_image">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_chat"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="30dp"
+                android:text="Chat toko"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/inter_regular"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:background="@drawable/shape_grey_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_share"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="30dp"
+                android:text="Bagikan toko"
+                android:textColor="@color/white"
+                android:fontFamily="@font/inter_regular"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/shape_grey_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_follow"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="30dp"
+                android:text="Ikuti toko"
+                android:textColor="@color/white"
+                android:fontFamily="@font/inter_regular"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:background="@drawable/shape_orange_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_heading_1"
+            style="@style/TextView.Heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_product_rec"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@id/group_button" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_shop_recommendation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            tools:itemCount="10"
+            android:layout_marginStart="15dp"
+            tools:listitem="@layout/product_image_item"
+            app:layout_constraintTop_toBottomOf="@id/tv_heading_1" />
+
+        <TextView
+            android:id="@+id/tv_heading_2"
+            style="@style/TextView.Heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_all_products"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/rv_shop_recommendation" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_shop_all_product"
+            android:nestedScrollingEnabled="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            app:spanCount="2"
+            tools:itemCount="10"
+            android:paddingHorizontal="5dp"
+            tools:listitem="@layout/product_image_item"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/tv_heading_2"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

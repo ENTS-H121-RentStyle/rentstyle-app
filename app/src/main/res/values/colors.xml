@@ -2,7 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#FFBFBFBF</color>
     <color name="orange_1">#DB4A2B</color>
+    <color name="orange_2">#FFFFB4A4</color>
     <color name="blue_ocean">#FF0085FF</color>
 
     <color name="searchbar_light">#FFE9E9E9</color>

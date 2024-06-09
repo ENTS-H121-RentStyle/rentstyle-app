@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.ProductDetailFragment">
+
+    <include
+        android:id="@+id/main_toolbar"
+        layout="@layout/toolbar" />
+
+    <androidx.core.widget.NestedScrollView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_marginBottom="65dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_product_image_carousel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_product_name"
+                style="@style/TextView.Heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vp_product_image_carousel"
+                tools:text="Kostum Honkai: Star Rail Black Swan Cosplay Black Swan Costume Black Swan Kostum Full Set" />
+
+            <ImageView
+                android:id="@+id/iv_fav_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="15dp"
+                android:contentDescription="@string/txt_fav_button"
+                android:src="@drawable/ic_fav"
+                app:layout_constraintStart_toEndOf="@id/tv_product_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vp_product_image_carousel" />
+
+            <LinearLayout
+                android:id="@+id/group_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="20dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_product_name">
+
+                <TextView
+                    style="@style/TextView.Paragraph"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_rp"
+                    android:textColor="?android:textColorPrimary" />
+
+                <TextView
+                    android:id="@+id/tv_product_price"
+                    style="@style/TextView.Heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:textSize="18sp"
+                    tools:text="159.500 / 2 hari" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_product_rating"
+                style="@style/TextView.Paragraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginHorizontal="20dp"
+                android:textColor="?android:textColorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/group_price"
+                tools:text="Rating 4.5" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/group_product_shop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_product_rating">
+
+                <com.example.rentstyle.ui.customview.CustomDividerBold
+                    android:id="@+id/shop_upper_stroke"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="ContentDescription"
+                    app:layout_constraintTop_toTopOf="parent">
+                </com.example.rentstyle.ui.customview.CustomDividerBold>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_product_shop_image"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/img_placeholder"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginVertical="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/shop_upper_stroke"
+                    app:layout_constraintBottom_toTopOf="@id/shop_bottom_stroke"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toEndOf="@id/iv_product_shop_image"
+                    app:layout_constraintTop_toBottomOf="@id/shop_upper_stroke"
+                    app:layout_constraintBottom_toTopOf="@id/shop_bottom_stroke"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:id="@+id/tv_product_shop_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?android:textColorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        tools:text="Toko xxx"/>
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:id="@+id/tv_shop_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        tools:text="Jakarta"/>
+                </LinearLayout>
+
+                <TextView
+                    style="@style/TextView.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/txt_view_shop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/shop_upper_stroke"
+                    app:layout_constraintBottom_toTopOf="@id/shop_bottom_stroke" />
+
+                <com.example.rentstyle.ui.customview.CustomDividerBold
+                    android:id="@+id/shop_bottom_stroke"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="ContentDescription"
+                    app:layout_constraintBottom_toBottomOf="parent">
+                </com.example.rentstyle.ui.customview.CustomDividerBold>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                style="@style/TextView.Heading"
+                android:id="@+id/tv_product_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_product_details"
+                android:textSize="18sp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@id/group_product_shop"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <LinearLayout
+                android:id="@+id/group_tv_product_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_product_heading"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_category"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/txt_color"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/txt_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:id="@+id/tv_product_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text=": Baju adat"/>
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:id="@+id/tv_product_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        tools:text=": Merah" />
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:id="@+id/tv_product_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        tools:text=": XL" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_product_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                tools:text="Body text for describing why this product is simply a must-buy Body text for describing why this product is simply a must-buyBody text for describing why this product is simply a must-buy"
+                app:layout_constraintTop_toBottomOf="@id/group_tv_product_heading"/>
+
+            <TextView
+                style="@style/TextView.Button"
+                android:id="@+id/btn_view_more_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/txt_view_more"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_product_description" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/group_product_rating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/btn_view_more_description">
+
+                <com.example.rentstyle.ui.customview.CustomDividerBold
+                    android:id="@+id/rating_upper_stroke"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    style="@style/TextView.Heading"
+                    android:id="@+id/tv_product_rating_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_product_reviews"
+                    android:textSize="18sp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/rating_upper_stroke"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    style="@style/TextView.Paragraph"
+                    android:id="@+id/tv_product_rating_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_category"
+                    android:textStyle="bold"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_product_rating_heading"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="Rating 4.5"/>
+
+                <TextView
+                    style="@style/TextView.Button"
+                    android:id="@+id/btn_view_more_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/txt_view_more"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rating_upper_stroke" />
+
+                <com.example.rentstyle.ui.customview.CustomDividerBold
+                    android:id="@+id/rating_mid_stroke"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_product_rating_score"
+                    tools:ignore="ContentDescription" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_product_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/product_rating_item"
+                    tools:itemCount="2"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rating_mid_stroke"
+                    app:layout_constraintBottom_toTopOf="@id/rating_bottom_stroke"/>
+
+                <com.example.rentstyle.ui.customview.CustomDividerBold
+                    android:id="@+id/rating_bottom_stroke"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:ignore="ContentDescription" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                style="@style/TextView.Heading"
+                android:id="@+id/tv_product_similar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_similar_products"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@id/group_product_rating"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_recommendation"
+                android:nestedScrollingEnabled="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="5dp"
+                app:spanCount="2"
+                tools:itemCount="10"
+                tools:listitem="@layout/product_image_item"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/tv_product_similar"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_gravity="bottom"
+        android:elevation="4dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_rent"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_rent_now"
+            android:textColor="@color/white"
+            android:fontFamily="@font/inter_regular"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/shape_orange_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_cart"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_add_to_cart"
+            android:textColor="@color/white"
+            android:fontFamily="@font/inter_regular"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/shape_grey_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_rent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/btn_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chat_2"
+            android:contentDescription="@string/cd_icon_chat"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_cart"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

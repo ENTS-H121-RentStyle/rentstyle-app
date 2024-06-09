@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -51,6 +52,7 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.cardview)
+    implementation(libs.circleimageview)
     implementation(libs.glide)
 
     //Navigation

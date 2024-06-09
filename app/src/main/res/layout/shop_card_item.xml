@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginVertical="10dp"
+    android:layout_marginHorizontal="20dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/group_shop_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_shop_image"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/img_placeholder" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_shop_name"
+                    style="@style/TextView.Paragraph"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    tools:text="Toko xxx" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:id="@+id/tv_shop_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        tools:text="Rating 4.6"/>
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:id="@+id/tv_shop_products_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="11sp"
+                        android:layout_marginStart="5dp"
+                        tools:text="(120 products)"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_shop_ranking"
+                style="@style/TextView.Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?android:textColorPrimary"
+                android:textStyle="bold"
+                tools:text="#1"
+                android:layout_marginStart="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginHorizontal="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/group_shop_detail">
+
+            <ImageView
+                android:id="@+id/iv_product_image_1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/img_placeholder"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_product_image_2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:layout_marginHorizontal="4dp"
+                android:src="@drawable/img_placeholder"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_product_image_3"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:layout_marginHorizontal="4dp"
+                android:src="@drawable/img_placeholder"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_product_image_4"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:layout_marginHorizontal="4dp"
+                android:src="@drawable/img_placeholder"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_product_image_5"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/img_placeholder"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

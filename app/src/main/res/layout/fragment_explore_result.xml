@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.ExploreResultFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            style="@style/SearchBar.CardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteX="15dp">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconifiedByDefault="false"
+                app:queryBackground="@android:color/transparent"
+                app:queryHint="Search products" />
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/btn_shopping_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cart"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="26dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/cd_icon_shopping_cart" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_filter_explore_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            tools:listitem="@layout/filter_item"
+            android:orientation="horizontal"
+            android:layout_marginStart="15dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/cardView"/>
+
+        <LinearLayout
+            android:id="@+id/group_tv_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/rv_filter_explore_result">
+
+            <TextView
+                style="@style/TextView.Paragraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="@string/txt_search_results_for" />
+
+            <TextView
+                android:id="@+id/tv_explore_keyword"
+                style="@style/Text.DayNight.Orange"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginStart="8dp"
+                tools:text="baju cosplay" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_product_explore_result"
+            android:nestedScrollingEnabled="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:spanCount="2"
+            tools:itemCount="10"
+            android:paddingHorizontal="5dp"
+            tools:listitem="@layout/product_image_item"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/group_tv_search_result"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

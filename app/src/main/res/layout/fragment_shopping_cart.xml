@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.ShoppingCartFragment">
+
+    <include
+        android:id="@+id/main_toolbar"
+        layout="@layout/toolbar" />
+
+    <androidx.core.widget.NestedScrollView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_marginBottom="140dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_select_all"
+                android:layout_width="150dp"
+                android:layout_height="34dp"
+                tools:text="Select All (9)"
+                android:textColor="@color/white"
+                android:fontFamily="@font/inter_regular"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_orange_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_delete_all"
+                android:layout_width="150dp"
+                android:layout_height="34dp"
+                android:visibility="gone"
+                android:text="@string/txt_delete_all"
+                android:textColor="@color/white"
+                android:fontFamily="@font/inter_regular"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_grey_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_shop_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/btn_select_all"
+                tools:itemCount="10"
+                tools:listitem="@layout/shopping_cart_item" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <FrameLayout
+        android:id="@+id/sheet_shopping_cart_detail"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        android:background="@drawable/rect_light_dark">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="30dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_swipe_indicator"
+                tools:ignore="ContentDescription" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/group_check_out"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    style="@style/TextView.Paragraph"
+                    android:id="@+id/tv_selected_product_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Subtotal of 5 products"
+                    android:textColor="?android:textColorPrimary"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    style="@style/TextView.Heading"
+                    android:id="@+id/tv_subtotal_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Rp. 638.000"
+                    android:layout_marginTop="10dp"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_selected_product_amount"/>
+
+                <TextView
+                    style="@style/Text.DayNight.Orange"
+                    android:id="@+id/tv_deposit_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="+ Rp. 58.000 (Deposit)"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_subtotal_cost"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_check_out"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_check_out"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/inter_regular"
+                    android:textStyle="bold"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:background="@drawable/shape_orange_button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="140dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/group_check_out">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_product_lists"
+                        android:layout_marginBottom="20dp"
+                        android:textColor="?android:textColorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_product_co_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/product_check_out_list_item"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

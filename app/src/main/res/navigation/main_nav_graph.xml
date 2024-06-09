@@ -8,12 +8,30 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.rentstyle.ui.fragment.HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_product_detail"
+            app:destination="@id/navigation_product_detail"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_shopping_cart"
+            app:destination="@id/navigation_shopping_cart" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_explore"
         android:name="com.example.rentstyle.ui.fragment.ExploreFragment"
-        tools:layout="@layout/fragment_explore"/>
+        tools:layout="@layout/fragment_explore">
+        <action
+            android:id="@+id/action_navigation_explore_to_navigation_shop_detail"
+            app:destination="@id/navigation_shop_detail" />
+        <action
+            android:id="@+id/action_navigation_explore_to_navigation_shopping_cart"
+            app:destination="@id/navigation_shopping_cart" />
+        <action
+            android:id="@+id/action_navigation_explore_to_navigation_explore_result"
+            app:destination="@id/navigation_explore_result" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notification"
@@ -23,5 +41,69 @@
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.rentstyle.ui.fragment.ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_shopping_cart"
+            app:destination="@id/navigation_shopping_cart" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_order_detail"
+            app:destination="@id/navigation_order_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_product_detail"
+        android:name="com.example.rentstyle.ui.fragment.ProductDetailFragment"
+        tools:layout="@layout/fragment_product_detail">
+        <action
+            android:id="@+id/action_navigation_product_detail_self"
+            app:destination="@id/navigation_product_detail" />
+        <action
+            android:id="@+id/action_navigation_product_detail_to_navigation_shop_detail"
+            app:destination="@id/navigation_shop_detail" />
+        <action
+            android:id="@+id/action_navigation_product_detail_to_navigation_shopping_cart"
+            app:destination="@id/navigation_shopping_cart" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_shop_detail"
+        android:name="com.example.rentstyle.ui.fragment.ShopDetailFragment"
+        tools:layout="@layout/fragment_shop_detail">
+        <action
+            android:id="@+id/action_navigation_shop_detail_to_navigation_product_detail"
+            app:destination="@id/navigation_product_detail" />
+        <action
+            android:id="@+id/action_navigation_shop_detail_to_navigation_shopping_cart"
+            app:destination="@id/navigation_shopping_cart" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_shopping_cart"
+        android:name="com.example.rentstyle.ui.fragment.ShoppingCartFragment"
+        tools:layout="@layout/fragment_shopping_cart">
+        <action
+            android:id="@+id/action_navigation_shopping_cart_to_navigation_product_detail"
+            app:destination="@id/navigation_product_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_explore_result"
+        android:name="com.example.rentstyle.ui.fragment.ExploreResultFragment"
+        tools:layout="@layout/fragment_explore_result">
+        <action
+            android:id="@+id/action_navigation_explore_result_to_navigation_shopping_cart"
+            app:destination="@id/navigation_shopping_cart" />
+        <action
+            android:id="@+id/action_navigation_explore_result_to_navigation_product_detail"
+            app:destination="@id/navigation_product_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_order_detail"
+        android:name="com.example.rentstyle.ui.fragment.OrderDetailFragment"
+        tools:layout="@layout/fragment_order_detail">
+        <action
+            android:id="@+id/action_navigation_order_detail_to_navigation_product_detail"
+            app:destination="@id/navigation_product_detail" />
+    </fragment>
 </navigation>
