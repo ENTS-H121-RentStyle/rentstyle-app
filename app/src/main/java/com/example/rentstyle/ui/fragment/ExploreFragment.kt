@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.rentstyle.databinding.FragmentExploreBinding
@@ -33,6 +34,19 @@ class ExploreFragment : Fragment() {
         binding.btnShoppingCart.setOnClickListener {
             findNavController().navigate(ExploreFragmentDirections.actionNavigationExploreToNavigationShoppingCart())
         }
+
+        binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                findNavController().navigate(ExploreFragmentDirections.actionNavigationExploreToNavigationExploreResult())
+                binding.searchView.setQuery(null, false)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+        })
 
         return binding.root
     }

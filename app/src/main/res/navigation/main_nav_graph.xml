@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_navigation_explore_to_navigation_shopping_cart"
             app:destination="@id/navigation_shopping_cart" />
+        <action
+            android:id="@+id/action_navigation_explore_to_navigation_explore_result"
+            app:destination="@id/navigation_explore_result" />
     </fragment>
 
     <fragment
@@ -73,6 +76,18 @@
         tools:layout="@layout/fragment_shopping_cart">
         <action
             android:id="@+id/action_navigation_shopping_cart_to_navigation_product_detail"
+            app:destination="@id/navigation_product_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_explore_result"
+        android:name="com.example.rentstyle.ui.fragment.ExploreResultFragment"
+        tools:layout="@layout/fragment_explore_result">
+        <action
+            android:id="@+id/action_navigation_explore_result_to_navigation_shopping_cart"
+            app:destination="@id/navigation_shopping_cart" />
+        <action
+            android:id="@+id/action_navigation_explore_result_to_navigation_product_detail"
             app:destination="@id/navigation_product_detail" />
     </fragment>
 </navigation>
