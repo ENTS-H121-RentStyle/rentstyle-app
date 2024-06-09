@@ -41,7 +41,11 @@
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.rentstyle.ui.fragment.ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_shopping_cart"
+            app:destination="@id/navigation_shopping_cart" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_product_detail"

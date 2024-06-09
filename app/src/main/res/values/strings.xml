@@ -88,6 +88,10 @@
     <string name="txt_check_out">Check out</string>
     <string name="txt_product_lists">Product lists</string>
     <string name="txt_search_results_for">Search results for</string>
+    <string name="txt_edit_profile">Edit profile</string>
+    <string name="txt_join_us">Join us!</string>
+    <string name="txt_settings">Settings</string>
+    <string name="txt_order_history">Order history</string>
 
     <!--    Interes layout-->
     <string name="question_color">Pilih 3 warna baju favorit kamu</string>

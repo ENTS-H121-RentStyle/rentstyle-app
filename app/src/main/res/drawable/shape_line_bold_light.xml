@@ -7,6 +7,6 @@
     tools:ignore="VectorRaster">
   <path
       android:pathData="M-0,3.5L499.99,1.91"
-      android:strokeWidth="3"
+      android:strokeWidth="2"
       android:strokeColor="#FFDB4A2B"/>
 </vector>

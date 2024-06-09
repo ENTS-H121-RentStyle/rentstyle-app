@@ -41,4 +41,14 @@
     <style name="EditText.Background" parent="ThemeOverlay.Material3.TextInputEditText">
         <item name="android:background">@color/white</item>
     </style>
+
+    <style name="Text.DayNight.Orange" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/inter_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/orange_1</item>
+    </style>
+
+    <style name="DayNight.CustomButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/orange_1</item>
+    </style>
 </resources>
