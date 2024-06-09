@@ -221,6 +221,66 @@
                     android:textAllCaps="false"
                     android:textColor="@android:color/white" />
             </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="4dp"
+                app:cardCornerRadius="8dp">
+
+                <Button
+                    android:id="@+id/btn_krem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_false"
+                    android:drawableLeft="@drawable/ic_plus"
+                    android:drawablePadding="8dp"
+                    android:padding="12dp"
+                    android:text="@string/krem"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white" />
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="4dp"
+                app:cardCornerRadius="8dp">
+
+                <Button
+                    android:id="@+id/btn_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_false"
+                    android:drawableLeft="@drawable/ic_plus"
+                    android:drawablePadding="8dp"
+                    android:padding="12dp"
+                    android:text="@string/black"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white" />
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="4dp"
+                app:cardCornerRadius="8dp">
+
+                <Button
+                    android:id="@+id/btn_pink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_false"
+                    android:drawableLeft="@drawable/ic_plus"
+                    android:drawablePadding="8dp"
+                    android:padding="12dp"
+                    android:text="@string/pink"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white" />
+            </androidx.cardview.widget.CardView>
         </GridLayout>
 
         <LinearLayout
@@ -250,4 +310,13 @@
                 android:gravity="center" />
         </LinearLayout>
     </LinearLayout>
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:text="@string/next"
+        android:layout_margin="16dp"
+        android:background="@drawable/button"
+        android:padding="12dp" />
 </FrameLayout>
