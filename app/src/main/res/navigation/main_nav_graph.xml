@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_navigation_profile_to_navigation_shopping_cart"
             app:destination="@id/navigation_shopping_cart" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_order_detail"
+            app:destination="@id/navigation_order_detail" />
     </fragment>
 
     <fragment
@@ -92,6 +95,15 @@
             app:destination="@id/navigation_shopping_cart" />
         <action
             android:id="@+id/action_navigation_explore_result_to_navigation_product_detail"
+            app:destination="@id/navigation_product_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_order_detail"
+        android:name="com.example.rentstyle.ui.fragment.OrderDetailFragment"
+        tools:layout="@layout/fragment_order_detail">
+        <action
+            android:id="@+id/action_navigation_order_detail_to_navigation_product_detail"
             app:destination="@id/navigation_product_detail" />
     </fragment>
 </navigation>

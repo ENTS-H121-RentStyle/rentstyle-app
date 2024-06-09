@@ -32,6 +32,13 @@ class ProfileFragment : Fragment() {
         orderListAdapter = RecyclerDummyOrderAdapter()
         binding.rvRentalHistory.adapter = orderListAdapter
 
+        orderListAdapter.setOnClickListener(object : RecyclerDummyOrderAdapter.OnClickListener {
+            override fun onClick(position: Int) {
+                findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationOrderDetail())
+            }
+
+        })
+
         binding.btnShoppingCart.setOnClickListener {
             findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationShoppingCart())
         }

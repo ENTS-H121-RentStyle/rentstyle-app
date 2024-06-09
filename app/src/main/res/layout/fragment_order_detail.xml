@@ -1,0 +1,341 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.OrderDetailFragment">
+
+    <include
+        android:id="@+id/main_toolbar"
+        layout="@layout/toolbar" />
+
+    <androidx.core.widget.NestedScrollView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_marginBottom="65dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_heading_1"
+                style="@style/TextView.Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_order_status"
+                android:textSize="18sp"
+                android:layout_marginTop="11dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tv_heading_2"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/orange_1"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintStart_toEndOf="@id/tv_heading_1"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    style="@style/TextView.Paragraph"
+                    android:id="@+id/tv_order_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Selesai"
+                    android:layout_marginVertical="5dp"
+                    android:layout_marginHorizontal="30dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="14sp"/>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_heading_2"
+                style="@style/TextView.Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_order_information"
+                android:textSize="18sp"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_heading_1" />
+
+            <TextView
+                style="@style/TextView.Paragraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_order_id"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_heading_2"/>
+
+            <TextView
+                android:id="@+id/tv_order_id"
+                style="@style/TextView.Paragraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="247-96024"
+                android:textStyle="bold"
+                android:layout_marginStart="150dp"
+                android:textColor="?android:textColorPrimary"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_heading_2"/>
+
+            <TextView
+                style="@style/TextView.Paragraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_order_date"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_order_id"/>
+
+            <TextView
+                android:id="@+id/tv_order_date"
+                style="@style/TextView.Paragraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="20/04/2020, 04:20"
+                android:textStyle="bold"
+                android:layout_marginStart="150dp"
+                android:textColor="?android:textColorPrimary"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_order_id"/>
+
+            <TextView
+                android:id="@+id/tv_heading_3"
+                style="@style/TextView.Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_delivery_address"
+                android:textSize="18sp"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_order_date" />
+
+            <TextView
+                android:id="@+id/tv_order_username"
+                style="@style/TextView.Paragraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Nama user"
+                android:textStyle="bold"
+                android:layout_marginStart="20dp"
+                android:textColor="?android:textColorPrimary"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_heading_3"/>
+
+            <TextView
+                style="@style/TextView.Paragraph"
+                android:id="@+id/tv_order_user_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="+62 9999999"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_order_username"/>
+
+            <TextView
+                style="@style/TextView.Paragraph"
+                android:id="@+id/tv_order_user_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Jl. Ikan Tembakang no 4"
+                app:layout_constraintStart_toStartOf="parent"
+                android:paddingHorizontal="20dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_order_user_phone"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/tv_heading_4"
+                style="@style/TextView.Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_product_information"
+                android:textSize="18sp"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_order_user_address" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_product_co_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                tools:itemCount="5"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="20dp"
+                tools:listitem="@layout/product_check_out_list_item"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/tv_heading_4"/>
+
+            <TextView
+                android:id="@+id/order_total"
+                style="@style/TextView.Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_order_total"
+                android:textSize="15sp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_product_co_detail" />
+
+            <TextView
+                android:id="@+id/tv_order_total_cost"
+                style="@style/TextView.Paragraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Rp.500.000"
+                android:layout_marginStart="180dp"
+                android:textColor="?android:textColorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_product_co_detail"/>
+
+            <TextView
+                android:id="@+id/order_deposit"
+                style="@style/TextView.Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_deposit_total"
+                android:textSize="15sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/order_total" />
+
+            <TextView
+                android:id="@+id/tv_order_deposit_cost"
+                style="@style/TextView.Paragraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Rp.50.000"
+                android:layout_marginStart="180dp"
+                android:layout_marginTop="10dp"
+                android:textColor="?android:textColorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/order_total"/>
+
+            <TextView
+                android:id="@+id/tv_deposit_info"
+                style="@style/Text.DayNight.Orange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_deposit_info"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="2dp"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/order_deposit"/>
+
+            <TextView
+                android:id="@+id/order_payment"
+                style="@style/TextView.Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_payment_total"
+                android:textSize="15sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_deposit_info" />
+
+            <TextView
+                android:id="@+id/tv_order_payment_cost"
+                style="@style/TextView.Paragraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Rp.550.000"
+                android:layout_marginStart="180dp"
+                android:layout_marginTop="20dp"
+                android:textColor="?android:textColorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_deposit_info"/>
+
+            <TextView
+                android:id="@+id/payment_method"
+                style="@style/TextView.Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_payment_method"
+                android:textSize="15sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/order_payment" />
+
+            <TextView
+                android:id="@+id/tv_order_payment_method"
+                style="@style/TextView.Paragraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Dana"
+                android:layout_marginStart="180dp"
+                android:layout_marginTop="10dp"
+                android:textColor="?android:textColorPrimary"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/order_payment"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_gravity="bottom"
+        android:elevation="4dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_access_1"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_orange_button"
+            android:fontFamily="@font/inter_regular"
+            tools:text="Rent again"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_access_2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_access_2"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_grey_button"
+            android:fontFamily="@font/inter_regular"
+            tools:text="Rate product"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_access_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

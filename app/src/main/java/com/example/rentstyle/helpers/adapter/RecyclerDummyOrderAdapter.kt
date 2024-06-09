@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rentstyle.databinding.OrderItemBinding
 
 class RecyclerDummyOrderAdapter : RecyclerView.Adapter<RecyclerDummyOrderAdapter.ViewHolder>() {
+    private var onClickListener: OnClickListener? = null
     inner class ViewHolder (binding: OrderItemBinding): RecyclerView.ViewHolder(binding.root) {
         val date = binding.tvOrderDate
         val productName = binding.tvProductName
@@ -24,7 +25,7 @@ class RecyclerDummyOrderAdapter : RecyclerView.Adapter<RecyclerDummyOrderAdapter
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return 15
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -38,5 +39,19 @@ class RecyclerDummyOrderAdapter : RecyclerView.Adapter<RecyclerDummyOrderAdapter
             orderStatus.text = "Belum Dibayar"
             orderButton.text = "Bayar"
         }
+
+        holder.itemView.setOnClickListener {
+            if (onClickListener != null) {
+                onClickListener!!.onClick(position)
+            }
+        }
+    }
+
+    interface OnClickListener{
+        fun onClick(position: Int)
+    }
+
+    fun setOnClickListener(onClickListener: OnClickListener){
+        this.onClickListener = onClickListener
     }
 }
