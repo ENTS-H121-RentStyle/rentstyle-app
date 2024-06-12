@@ -60,7 +60,7 @@ class LoginFragment : Fragment() {
 
     private fun navigateToRegisterFragment() {
         buttonRegister.setOnClickListener {
-            findNavController().navigate(RegisterFragmentDirections.actionNavigationRegisterToNavigationLogin())
+            findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationRegister())
         }
     }
 }

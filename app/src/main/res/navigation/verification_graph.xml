@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_navigation_login_to_navigation_register"
             app:destination="@id/navigation_register" />
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_agreement"
+            app:destination="@id/navigation_agreement" />
     </fragment>
 
     <fragment
@@ -21,6 +24,14 @@
         <action
             android:id="@+id/action_navigation_register_to_navigation_login"
             app:destination="@id/navigation_login" />
+        <action
+            android:id="@+id/action_navigation_register_to_navigation_agreement"
+            app:destination="@id/navigation_agreement" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_agreement"
+        android:name="com.example.rentstyle.ui.fragment.TermsAndServiceFragment"
+        tools:layout="@layout/fragment_terms_and_service"/>
 
 </navigation>

@@ -11,9 +11,10 @@ import androidx.credentials.GetCredentialRequest
 import androidx.credentials.GetCredentialResponse
 import androidx.credentials.exceptions.GetCredentialException
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import com.example.rentstyle.BuildConfig
-import com.example.rentstyle.R
 import com.example.rentstyle.databinding.ActivityVerificationBinding
+import com.example.rentstyle.ui.fragment.LoginFragmentDirections
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.AuthCredential
@@ -40,7 +41,7 @@ class VerificationActivity : AppCompatActivity() {
         supportActionBar!!.hide()
     }
 
-    private fun navigateToMainActivity() {
+    fun navigateToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
@@ -126,7 +127,10 @@ class VerificationActivity : AppCompatActivity() {
 
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null) {
-            navigateToMainActivity()
+            val navHostFragment = supportFragmentManager.findFragmentById(binding.navHostFragmentActivityVerification.id) as NavHostFragment
+            val navController = navHostFragment.navController
+
+            navController.navigate(LoginFragmentDirections.actionNavigationLoginToNavigationAgreement())
         }
     }
 

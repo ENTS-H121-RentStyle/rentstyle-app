@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:scrollbars="none"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -13,6 +14,8 @@
             android:layout_height="wrap_content"
             android:text="@string/agrement"
             android:textStyle="normal"
+            android:textSize="16sp"
+            android:fontFamily="@font/inter_regular"
             android:layout_marginBottom="8dp"/>
 
         <TextView
@@ -21,6 +24,7 @@
             android:text="@string/rental_terms_and_conditions_title"
             android:textSize="32sp"
             android:textStyle="bold"
+            android:fontFamily="@font/inter_bold"
             android:textColor="@color/orange_1"
             android:layout_marginBottom="16dp"/>
 
@@ -29,75 +33,95 @@
             android:layout_height="wrap_content"
             android:text="@string/booking_and_payment"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="16sp"
+            android:textColor="?android:textColorPrimary"
+            android:fontFamily="@font/inter_regular"
+            android:layout_marginBottom="5dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/booking_description"
+            android:layout_marginBottom="25dp"
             android:lineSpacingExtra="4dp"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"/>
+            android:fontFamily="@font/inter_regular"
+            android:text="@string/booking_description"
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/pickup_and_return"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="16sp"
+            android:textColor="?android:textColorPrimary"
+            android:fontFamily="@font/inter_regular"
+            android:layout_marginBottom="5dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/pickup_description"
             android:lineSpacingExtra="4dp"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="25dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_regular" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/replacement_and_repair"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="16sp"
+            android:textColor="?android:textColorPrimary"
+            android:fontFamily="@font/inter_regular"
+            android:layout_marginBottom="5dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/replacement_description"
             android:lineSpacingExtra="4dp"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="25dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_regular" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/cleanliness_and_maintenance"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="16sp"
+            android:textColor="?android:textColorPrimary"
+            android:fontFamily="@font/inter_regular"
+            android:layout_marginBottom="5dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/cleanliness_description"
             android:lineSpacingExtra="4dp"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="25dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_regular" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/usage_and_responsibility"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="16sp"
+            android:textColor="?android:textColorPrimary"
+            android:fontFamily="@font/inter_regular"
+            android:layout_marginBottom="5dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/usage_description"
             android:lineSpacingExtra="4dp"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="25dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_regular" />
 
         <!-- Jaminan dan Tanggung Jawab -->
         <TextView
@@ -105,24 +129,26 @@
             android:layout_height="wrap_content"
             android:text="@string/guarantee_and_responsibility"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="16sp"
+            android:textColor="?android:textColorPrimary"
+            android:fontFamily="@font/inter_regular"
+            android:layout_marginBottom="5dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/guarantee_description"
             android:lineSpacingExtra="4dp"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="25dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_regular"/>
 
-        <Button
-            android:id="@+id/buttonSubmit"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonAgree"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button"
+            android:background="@drawable/shape_orange_button"
             android:layout_marginTop="16dp"
             android:text="@string/accept"/>
-
     </LinearLayout>
-
 </ScrollView>
