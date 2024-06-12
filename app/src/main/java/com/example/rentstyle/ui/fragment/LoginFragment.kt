@@ -11,13 +11,16 @@ import androidx.navigation.fragment.findNavController
 import com.example.rentstyle.databinding.FragmentLoginBinding
 import com.example.rentstyle.ui.VerificationActivity
 import com.example.rentstyle.ui.customview.CustomEditText
+import com.google.android.material.textfield.TextInputLayout
 
 class LoginFragment : Fragment() {
     private lateinit var _binding: FragmentLoginBinding
     private val binding get() = _binding
 
-    private lateinit var userRegisterEmail: CustomEditText
-    private lateinit var userRegisterPass: CustomEditText
+    private lateinit var userLoginEmail: CustomEditText
+    private lateinit var userLoginPass: CustomEditText
+    private lateinit var userLoginEmailLayout: TextInputLayout
+    private lateinit var userLoginPassLayout: TextInputLayout
     private lateinit var buttonRegister: TextView
     private lateinit var buttonLogin: AppCompatButton
     private lateinit var buttonGoogleSignIn: AppCompatButton
@@ -29,8 +32,10 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         binding.apply {
-            userRegisterEmail = edLoginEmail
-            userRegisterPass = edLoginPassword
+            userLoginEmail = edLoginEmail
+            userLoginPass = edLoginPassword
+            userLoginEmailLayout = inputEmail
+            userLoginPassLayout = inputPassword
             buttonRegister = btnRegister
             buttonLogin = btnLogin
             buttonGoogleSignIn = btnLoginGoogle
@@ -50,11 +55,16 @@ class LoginFragment : Fragment() {
     }
 
     private fun loginUsingEmail() {
-        val email = userRegisterEmail.text.toString()
-        val pass = userRegisterPass.text.toString()
+        buttonLogin.setOnClickListener {
+            val email = userLoginEmail.text.toString()
+            val pass = userLoginPass.text.toString()
 
-        if (email.isNotEmpty() && pass.isNotEmpty()) {
-            (activity as VerificationActivity).signInWithEmail(email, pass)
+            if (userLoginEmailLayout.error == null
+                && userLoginPassLayout.error == null) {
+                if (email.isNotEmpty() && pass.isNotEmpty()) {
+                    (activity as VerificationActivity).signInWithEmail(email, pass)
+                }
+            }
         }
     }
 

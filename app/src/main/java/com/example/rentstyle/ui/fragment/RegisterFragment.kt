@@ -1,6 +1,7 @@
 package com.example.rentstyle.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.rentstyle.databinding.FragmentRegisterBinding
 import com.example.rentstyle.ui.VerificationActivity
 import com.example.rentstyle.ui.customview.CustomEditText
+import com.google.android.material.textfield.TextInputLayout
 
 class RegisterFragment : Fragment() {
     private lateinit var _binding: FragmentRegisterBinding
@@ -19,6 +21,9 @@ class RegisterFragment : Fragment() {
     private lateinit var userRegisterEmail: CustomEditText
     private lateinit var userRegisterPass: CustomEditText
     private lateinit var userRegisterPassConfirm: CustomEditText
+    private lateinit var userRegisterEmailLayout: TextInputLayout
+    private lateinit var userRegisterPassLayout: TextInputLayout
+    private lateinit var userRegisterPassConfirmLayout: TextInputLayout
     private lateinit var buttonLogin: TextView
     private lateinit var buttonRegister: AppCompatButton
     private lateinit var buttonGoogleSignIn: AppCompatButton
@@ -33,6 +38,9 @@ class RegisterFragment : Fragment() {
             userRegisterEmail = edRegisterEmail
             userRegisterPass = edRegisterPassword
             userRegisterPassConfirm = edRegisterPasswordConfirmation
+            userRegisterEmailLayout = inputEmail
+            userRegisterPassLayout = inputPassword
+            userRegisterPassConfirmLayout = inputPasswordConfirmation
             buttonRegister = btnRegister
             buttonLogin = btnLogin
             buttonGoogleSignIn = btnRegisterGoogle
@@ -46,14 +54,18 @@ class RegisterFragment : Fragment() {
     }
 
     private fun registerUsingEmail() {
-        val email = userRegisterEmail.text.toString()
-        val pass = userRegisterPass.text.toString()
-        val passConfirm = userRegisterPassConfirm.text.toString()
-
         buttonRegister.setOnClickListener {
-            if (email.isNotEmpty() && pass.isNotEmpty() && passConfirm.isNotEmpty()) {
-                if (pass == passConfirm) {
-                    (activity as VerificationActivity).signUpWithEmail(email, pass)
+            val email = userRegisterEmail.text.toString()
+            val pass = userRegisterPass.text.toString()
+            val passConfirm = userRegisterPassConfirm.text.toString()
+
+            if (userRegisterEmailLayout.error == null
+                && userRegisterPassLayout.error == null
+                && userRegisterPassConfirmLayout.error == null) {
+                if (email.isNotEmpty() && pass.isNotEmpty() && passConfirm.isNotEmpty()) {
+                    if (pass == passConfirm) {
+                        (activity as VerificationActivity).signUpWithEmail(email, pass)
+                    }
                 }
             }
         }
