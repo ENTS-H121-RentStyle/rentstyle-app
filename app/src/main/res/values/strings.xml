@@ -109,6 +109,11 @@
     <string name="txt_google">Google</string>
     <string name="txt_rent_warning">You are limited to rent one product only at once!</string>
     <string name="txt_return_date">Return date</string>
+    <string name="txt_delivery_options">Delivery options</string>
+    <string name="txt_change_address">Change address</string>
+    <string name="txt_delivery_method">Delivery method</string>
+    <string name="txt_change_payment_method">Change payment method</string>
+    <string name="txt_pickup_address">Pickup address</string>
 
     <!--    Interes layout-->
     <string name="question_color">Pilih 3 warna baju favorit kamu</string>

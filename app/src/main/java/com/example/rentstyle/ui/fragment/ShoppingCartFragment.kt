@@ -65,6 +65,10 @@ class ShoppingCartFragment : Fragment() {
         bottomSheetTotalCost.text = "Rp. 638.000"
         bottomSheetDepositCost.text = "+ Rp. 58.000 (Deposit)"
 
+        binding.btnCheckOut.setOnClickListener {
+            findNavController().navigate(ShoppingCartFragmentDirections.actionNavigationShoppingCartToNavigationCheckOut())
+        }
+
         return binding.root
     }
 }

@@ -22,8 +22,6 @@ class ProductDetailFragment : Fragment() {
     private lateinit var _binding: FragmentProductDetailBinding
     private val binding get() = _binding
 
-    private lateinit var carousel: ViewPager2
-    private lateinit var carouselAdapter : ImageSliderAdapter
     private lateinit var productName: TextView
     private lateinit var productPrice: TextView
     private lateinit var productRating: TextView
@@ -49,8 +47,6 @@ class ProductDetailFragment : Fragment() {
         _binding = FragmentProductDetailBinding.inflate(inflater, container, false)
 
         binding.apply {
-            carousel = vpProductImageCarousel
-
             productName = tvProductName
             productPrice = tvProductPrice
             productRating = tvProductRating
@@ -71,8 +67,6 @@ class ProductDetailFragment : Fragment() {
         binding.mainToolbar.ivBackButton.setOnClickListener {
             findNavController().navigateUp()
         }
-
-        setUpImageCarousel()
 
         productName.text = "Kostum Honkai: Star Rail Black Swan Cosplay Black Swan Costume Black Swan Kostum Full Set"
         productPrice.text = "590.500 / 2 hari"
@@ -114,18 +108,5 @@ class ProductDetailFragment : Fragment() {
         }
 
         return binding.root
-    }
-
-    private fun setUpImageCarousel() {
-        val imageList = arrayListOf(R.drawable.img_placeholder, R.drawable.img_placeholder, R.drawable.img_placeholder)
-        carouselAdapter = ImageSliderAdapter(requireContext(), imageList, "Product")
-
-        carousel.apply {
-            adapter = carouselAdapter
-            clipToPadding = false
-            clipChildren = false
-            offscreenPageLimit = 3
-            getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-        }
     }
 }

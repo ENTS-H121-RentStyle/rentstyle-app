@@ -84,6 +84,9 @@
         <action
             android:id="@+id/action_navigation_shopping_cart_to_navigation_product_detail"
             app:destination="@id/navigation_product_detail" />
+        <action
+            android:id="@+id/action_navigation_shopping_cart_to_navigation_check_out"
+            app:destination="@id/navigation_check_out" />
     </fragment>
 
     <fragment
@@ -106,4 +109,9 @@
             android:id="@+id/action_navigation_order_detail_to_navigation_product_detail"
             app:destination="@id/navigation_product_detail" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_check_out"
+        android:name="com.example.rentstyle.ui.fragment.CheckOutFragment"
+        tools:layout="@layout/fragment_check_out" />
 </navigation>
