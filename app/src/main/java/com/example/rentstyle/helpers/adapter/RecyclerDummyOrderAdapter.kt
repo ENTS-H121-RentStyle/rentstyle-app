@@ -25,7 +25,7 @@ class RecyclerDummyOrderAdapter : RecyclerView.Adapter<RecyclerDummyOrderAdapter
     }
 
     override fun getItemCount(): Int {
-        return 15
+        return 5
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

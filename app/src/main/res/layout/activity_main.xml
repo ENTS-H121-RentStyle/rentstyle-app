@@ -13,7 +13,7 @@
         android:layout_height="@dimen/bottom_nav_height"
         app:itemRippleColor="@null"
         app:itemActiveIndicatorStyle="@null"
-        android:background="?android:navigationBarColor"
+        android:background="?android:windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

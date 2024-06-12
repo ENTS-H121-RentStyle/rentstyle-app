@@ -20,7 +20,7 @@ class RecyclerDummyAdapter : RecyclerView.Adapter<RecyclerDummyAdapter.ViewHolde
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return 5
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

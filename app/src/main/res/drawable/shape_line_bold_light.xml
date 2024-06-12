@@ -1,12 +1,5 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:width="500dp"
-    android:height="5dp"
-    android:viewportWidth="500"
-    android:viewportHeight="5"
-    tools:ignore="VectorRaster">
-  <path
-      android:pathData="M-0,3.5L499.99,1.91"
-      android:strokeWidth="2"
-      android:strokeColor="#FFDB4A2B"/>
-</vector>
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+  <size android:height="1.5dp" />
+  <solid android:color="@color/orange_1" />
+</shape>

@@ -5,12 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rentstyle.databinding.FragmentShoppingCartBinding
-import com.example.rentstyle.helpers.adapter.RecyclerCheckOutProductAdapter
 import com.example.rentstyle.helpers.adapter.RecyclerShoppingCartAdapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
@@ -21,13 +19,10 @@ class ShoppingCartFragment : Fragment() {
     private lateinit var rvProductShoppingCart: RecyclerView
     private lateinit var shoppingCartAdapter: RecyclerShoppingCartAdapter
 
-    private lateinit var btnSelectAllProduct : AppCompatButton
     private lateinit var bottomSheetProductAmount: TextView
     private lateinit var bottomSheetTotalCost: TextView
     private lateinit var bottomSheetDepositCost: TextView
 
-    private lateinit var rvCheckoutDetail: RecyclerView
-    private lateinit var checkoutDetailAdapter: RecyclerCheckOutProductAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,19 +37,14 @@ class ShoppingCartFragment : Fragment() {
         val dataset = arrayListOf(1,2,3,4,5)
 
         binding.apply {
-            btnSelectAllProduct = btnSelectAll
             rvProductShoppingCart = rvShopList
             bottomSheetProductAmount = tvSelectedProductAmount
             bottomSheetTotalCost = tvSubtotalCost
             bottomSheetDepositCost = tvDepositCost
-            rvCheckoutDetail = rvProductCoDetail
         }
 
         shoppingCartAdapter = RecyclerShoppingCartAdapter(dataset)
-        checkoutDetailAdapter = RecyclerCheckOutProductAdapter()
-
         rvProductShoppingCart.adapter = shoppingCartAdapter
-        rvCheckoutDetail.adapter = checkoutDetailAdapter
 
         val peekHeightInDp = 140
         val peekHeightInPx = (peekHeightInDp * requireContext().resources.displayMetrics.density).toInt()
@@ -71,8 +61,7 @@ class ShoppingCartFragment : Fragment() {
 
         })
 
-        btnSelectAllProduct.text = "Select all (5)"
-        bottomSheetProductAmount.text = "Subtotal of 5 products"
+        bottomSheetProductAmount.text = "Total for 5 days"
         bottomSheetTotalCost.text = "Rp. 638.000"
         bottomSheetDepositCost.text = "+ Rp. 58.000 (Deposit)"
 

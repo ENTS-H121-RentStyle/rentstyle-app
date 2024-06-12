@@ -116,6 +116,29 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_order_id"/>
 
             <TextView
+                style="@style/TextView.Paragraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_return_date"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_order_date"/>
+
+            <TextView
+                android:id="@+id/tv_order_return_date"
+                style="@style/TextView.Paragraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="23/04/2020, 04:20"
+                android:textStyle="bold"
+                android:layout_marginStart="150dp"
+                android:textColor="?android:textColorPrimary"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_order_date"/>
+
+            <TextView
                 android:id="@+id/tv_heading_3"
                 style="@style/TextView.Heading"
                 android:layout_width="wrap_content"
@@ -125,7 +148,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_order_date" />
+                app:layout_constraintTop_toBottomOf="@id/tv_order_return_date" />
 
             <TextView
                 android:id="@+id/tv_order_username"
@@ -175,17 +198,61 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_order_user_address" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_product_co_detail"
+            <LinearLayout
+                android:id="@+id/product_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                tools:itemCount="5"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingBottom="30dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginHorizontal="20dp"
-                tools:listitem="@layout/product_check_out_list_item"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/tv_heading_4"/>
+                android:paddingHorizontal="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_heading_4">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/group_photo"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:cardElevation="0dp"
+                    app:cardCornerRadius="9dp">
+
+                    <ImageView
+                        android:id="@+id/iv_product_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/img_placeholder"
+                        android:contentDescription="@string/cd_product_image" />
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_product_name"
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?android:textColorPrimary"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="Kostum Honkai: Star Rail Black Swan Cosplay Black Swan Costume Black Swan Kostum Full Set" />
+
+                    <TextView
+                        android:id="@+id/tv_product_price"
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textColor="?android:textColorPrimary"
+                        android:textSize="12sp"
+                        tools:text="Rp. 159.500 (3 hari)" />
+                </LinearLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/order_total"
@@ -196,7 +263,7 @@
                 android:textSize="15sp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_product_co_detail" />
+                app:layout_constraintTop_toBottomOf="@id/product_detail" />
 
             <TextView
                 android:id="@+id/tv_order_total_cost"
@@ -207,7 +274,7 @@
                 android:layout_marginStart="180dp"
                 android:textColor="?android:textColorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_product_co_detail"/>
+                app:layout_constraintTop_toBottomOf="@id/product_detail"/>
 
             <TextView
                 android:id="@+id/order_deposit"
@@ -252,7 +319,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/txt_payment_total"
                 android:textSize="15sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_deposit_info" />
@@ -264,7 +331,7 @@
                 android:layout_height="wrap_content"
                 tools:text="Rp.550.000"
                 android:layout_marginStart="180dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:textColor="?android:textColorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_deposit_info"/>

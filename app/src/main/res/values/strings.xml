@@ -6,16 +6,11 @@
     <string name="welcome_msg">Your Ultimate Fashion Rental App</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
-    <string name="email">Email</string>
-    <string name="name">Name</string>
-    <string name="password">Password</string>
-    <string name="password_conf">Confirm Password</string>
     <string name="info_register">"Don't have an Account yet?"</string>
     <string name="register_bt">Register now</string>
-    <string name="info_login">Already have an account?</string>
     <string name="login_bt">Login now</string>
+    <string name="info_login">Already have an account?</string>
     <string name="accept">Accept &amp; Continue</string>
-    <string name="with_google">Login With Google</string>
     <string name="rental_terms_and_conditions_title">Terms Of Service</string>
     <string name="agrement">Agreement</string>
 
@@ -86,7 +81,7 @@
     <string name="txt_days">days</string>
     <string name="txt_delete_all">Delete All</string>
     <string name="txt_check_out">Check out</string>
-    <string name="txt_product_lists">Product lists</string>
+    <string name="txt_shopping_product_detail">Product lists</string>
     <string name="txt_search_results_for">Search results for</string>
     <string name="txt_edit_profile">Edit profile</string>
     <string name="txt_join_us">Join us!</string>
@@ -103,6 +98,17 @@
     <string name="txt_deposit_info">*Your deposit will be returned once you return the rented items</string>
     <string name="txt_payment_total">Payment total</string>
     <string name="txt_payment_method">Payment method</string>
+    <string name="empty_field">Field must be filled!</string>
+    <string name="invalid_email">Invalid Email format!</string>
+    <string name="password_length">Password must be 8 characters or more</string>
+    <string name="txt_email_hint">Email</string>
+    <string name="txt_name_hint">Name</string>
+    <string name="txt_password_hint">Password</string>
+    <string name="txt_login_with">Or login with</string>
+    <string name="txt_register_with">Or register with</string>
+    <string name="txt_google">Google</string>
+    <string name="txt_rent_warning">You are limited to rent one product only at once!</string>
+    <string name="txt_return_date">Return date</string>
 
     <!--    Interes layout-->
     <string name="question_color">Pilih 3 warna baju favorit kamu</string>
@@ -119,5 +125,6 @@
     <string name="orange">Oren</string>
     <string name="white">putih</string>
     <string name="next">Next</string>
+    <string name="txt_confirm_password">Confirm password</string>
 
 </resources>

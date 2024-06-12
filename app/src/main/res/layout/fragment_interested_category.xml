@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:columnCount="2"
-        android:gap="8dp"
         android:rowCount="2">
 
         <!-- Card 1 -->

@@ -7,13 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.rentstyle.databinding.FragmentOrderDetailBinding
-import com.example.rentstyle.helpers.adapter.RecyclerCheckOutProductAdapter
 
 class OrderDetailFragment : Fragment() {
     private lateinit var _binding: FragmentOrderDetailBinding
     private val binding get() = _binding
 
-    private lateinit var productListAdapter: RecyclerCheckOutProductAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,15 +22,6 @@ class OrderDetailFragment : Fragment() {
         binding.mainToolbar.ivBackButton.setOnClickListener {
             findNavController().navigateUp()
         }
-
-        productListAdapter = RecyclerCheckOutProductAdapter()
-        binding.rvProductCoDetail.adapter = productListAdapter
-
-        productListAdapter.setOnClickListener(object : RecyclerCheckOutProductAdapter.OnClickListener {
-            override fun onClick(position: Int) {
-                findNavController().navigate(OrderDetailFragmentDirections.actionNavigationOrderDetailToNavigationProductDetail())
-            }
-        })
 
         binding.tvOrderStatus.text = "Selesai"
         binding.tvOrderId.text = "12GHJ234"

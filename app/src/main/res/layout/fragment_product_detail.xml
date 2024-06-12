@@ -280,7 +280,7 @@
 
                 <com.example.rentstyle.ui.customview.CustomDividerBold
                     android:id="@+id/rating_upper_stroke"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -303,7 +303,6 @@
                     android:id="@+id/tv_product_rating_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_category"
                     android:textStyle="bold"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="5dp"
@@ -325,7 +324,7 @@
 
                 <com.example.rentstyle.ui.customview.CustomDividerBold
                     android:id="@+id/rating_mid_stroke"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -346,7 +345,7 @@
 
                 <com.example.rentstyle.ui.customview.CustomDividerBold
                     android:id="@+id/rating_bottom_stroke"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
