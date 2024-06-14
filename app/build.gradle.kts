@@ -64,6 +64,8 @@ dependencies {
     implementation(libs.androidx.cardview)
     implementation(libs.circleimageview)
     implementation(libs.glide)
+    implementation(libs.lottie)
+    implementation("com.github.ybq:Android-SpinKit:1.4.0")
     implementation(libs.androidx.core.splashscreen)
 
     //Navigation

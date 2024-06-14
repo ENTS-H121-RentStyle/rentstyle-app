@@ -6,6 +6,16 @@
     app:startDestination="@id/navigation_login">
 
     <fragment
+        android:id="@+id/navigation_on_boarding"
+        android:name="com.example.rentstyle.ui.fragment.OnBoardingFragment"
+        tools:layout="@layout/fragment_on_boarding">
+        <action
+            android:id="@+id/action_navigation_on_boarding_to_navigation_login"
+            app:destination="@id/navigation_login"
+            app:popUpTo="@id/verification_graph"/>
+    </fragment>
+
+    <fragment
         android:id="@+id/navigation_login"
         android:name="com.example.rentstyle.ui.fragment.LoginFragment"
         tools:layout="@layout/fragment_login">
@@ -13,8 +23,15 @@
             android:id="@+id/action_navigation_login_to_navigation_register"
             app:destination="@id/navigation_register" />
         <action
-            android:id="@+id/action_navigation_login_to_navigation_agreement"
-            app:destination="@id/navigation_agreement" />
+            android:id="@+id/action_navigation_login_to_navigation_on_boarding"
+            app:destination="@id/navigation_on_boarding"
+            app:enterAnim="@anim/slide_in_right"
+            app:popUpTo="@id/verification_graph" />
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_interested_category"
+            app:destination="@id/navigation_interested_category"
+            app:enterAnim="@anim/slide_in_right"
+            app:popUpTo="@id/verification_graph"/>
     </fragment>
 
     <fragment
@@ -26,12 +43,35 @@
             app:destination="@id/navigation_login" />
         <action
             android:id="@+id/action_navigation_register_to_navigation_agreement"
-            app:destination="@id/navigation_agreement" />
+            app:destination="@id/navigation_agreement"
+            app:popUpTo="@id/verification_graph"/>
     </fragment>
 
     <fragment
         android:id="@+id/navigation_agreement"
         android:name="com.example.rentstyle.ui.fragment.TermsAndServiceFragment"
-        tools:layout="@layout/fragment_terms_and_service"/>
+        tools:layout="@layout/fragment_terms_and_service">
+        <action
+            android:id="@+id/action_navigation_agreement_to_navigation_interested_category"
+            app:destination="@id/navigation_interested_category" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/navigation_interested_category"
+        android:name="com.example.rentstyle.ui.fragment.InterestedCategoryFragment"
+        tools:layout="@layout/fragment_interested_category">
+        <action
+            android:id="@+id/action_navigation_interested_category_to_navigation_interested_color"
+            app:destination="@id/navigation_interested_color" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_interested_color"
+        android:name="com.example.rentstyle.ui.fragment.InterestedColorFragment"
+        tools:layout="@layout/fragment_interested_color">
+
+        <argument
+            android:name="category"
+            app:argType="string[]"/>
+    </fragment>
 </navigation>

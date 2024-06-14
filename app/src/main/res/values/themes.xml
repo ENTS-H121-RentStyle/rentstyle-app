@@ -51,4 +51,9 @@
     <style name="DayNight.CustomButton" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/orange_1</item>
     </style>
+
+    <style name="Theme.AppCompat.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="postSplashScreenTheme">@style/Theme.RentStyle</item>
+    </style>
 </resources>

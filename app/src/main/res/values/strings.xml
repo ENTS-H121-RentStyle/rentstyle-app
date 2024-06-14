@@ -117,19 +117,43 @@
 
     <!--    Interes layout-->
     <string name="question_color">Pilih 3 warna baju favorit kamu</string>
-    <string name="red">Merah</string>
-    <string name="blue">Biru</string>
-    <string name="green">Hijau</string>
-    <string name="black">Hitam</string>
-    <string name="grey">Abu-Abu</string>
-    <string name="purple">Ungu</string>
-    <string name="brown">Coklat</string>
-    <string name="yellow">Kuning</string>
+    <string name="red">Red</string>
+    <string name="blue">Blue</string>
+    <string name="green">Green</string>
+    <string name="black">Black</string>
+    <string name="grey">Grey</string>
+    <string name="purple">Purple</string>
+    <string name="brown">Brown</string>
+    <string name="yellow">Yellow</string>
     <string name="pink">Pink</string>
-    <string name="krem">Krem</string>
-    <string name="orange">Oren</string>
-    <string name="white">putih</string>
+    <string name="cream">Cream</string>
+    <string name="orange">Orange</string>
+    <string name="white">White</string>
     <string name="next">Next</string>
     <string name="txt_confirm_password">Confirm password</string>
-
+    <string name="txt_onboard1">Explore a wide range of clothing styles and discover your perfect look with ease</string>
+    <string name="txt_onboard2">Enjoy peace of mind with secure transactions, ensuring your payments are safe</string>
+    <string name="txt_onboard3">Get ready to shine with your outfit and have a great time at your next party with friends</string>
+    <string name="txt_skip">Skip</string>
+    <string name="cd_choose_traditional">Choose traditional</string>
+    <string name="cd_choose_party">Choose party</string>
+    <string name="txt_traditional_sets">Traditional sets</string>
+    <string name="txt_party_sets">Party sets</string>
+    <string name="cd_choose_formal">Choose formal</string>
+    <string name="cd_choose_character_cosplay">Choose character cosplay</string>
+    <string name="txt_formal_sets">Formal sets</string>
+    <string name="txt_character_cosplay_sets">Character cosplay sets</string>
+    <string name="txt_next_one">Next one</string>
+    <string name="txt_category_heading">Which sets do you prefer?</string>
+    <string name="txt_desc_categories">You can choose up to 3 categories!</string>
+    <string name="txt_choose_one_category">Please choose one category</string>
+    <string name="txt_maximum_three_category">You can only choose 3 categories</string>
+    <string name="txt_color_heading">Which colors do you prefer?</string>
+    <string name="txt_desc_colors">You can choose up to 3 colors</string>
+    <string name="txt_cloth_size">Your usual clothes size : %1$s</string>
+    <string name="txt_change_size">You can change it again later</string>
+    <string name="txt_proceed">Proceed</string>
+    <string name="txt_normal_adult_size">*referring to normal adult size</string>
+    <string name="txt_maximum_three_color">You can only choose 3 colors</string>
+    <string name="txt_choose_one_color">Please choose one color</string>
 </resources>

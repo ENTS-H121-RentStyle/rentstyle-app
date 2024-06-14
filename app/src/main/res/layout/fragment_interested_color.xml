@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.InterestedColorFragment"
+    android:padding="16dp">
+
+    <TextView
+        style="@style/Text.DayNight.Orange"
+        android:id="@+id/tv_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_color_heading"
+        android:textSize="24sp"
+        android:layout_marginStart="5dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/group_color_button"/>
+
+    <TextView
+        style="@style/Text.DayNight.Orange"
+        android:id="@+id/tv_paragraph"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_desc_colors"
+        android:textSize="14sp"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/inter_regular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_heading"
+        app:layout_constraintBottom_toTopOf="@id/group_color_button"/>
+
+    <GridLayout
+        android:id="@+id/group_color_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:columnCount="3"
+        android:gravity="start"
+        android:orientation="horizontal"
+        android:rowCount="4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_paragraph"
+        app:layout_constraintBottom_toTopOf="@id/tv_heading_2">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="4dp"
+            android:paddingHorizontal="5dp"
+            app:cardElevation="5dp">
+
+            <com.example.rentstyle.ui.customview.CustomButton
+                android:id="@+id/btn_red"
+                android:text="@string/red"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_regular"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="4dp"
+            android:paddingHorizontal="5dp"
+            app:cardElevation="5dp">
+
+            <com.example.rentstyle.ui.customview.CustomButton
+                android:id="@+id/btn_orange"
+                android:text="@string/orange"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_regular"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="4dp"
+            android:paddingHorizontal="5dp"
+            app:cardElevation="5dp">
+
+            <com.example.rentstyle.ui.customview.CustomButton
+                android:id="@+id/btn_yellow"
+                android:text="@string/yellow"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_regular"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="4dp"
+            android:paddingHorizontal="5dp"
+            app:cardElevation="5dp">
+
+            <com.example.rentstyle.ui.customview.CustomButton
+                android:id="@+id/btn_grey"
+                android:text="@string/grey"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_regular"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="4dp"
+            android:paddingHorizontal="5dp"
+            app:cardElevation="5dp">
+
+            <com.example.rentstyle.ui.customview.CustomButton
+                android:id="@+id/btn_black"
+                android:text="@string/black"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_regular"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="4dp"
+            android:paddingHorizontal="5dp"
+            app:cardElevation="5dp">
+
+            <com.example.rentstyle.ui.customview.CustomButton
+                android:id="@+id/btn_green"
+                android:text="@string/green"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_regular"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="4dp"
+            android:paddingHorizontal="5dp"
+            app:cardElevation="5dp">
+
+            <com.example.rentstyle.ui.customview.CustomButton
+                android:id="@+id/btn_white"
+                android:text="@string/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_regular"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="4dp"
+            android:paddingHorizontal="5dp"
+            app:cardElevation="5dp">
+
+            <com.example.rentstyle.ui.customview.CustomButton
+                android:id="@+id/btn_blue"
+                android:text="@string/blue"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_regular"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="4dp"
+            android:paddingHorizontal="5dp"
+            app:cardElevation="5dp">
+
+            <com.example.rentstyle.ui.customview.CustomButton
+                android:id="@+id/btn_purple"
+                android:text="@string/purple"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_regular"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="4dp"
+            android:paddingHorizontal="5dp"
+            app:cardElevation="5dp">
+
+            <com.example.rentstyle.ui.customview.CustomButton
+                android:id="@+id/btn_brown"
+                android:text="@string/brown"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_regular"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="4dp"
+            android:paddingHorizontal="5dp"
+            app:cardElevation="5dp">
+
+            <com.example.rentstyle.ui.customview.CustomButton
+                android:id="@+id/btn_pink"
+                android:text="@string/pink"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_regular"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="4dp"
+            android:paddingHorizontal="5dp"
+            app:cardElevation="5dp">
+
+            <com.example.rentstyle.ui.customview.CustomButton
+                android:id="@+id/btn_cream"
+                android:text="@string/cream"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_regular"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center" />
+        </androidx.cardview.widget.CardView>
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/tv_heading_2"
+        style="@style/Text.DayNight.Orange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="50dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:text="Your clothes size : XL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/group_color_button" />
+
+    <TextView
+        style="@style/Text.DayNight.Orange"
+        android:id="@+id/tv_paragraph_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_change_size"
+        android:textSize="14sp"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/inter_regular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_heading_2"
+        app:layout_constraintBottom_toTopOf="@id/range_slider_size"/>
+
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/range_slider_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:valueFrom="0.0"
+        android:valueTo="3.0"
+        android:stepSize="1.0"
+        android:layout_marginTop="30dp"
+        app:trackColor="@color/orange_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_paragraph_2" />
+
+    <TextView
+        style="@style/Text.DayNight.Orange"
+        android:id="@+id/tv_paragraph_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_normal_adult_size"
+        android:textSize="12sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/inter_regular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/range_slider_size" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_proceed"
+        android:textColor="@color/white"
+        android:fontFamily="@font/inter_regular"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:paddingHorizontal="30dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/shape_orange_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

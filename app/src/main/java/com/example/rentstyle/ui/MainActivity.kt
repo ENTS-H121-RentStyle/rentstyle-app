@@ -5,23 +5,33 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.ActivityMainBinding
+import com.example.rentstyle.model.local.datastore.LoginSession
+import com.example.rentstyle.model.local.datastore.dataStore
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var isLoading: MutableLiveData<Boolean>
+
     private lateinit var navView: BottomNavigationView
 
+    private lateinit var pref: LoginSession
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,14 +40,31 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        pref = LoginSession.getInstance(application.dataStore)
+        auth = Firebase.auth
+
         supportActionBar!!.hide()
 
-        auth = Firebase.auth
+        isLoading = MutableLiveData(true)
+        installSplashScreen().apply {
+            setKeepOnScreenCondition{
+                isLoading.value!!
+            }
+        }
+
+        checkLoginSession()
+    }
+
+    private fun checkLoginSession() {
         val firebaseUser = auth.currentUser
 
-        if (firebaseUser == null) {
-            val intent = Intent(this, VerificationActivity::class.java)
-            startActivity(intent)
+        lifecycleScope.launch {
+            if (firebaseUser == null || !pref.getPrefCheck().first()) {
+                val intent = Intent(this@MainActivity, VerificationActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            }
+            isLoading.value = false
         }
 
         setBottomNavigation()
