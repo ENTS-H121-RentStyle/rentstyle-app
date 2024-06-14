@@ -2,6 +2,7 @@ package com.example.rentstyle.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
@@ -55,14 +56,18 @@ class MainActivity : AppCompatActivity() {
         checkLoginSession()
     }
 
+    fun navigateToVerificationActivity () {
+        val intent = Intent(this, VerificationActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+    }
+
     private fun checkLoginSession() {
         val firebaseUser = auth.currentUser
 
         lifecycleScope.launch {
             if (firebaseUser == null || !pref.getPrefCheck().first()) {
-                val intent = Intent(this@MainActivity, VerificationActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
+                navigateToVerificationActivity()
             }
             isLoading.value = false
         }

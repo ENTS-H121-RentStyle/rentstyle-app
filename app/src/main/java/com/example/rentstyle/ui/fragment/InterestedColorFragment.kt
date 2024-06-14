@@ -1,13 +1,13 @@
 package com.example.rentstyle.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -15,10 +15,13 @@ import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentInterestedColorBinding
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
+import com.example.rentstyle.model.remote.response.Pref
+import com.example.rentstyle.model.remote.retrofit.ApiConfig
 import com.example.rentstyle.ui.VerificationActivity
 import com.example.rentstyle.ui.customview.CustomButton
-import com.google.android.material.slider.LabelFormatter
+import com.github.ybq.android.spinkit.style.WanderingCubes
 import com.google.android.material.slider.RangeSlider
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class InterestedColorFragment : Fragment() {
@@ -81,12 +84,32 @@ class InterestedColorFragment : Fragment() {
         pref = LoginSession.getInstance(requireActivity().application.dataStore)
 
         submitButton.setOnClickListener {
+
             if (userColorPreference.size in 1..3) {
-                Log.d("user pref", "category: ${args.category}, color: $userColorPreference, size: ${getSize(prefSize)}")
-                viewLifecycleOwner.lifecycleScope.launch {
-                    pref.setPrefCheck()
+                binding.ivLoadingSpinner.apply {
+                    isVisible = true
+                    setIndeterminateDrawable(WanderingCubes())
                 }
-                (activity as VerificationActivity).navigateToMainActivity()
+
+                viewLifecycleOwner.lifecycleScope.launch {
+                    val userId = pref.getUserId().first()
+                    val sessionToken = pref.getSessionToken().first()
+
+                    try {
+                        val apiService = ApiConfig.getApiService(sessionToken!!)
+                        val response = apiService.uploadUserPreference(Pref(userId!!, args.category.toList(), userColorPreference, getSize(prefSize)))
+
+                        if (response.isSuccessful) {
+                            pref.setPrefCheck()
+                            (activity as VerificationActivity).navigateToMainActivity()
+                        } else {
+                            Toast.makeText(requireContext(), "Please try again", Toast.LENGTH_SHORT).show()
+                        }
+                    } catch (e: Exception) {
+                        Toast.makeText(requireContext(), "$e", Toast.LENGTH_SHORT).show()
+                    }
+                    binding.ivLoadingSpinner.isVisible = false
+                }
             } else {
                 Toast.makeText(requireContext(), getString(R.string.txt_choose_one_color), Toast.LENGTH_SHORT).show()
             }

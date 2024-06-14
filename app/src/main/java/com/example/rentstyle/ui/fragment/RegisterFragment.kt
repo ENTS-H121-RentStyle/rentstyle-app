@@ -1,14 +1,15 @@
 package com.example.rentstyle.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentRegisterBinding
 import com.example.rentstyle.ui.VerificationActivity
 import com.example.rentstyle.ui.customview.CustomEditText
@@ -65,6 +66,8 @@ class RegisterFragment : Fragment() {
                 if (email.isNotEmpty() && pass.isNotEmpty() && passConfirm.isNotEmpty()) {
                     if (pass == passConfirm) {
                         (activity as VerificationActivity).signUpWithEmail(email, pass)
+                    } else {
+                        Toast.makeText(requireContext(), getString(R.string.confirm_mismatch), Toast.LENGTH_SHORT).show()
                     }
                 }
             }

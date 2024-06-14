@@ -13,6 +13,11 @@
     <string name="accept">Accept &amp; Continue</string>
     <string name="rental_terms_and_conditions_title">Terms Of Service</string>
     <string name="agrement">Agreement</string>
+    <string name="fail_sign_up">Failed to create user account</string>
+    <string name="network_error">Connection error</string>
+    <string name="fail_sign_in">Email or password mismatch</string>
+    <string name="fail_sign_in_google">Error sign in to Google account</string>
+    <string name="confirm_mismatch">Confirmed password mismatch</string>
 
     <string name="cd_brand_logo">Brand logo</string>
     <string name="cd_icon_shopping_cart">Icon shopping cart</string>

@@ -18,6 +18,8 @@ import com.example.rentstyle.R
 import com.example.rentstyle.databinding.ActivityVerificationBinding
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
+import com.example.rentstyle.model.remote.response.User
+import com.example.rentstyle.model.remote.retrofit.ApiConfig
 import com.example.rentstyle.ui.fragment.LoginFragmentDirections
 import com.example.rentstyle.ui.fragment.RegisterFragmentDirections
 import com.github.ybq.android.spinkit.style.WanderingCubes
@@ -79,11 +81,11 @@ class VerificationActivity : AppCompatActivity() {
 
         auth.signInWithEmailAndPassword(email, pass)
             .addOnCompleteListener {
-                binding.ivLoadingSpinner.isVisible = false
                 if (it.isSuccessful) {
                     updateUI(auth.currentUser, false)
                 } else {
-                    Toast.makeText(this, "Email or password mismatched", Toast.LENGTH_SHORT).show()
+                    binding.ivLoadingSpinner.isVisible = false
+                    Toast.makeText(this@VerificationActivity, getString(R.string.fail_sign_in), Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -96,11 +98,11 @@ class VerificationActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(email, pass)
             .addOnCompleteListener {
-                binding.ivLoadingSpinner.isVisible = false
                 if (it.isSuccessful) {
                     updateUI(auth.currentUser, true)
                 } else {
-                    Log.d("Error", "Error registering account")
+                    binding.ivLoadingSpinner.isVisible = false
+                    Toast.makeText(this@VerificationActivity, getString(R.string.fail_sign_up), Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -125,7 +127,7 @@ class VerificationActivity : AppCompatActivity() {
                 )
                 handleSignInByGoogle(result)
             } catch (e: GetCredentialException) {
-                Log.d("Error", e.message.toString())
+                Toast.makeText(this@VerificationActivity, getString(R.string.fail_sign_in_google), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -135,14 +137,18 @@ class VerificationActivity : AppCompatActivity() {
             is CustomCredential -> {
                 if (credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
                     val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
+                    binding.ivLoadingSpinner.apply {
+                        isVisible = true
+                        setIndeterminateDrawable(WanderingCubes())
+                    }
                     firebaseAuthWithGoogle(googleIdTokenCredential.idToken)
                 } else {
-                    Log.e(TAG, "Unexpected type of credential")
+                    Toast.makeText(this@VerificationActivity, getString(R.string.fail_sign_in_google), Toast.LENGTH_SHORT).show()
                 }
             }
 
             else -> {
-                Log.e(TAG, "Unexpected type of credential")
+                Toast.makeText(this@VerificationActivity, getString(R.string.fail_sign_in_google), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -157,24 +163,75 @@ class VerificationActivity : AppCompatActivity() {
                     val user: FirebaseUser? = auth.currentUser
                     updateUI(user, isNewUser)
                 } else {
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    Toast.makeText(this@VerificationActivity, getString(R.string.fail_sign_in_google), Toast.LENGTH_SHORT).show()
                     updateUI(null, false)
                 }
             }
     }
 
     private fun updateUI(currentUser: FirebaseUser?, isNewUser: Boolean) {
-        if (currentUser != null && isNewUser) {
-            val navHostFragment = supportFragmentManager.findFragmentById(binding.navHostFragmentActivityVerification.id) as NavHostFragment
-            val navController = navHostFragment.navController
+        val navHostFragment = supportFragmentManager.findFragmentById(binding.navHostFragmentActivityVerification.id) as NavHostFragment
+        val navController = navHostFragment.navController
 
-            navController.navigate(RegisterFragmentDirections.actionNavigationRegisterToNavigationAgreement())
-        } else {
-            navigateToMainActivity()
+        auth.currentUser?.getIdToken(true)?.addOnCompleteListener { res ->
+            if (res.isSuccessful) {
+                if (res.result.token != null) {
+
+                    lifecycleScope.launch {
+                        pref.setUserIdAndToken(auth.currentUser!!.uid, res.result.token!!)
+
+                        if (currentUser != null && isNewUser) {
+                            val userId = auth.currentUser!!.uid
+                            val userEmail = auth.currentUser!!.email!!.toString()
+                            val userName = "user_" + auth.currentUser!!.uid.slice(2..6)
+                            val sessionToken = pref.getSessionToken().first()
+
+                            if (sessionToken != null) {
+                                try {
+                                    val apiService = ApiConfig.getApiService(sessionToken)
+                                    val response = apiService.createNewUser(User(userId, userEmail, userName))
+
+                                    if (response.code() == 201) {
+                                        binding.ivLoadingSpinner.isVisible = false
+
+                                        if (navController.currentDestination!!.id == R.id.navigation_login) {
+                                            navController.navigate(LoginFragmentDirections.actionNavigationLoginToNavigationAgreement())
+                                        } else {
+                                            navController.navigate(RegisterFragmentDirections.actionNavigationRegisterToNavigationAgreement())
+                                        }
+                                    } else {
+                                        binding.ivLoadingSpinner.isVisible = false
+                                        Toast.makeText(this@VerificationActivity,
+                                            getString(R.string.fail_sign_up), Toast.LENGTH_SHORT).show()
+                                        auth.currentUser!!.delete()
+                                    }
+                                } catch (e: Exception) {
+                                    Toast.makeText(this@VerificationActivity, getString(R.string.network_error), Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        } else {
+                            lifecycleScope.launch {
+                                try {
+                                    val apiService = ApiConfig.getApiService(pref.getSessionToken().first()!!)
+                                    val response = apiService.checkUserPreference(pref.getUserId().first()!!)
+
+                                    if (response.code() == 200) {
+                                        pref.setPrefCheck()
+                                        binding.ivLoadingSpinner.isVisible = false
+                                        navigateToMainActivity()
+                                    } else {
+                                        binding.ivLoadingSpinner.isVisible = false
+                                        navController.navigate(LoginFragmentDirections.actionNavigationLoginToNavigationInterestedCategory())
+                                    }
+                                } catch (_: Exception) { }
+                            }
+                        }
+
+                    }
+                }
+            } else {
+                auth.signOut()
+            }
         }
-    }
-
-    companion object {
-        private const val TAG = "LoginActivity"
     }
 }

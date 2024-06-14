@@ -43,6 +43,10 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationShoppingCart())
         }
 
+        binding.btnUserSetting.setOnClickListener {
+            findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationSetting())
+        }
+
         return binding.root
     }
 }
