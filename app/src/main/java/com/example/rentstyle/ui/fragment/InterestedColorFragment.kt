@@ -99,7 +99,7 @@ class InterestedColorFragment : Fragment() {
                         val apiService = ApiConfig.getApiService(sessionToken!!)
                         val response = apiService.uploadUserPreference(Pref(userId!!, args.category.toList(), userColorPreference, getSize(prefSize)))
 
-                        if (response.isSuccessful) {
+                        if (response.code() == 201 || response.code() == 500) {
                             pref.setPrefCheck()
                             (activity as VerificationActivity).navigateToMainActivity()
                         } else {

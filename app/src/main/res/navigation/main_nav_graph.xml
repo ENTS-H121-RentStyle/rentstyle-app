@@ -51,6 +51,9 @@
         <action
             android:id="@+id/action_navigation_profile_to_navigation_setting"
             app:destination="@id/navigation_setting" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_seller_dashboard"
+            app:destination="@id/navigation_seller_dashboard" />
     </fragment>
 
     <fragment
@@ -122,4 +125,9 @@
         android:id="@+id/navigation_setting"
         android:name="com.example.rentstyle.ui.fragment.SettingFragment"
         tools:layout="@layout/fragment_setting"/>
+
+    <fragment
+        android:id="@+id/navigation_seller_dashboard"
+        android:name="com.example.rentstyle.ui.fragment.SellerDashboardFragment"
+        tools:layout="@layout/fragment_seller_dashboard"/>
 </navigation>

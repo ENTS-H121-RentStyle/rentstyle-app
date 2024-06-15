@@ -47,6 +47,10 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationSetting())
         }
 
+        binding.btnUserShop.setOnClickListener {
+            findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationSellerDashboard())
+        }
+
         return binding.root
     }
 }

@@ -119,6 +119,16 @@
     <string name="txt_delivery_method">Delivery method</string>
     <string name="txt_change_payment_method">Change payment method</string>
     <string name="txt_pickup_address">Pickup address</string>
+    <string name="txt_unconfirmed_order">Unconfirmed order</string>
+    <string name="txt_unship">Orders need to be shipped</string>
+    <string name="txt_rented_product">Products are being rented</string>
+    <string name="txt_not_returned">Products have not been returned</string>
+    <string name="txt_sell_notif">Your selling notifications</string>
+    <string name="txt_seller_menu">Seller menu</string>
+    <string name="txt_all_product">All products</string>
+    <string name="txt_add_new_product">Add new products</string>
+    <string name="txt_selling_results">Selling results</string>
+    <string name="txt_seller_wallet">Seller\'s wallet</string>
 
     <!--    Interes layout-->
     <string name="question_color">Pilih 3 warna baju favorit kamu</string>
