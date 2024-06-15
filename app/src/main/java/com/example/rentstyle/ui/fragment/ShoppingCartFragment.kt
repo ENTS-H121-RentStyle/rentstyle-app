@@ -56,7 +56,7 @@ class ShoppingCartFragment : Fragment() {
 
         shoppingCartAdapter.setOnClickListener(object : RecyclerShoppingCartAdapter.OnClickListener {
             override fun onClick(position: Int) {
-                findNavController().navigate(ShoppingCartFragmentDirections.actionNavigationShoppingCartToNavigationProductDetail())
+                findNavController().navigate(ShoppingCartFragmentDirections.actionNavigationShoppingCartToNavigationProductDetail(""))
             }
 
         })

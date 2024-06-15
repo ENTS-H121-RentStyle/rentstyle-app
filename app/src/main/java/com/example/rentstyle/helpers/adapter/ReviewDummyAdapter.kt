@@ -1,14 +1,24 @@
+// ReviewDummyAdapter.kt
 package com.example.rentstyle.helpers.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rentstyle.databinding.ProductRatingItemBinding
+import com.example.rentstyle.model.remote.response.Review
 
 class ReviewDummyAdapter : RecyclerView.Adapter<ReviewDummyAdapter.ViewHolder>() {
-    inner class ViewHolder (binding: ProductRatingItemBinding): RecyclerView.ViewHolder(binding.root) {
-        val ratingStarImage = binding.ivReviewRating
-        val username = binding.tvUsername
+
+    private var reviews: List<Review> = emptyList()
+
+    inner class ViewHolder(private val binding: ProductRatingItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(review: Review) {
+            binding.tvUsername.text = review.userId
+            binding.ivReviewRating.ratingScore = review.rating.toInt()
+            binding.tvReviewDescription.text = review.review
+            // Set image dan data lain yang sesuai
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -17,13 +27,14 @@ class ReviewDummyAdapter : RecyclerView.Adapter<ReviewDummyAdapter.ViewHolder>()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.apply {
-            username.text = "username"
-            ratingStarImage.ratingScore = 3
-        }
+        holder.bind(reviews[position])
     }
 
-    override fun getItemCount(): Int {
-        return 2
+    override fun getItemCount(): Int = reviews.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateReviews(newReviews: List<Review>) {
+        reviews = newReviews
+        notifyDataSetChanged()
     }
 }

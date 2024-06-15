@@ -42,13 +42,13 @@ class ShopDetailFragment : Fragment() {
 
         recommendationAdapter.setOnClickListener(object : RecyclerDummyAdapter.OnClickListener {
             override fun onClick(position: Int, image: ImageView) {
-                findNavController().navigate(ShopDetailFragmentDirections.actionNavigationShopDetailToNavigationProductDetail())
+                findNavController().navigate(ShopDetailFragmentDirections.actionNavigationShopDetailToNavigationProductDetail(""))
             }
         })
 
         allProductsAdapter.setOnClickListener(object : RecyclerDummyAdapter.OnClickListener {
             override fun onClick(position: Int, image: ImageView) {
-                findNavController().navigate(ShopDetailFragmentDirections.actionNavigationShopDetailToNavigationProductDetail())
+                findNavController().navigate(ShopDetailFragmentDirections.actionNavigationShopDetailToNavigationProductDetail(""))
             }
         })
 

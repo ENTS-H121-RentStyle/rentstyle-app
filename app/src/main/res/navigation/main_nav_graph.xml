@@ -60,6 +60,9 @@
         android:id="@+id/navigation_product_detail"
         android:name="com.example.rentstyle.ui.fragment.ProductDetailFragment"
         tools:layout="@layout/fragment_product_detail">
+        <argument
+            android:name="productId"
+            app:argType="string" />
         <action
             android:id="@+id/action_navigation_product_detail_self"
             app:destination="@id/navigation_product_detail" />

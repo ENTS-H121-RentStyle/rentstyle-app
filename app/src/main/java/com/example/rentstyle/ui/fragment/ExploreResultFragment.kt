@@ -57,7 +57,7 @@ class ExploreResultFragment : Fragment() {
         productAdapter.setOnClickListener(object : RecyclerDummyAdapter.OnClickListener {
             override fun onClick(position: Int, image: ImageView) {
                 val extras = FragmentNavigatorExtras(image to "shared_product_image")
-                findNavController().navigate(ExploreResultFragmentDirections.actionNavigationExploreResultToNavigationProductDetail(), navigatorExtras = extras)
+                findNavController().navigate(ExploreResultFragmentDirections.actionNavigationExploreResultToNavigationProductDetail(""), navigatorExtras = extras)
             }
         })
 

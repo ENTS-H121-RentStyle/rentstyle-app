@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_product_item"
     android:layout_width="170dp"
     android:layout_height="295dp"
-    xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="10dp"
     android:layout_gravity="center"
     android:layout_marginVertical="10dp"
@@ -13,37 +13,10 @@
         android:id="@+id/iv_product_image"
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:transitionName="shared_product_image"
-        android:src="@drawable/img_placeholder"
         android:scaleType="centerCrop"
+        android:src="@drawable/img_placeholder"
+        android:transitionName="shared_product_image"
         android:contentDescription="@string/cd_product_image" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_gravity="end">
-
-        <ImageView
-            android:id="@+id/container_promo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/shape_disc"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/cd_promo" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Diskon 20%"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.85"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,8 +30,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            tools:text="Nama Produk"
-            android:layout_marginStart="3dp"
             android:fontFamily="@font/inter_regular"
             android:textColor="?android:textColorPrimary"
             android:textSize="14sp"
@@ -70,8 +41,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            tools:text="Rp. 500.000"
-            android:layout_marginStart="3dp"
             android:fontFamily="@font/inter_bold"
             android:textColor="?android:textColorPrimary"
             android:textSize="16sp"
@@ -87,15 +56,13 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_rating"
-                tools:ignore="ContentDescription"/>
+                android:src="@drawable/ic_rating" />
 
             <TextView
                 android:id="@+id/tv_product_rating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                tools:text="4.85"
                 android:fontFamily="@font/inter_regular"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="14sp"
@@ -112,15 +79,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_location"
-                android:layout_gravity="center"
-                tools:ignore="ContentDescription"/>
+                android:layout_gravity="center" />
 
             <TextView
                 android:id="@+id/tv_product_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                tools:text="Jakarta"
                 android:fontFamily="@font/inter_regular"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="14sp"

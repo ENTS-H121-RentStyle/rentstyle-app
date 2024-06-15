@@ -67,7 +67,7 @@ dependencies {
     implementation(libs.circleimageview)
     implementation(libs.glide)
     implementation(libs.lottie)
-    implementation("com.github.ybq:Android-SpinKit:1.4.0")
+    implementation(libs.android.spinkit)
     implementation(libs.androidx.core.splashscreen)
 
     //Navigation
@@ -102,4 +102,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //Glide for show image
+    implementation (libs.glide.v4160)
+    annotationProcessor (libs.compiler)
 }
