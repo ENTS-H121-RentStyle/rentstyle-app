@@ -141,5 +141,26 @@
     <fragment
         android:id="@+id/navigation_add_product"
         android:name="com.example.rentstyle.ui.fragment.AddProductFragment"
-        tools:layout="@layout/fragment_add_product"/>
+        tools:layout="@layout/fragment_add_product">
+        <action
+            android:id="@+id/action_navigation_add_product_to_navigation_camera"
+            app:destination="@id/navigation_camera" />
+        <argument
+            android:name="uri"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_navigation_add_product_to_navigation_seller_dashboard"
+            app:destination="@id/navigation_seller_dashboard" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_camera"
+        android:name="com.example.rentstyle.ui.fragment.CameraFragment"
+        tools:layout="@layout/fragment_camera">
+        <action
+            android:id="@+id/action_navigation_camera_to_navigation_add_product"
+            app:destination="@id/navigation_add_product"
+            app:popUpTo="@id/navigation_seller_dashboard" />
+    </fragment>
 </navigation>

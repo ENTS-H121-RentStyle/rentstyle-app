@@ -30,7 +30,7 @@ class SellerDashboardFragment : Fragment() {
         }
 
         binding.btnAddProduct.setOnClickListener {
-            findNavController().navigate(SellerDashboardFragmentDirections.actionNavigationSellerDashboardToNavigationAddProduct())
+            findNavController().navigate(SellerDashboardFragmentDirections.actionNavigationSellerDashboardToNavigationAddProduct(null))
         }
 
         return binding.root

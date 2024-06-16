@@ -18,6 +18,9 @@
     <string name="fail_sign_in">Email or password mismatch</string>
     <string name="fail_sign_in_google">Error sign in to Google account</string>
     <string name="confirm_mismatch">Confirmed password mismatch</string>
+    <string name="permission_denied">Permissions are not granted</string>
+    <string name="error_toast">Error : %1$s</string>
+    <string name="choose_picture">Choose a Picture</string>
 
     <string name="cd_brand_logo">Brand logo</string>
     <string name="cd_icon_shopping_cart">Icon shopping cart</string>

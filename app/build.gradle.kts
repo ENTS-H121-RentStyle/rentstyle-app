@@ -70,6 +70,13 @@ dependencies {
     implementation(libs.android.spinkit)
     implementation(libs.androidx.core.splashscreen)
 
+    //Camera
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
+    implementation(libs.ucrop)
+    implementation(libs.androidx.exifinterface)
+
     //Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
