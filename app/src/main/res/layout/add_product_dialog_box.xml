@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp">
+
+        <TextView
+            android:id="@+id/tv_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_pick_up_from"
+            android:fontFamily="@font/inter_bold"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_camera"
+            android:layout_width="200dp"
+            android:layout_height="42dp"
+            android:layout_marginVertical="30dp"
+            android:paddingHorizontal="30dp"
+            android:text="@string/txt_camera"
+            android:textColor="@color/white"
+            android:fontFamily="@font/inter_regular"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:background="@drawable/shape_orange_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_heading"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_gallery"
+            android:layout_width="200dp"
+            android:layout_height="42dp"
+            android:layout_marginVertical="20dp"
+            android:paddingHorizontal="30dp"
+            android:text="@string/txt_gallery"
+            android:textColor="@color/white"
+            android:fontFamily="@font/inter_regular"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:background="@drawable/shape_grey_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_camera"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

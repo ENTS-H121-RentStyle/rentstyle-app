@@ -132,5 +132,14 @@
     <fragment
         android:id="@+id/navigation_seller_dashboard"
         android:name="com.example.rentstyle.ui.fragment.SellerDashboardFragment"
-        tools:layout="@layout/fragment_seller_dashboard"/>
+        tools:layout="@layout/fragment_seller_dashboard">
+        <action
+            android:id="@+id/action_navigation_seller_dashboard_to_navigation_add_product"
+            app:destination="@id/navigation_add_product" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_add_product"
+        android:name="com.example.rentstyle.ui.fragment.AddProductFragment"
+        tools:layout="@layout/fragment_add_product"/>
 </navigation>

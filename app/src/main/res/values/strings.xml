@@ -129,6 +129,14 @@
     <string name="txt_add_new_product">Add new products</string>
     <string name="txt_selling_results">Selling results</string>
     <string name="txt_seller_wallet">Seller\'s wallet</string>
+    <string name="txt_product_name">Product name</string>
+    <string name="txt_description">Description</string>
+    <string name="txt_rent_price">Rent price</string>
+    <string name="txt_currency">Rp</string>
+    <string name="txt_product_price_optional">Product price (optional)</string>
+    <string name="txt_pick_up_from">Pick up from</string>
+    <string name="txt_camera">Camera</string>
+    <string name="txt_gallery">Gallery</string>
 
     <!--    Interes layout-->
     <string name="question_color">Pilih 3 warna baju favorit kamu</string>

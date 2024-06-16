@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:scrollbars="none"
+    tools:context=".ui.fragment.AddProductFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/main_toolbar"
+            layout="@layout/toolbar" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/product_image"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="40dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+
+            <ImageView
+                android:id="@+id/iv_product_image"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:src="@drawable/ic_add_photo"
+                android:scaleType="centerCrop"
+                tools:ignore="ContentDescription" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_product_name"
+            android:textSize="16sp"
+            android:layout_marginTop="30dp"
+            android:textStyle="bold"
+            android:layout_marginStart="30dp"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintTop_toBottomOf="@+id/product_image"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:padding="0dp"
+            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_name">
+
+            <EditText
+                android:id="@+id/ed_add_product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="false"
+                android:inputType="text"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_product_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_category"
+            android:textSize="16sp"
+            android:layout_marginTop="25dp"
+            android:textStyle="bold"
+            android:layout_marginStart="30dp"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintTop_toBottomOf="@+id/input_product_name"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Spinner
+            android:id="@+id/spinner_product_category"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@drawable/rounded_rect"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_marginHorizontal="25dp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_product_category"
+            app:layout_constraintStart_toStartOf="parent">
+        </Spinner>
+
+        <TextView
+            android:id="@+id/tv_product_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_color"
+            android:textSize="16sp"
+            android:layout_marginTop="30dp"
+            android:textStyle="bold"
+            android:layout_marginStart="30dp"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_product_category"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_product_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:padding="0dp"
+            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_color">
+
+            <EditText
+                android:id="@+id/ed_add_product_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="false"
+                android:inputType="text"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_product_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_description"
+            android:textSize="16sp"
+            android:layout_marginTop="30dp"
+            android:textStyle="bold"
+            android:layout_marginStart="30dp"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintTop_toBottomOf="@+id/input_product_color"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_product_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_desc">
+
+            <EditText
+                android:id="@+id/ed_add_description"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:gravity="start|top"
+                android:autofillHints="false"
+                android:scrollbars="vertical"
+                android:nestedScrollingEnabled="true"
+                android:scrollbarFadeDuration="@integer/material_motion_duration_short_1"
+                android:inputType="textMultiLine"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_product_rent_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_rent_price"
+            android:textSize="16sp"
+            android:layout_marginTop="18dp"
+            android:textStyle="bold"
+            android:layout_marginStart="30dp"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintTop_toBottomOf="@+id/input_product_desc"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_currency"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="35dp"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/input_product_rent_price"
+            app:layout_constraintTop_toTopOf="@+id/input_product_rent_price"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_product_rent_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:padding="0dp"
+            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_currency"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_rent_price">
+
+            <EditText
+                android:paddingStart="35dp"
+                android:id="@+id/ed_add_product_rent_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="false"
+                android:inputType="number"
+                tools:ignore="LabelFor,RtlSymmetry" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_product_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/txt_product_price_optional"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_product_rent_price" />
+
+        <TextView
+            android:id="@+id/tv_currency_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_currency"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
+            android:textStyle="bold"
+            android:layout_marginStart="35dp"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/input_product_price"
+            app:layout_constraintTop_toTopOf="@+id/input_product_price"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_product_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:padding="0dp"
+            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_currency_2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_price">
+
+            <EditText
+                android:paddingStart="35dp"
+                android:id="@+id/ed_add_product_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="false"
+                android:inputType="number"
+                tools:ignore="LabelFor,RtlSymmetry" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="50dp"
+            android:paddingHorizontal="20dp"
+            android:text="@string/txt_add_new_product"
+            android:textColor="@color/white"
+            android:fontFamily="@font/inter_regular"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:background="@drawable/shape_orange_button"
+            app:layout_constraintTop_toBottomOf="@+id/input_product_price"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
