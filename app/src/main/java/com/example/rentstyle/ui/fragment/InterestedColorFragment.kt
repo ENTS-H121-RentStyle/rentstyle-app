@@ -132,7 +132,7 @@ class InterestedColorFragment : Fragment() {
         }
 
         greyButton.setOnClickListener {
-            checkButtonColor(greyButton, "Abu-Abu")
+            checkButtonColor(greyButton, "Abu-abu")
         }
 
         blackButton.setOnClickListener {

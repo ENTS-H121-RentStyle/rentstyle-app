@@ -54,6 +54,10 @@
         <action
             android:id="@+id/action_navigation_profile_to_navigation_seller_dashboard"
             app:destination="@id/navigation_seller_dashboard" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_onboarding_seller"
+            app:enterAnim="@anim/slide_in_right"
+            app:destination="@id/navigation_onboarding_seller" />
     </fragment>
 
     <fragment
@@ -136,6 +140,9 @@
         <action
             android:id="@+id/action_navigation_seller_dashboard_to_navigation_add_product"
             app:destination="@id/navigation_add_product" />
+        <argument
+            android:name="id"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -162,5 +169,19 @@
             android:id="@+id/action_navigation_camera_to_navigation_add_product"
             app:destination="@id/navigation_add_product"
             app:popUpTo="@id/navigation_seller_dashboard" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_onboarding_seller"
+        android:name="com.example.rentstyle.ui.fragment.OnBoardingSellerFragment"
+        tools:layout="@layout/fragment_on_boarding_seller" >
+        <action
+            android:id="@+id/action_navigation_onboarding_seller_to_navigation_seller_dashboard"
+            app:destination="@id/navigation_seller_dashboard"
+            app:enterAnim="@anim/slide_in_right"
+            app:popUpTo="@id/navigation_profile" />
+        <action
+            android:id="@+id/action_navigation_onboarding_seller_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
     </fragment>
 </navigation>

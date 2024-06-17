@@ -18,6 +18,7 @@ import com.example.rentstyle.R
 import com.example.rentstyle.databinding.ActivityMainBinding
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
+import com.github.ybq.android.spinkit.style.WanderingCubes
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -54,6 +55,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         checkLoginSession()
+    }
+
+    fun startLoadingSpinner () {
+        binding.ivLoadingSpinner.apply {
+            isVisible = true
+            setIndeterminateDrawable(WanderingCubes())
+        }
+    }
+
+    fun stopLoadingSpinner () {
+        binding.ivLoadingSpinner.isVisible = false
     }
 
     fun navigateToVerificationActivity () {

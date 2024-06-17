@@ -182,4 +182,23 @@
     <string name="txt_normal_adult_size">*referring to normal adult size</string>
     <string name="txt_maximum_three_color">You can only choose 3 colors</string>
     <string name="txt_choose_one_color">Please choose one color</string>
+    <string name="txt_welcome_to">Welcome to</string>
+    <string name="txt_seller_welcome">We are excited to have you as part of our seller partners</string>
+    <string name="txt_seller_tos_heading_1">Registration</string>
+    <string name="txt_seller_tos_1">To list properties for rent, you must register for a seller account. You agree to provide accurate, current, and complete information during the registration process and to update such information to keep it accurate, current, and complete.</string>
+    <string name="txt_seller_tos_heading_2">Creating Products</string>
+    <string name="txt_seller_tos_2">As a seller, you can create listings for products available for rent. Each listing must include complete and accurate information about the property, including but not limited to, the address, description, photos, and any applicable fees.</string>
+    <string name="txt_seller_tos_heading_3">Property Availability</string>
+    <string name="txt_seller_tos_3">You must ensure that the property listed is available for rent as described. If a property becomes unavailable, you must update the listing immediately to reflect this change.</string>
+    <string name="txt_seller_tos_heading_4">Compliance with Laws</string>
+    <string name="txt_seller_tos_4">You agree to comply with all local, state, and federal laws, regulations, and ordinances applicable to your rental activities. This includes, but is not limited to, laws related to property rental, zoning, health and safety, and tax obligations.</string>
+    <string name="txt_seller_tos_heading_5">Payments</string>
+    <string name="txt_seller_tos_5">Payments for bookings will be processed securely through our third-party payment processor. You agree to the terms and conditions of the payment processor. RentStyle will remit payments to you after deducting any applicable fees and commissions.</string>
+    <string name="txt_seller_tos_heading_6">Changes to Terms</string>
+    <string name="txt_seller_tos_6">RentStyle reserves the right to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days\' notice prior to any new terms taking effect. By continuing to access or use our Service after those revisions become effective, you agree to be bound by the revised terms.</string>
+    <string name="txt_shop_name">Shop name</string>
+    <string name="txt_shop_city">Shop\'s city location</string>
+    <string name="txt_shop_desc">Shop detail / description</string>
+    <string name="txt_shop_address">Shop address</string>
+    <string name="txt_seller_registration_heading">Seller registration</string>
 </resources>

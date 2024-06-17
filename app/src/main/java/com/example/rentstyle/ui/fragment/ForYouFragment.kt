@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ import com.example.rentstyle.model.Product
 import com.example.rentstyle.model.remote.retrofit.ApiConfig
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import kotlin.math.abs
 
 class ForYouFragment : Fragment() {
     private lateinit var _binding: FragmentForYouBinding
@@ -74,7 +76,10 @@ class ForYouFragment : Fragment() {
         newProductAdapter = ProductAdapter(emptyList())
         recommendationProductAdapter = ProductAdapter(emptyList())
 
-        recommendationProductRecyclerView.addItemDecoration(GridSpacingItemDecoration(2, 25, true))
+        val screenWidth = getDisplayWidthInDp(requireContext())
+        val spacing = abs((screenWidth - 340)/3)
+
+        recommendationProductRecyclerView.addItemDecoration(GridSpacingItemDecoration(2, spacing, true))
 
         highestRatingRecyclerView.adapter = highestRatingAdapter
         newProductRecyclerView.adapter = newProductAdapter
@@ -193,6 +198,11 @@ class ForYouFragment : Fragment() {
         return sharedPreferences.getString("auth_token", "") ?: ""
     }
 
+    private fun getDisplayWidthInDp(context: Context): Int {
+        val displayMetrics: DisplayMetrics = context.resources.displayMetrics
+        val dpWidth = displayMetrics.widthPixels / displayMetrics.density
+        return dpWidth.toInt()
+    }
 
     private fun showErrorLog(message: String) {
         Log.e("ForYouFragment", message)

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:scrollbars="none"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_welcome_to"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:fontFamily="@font/inter_bold"
+            android:textColor="@color/orange_1" />
+
+        <ImageView
+            android:id="@+id/iv_brand_image"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_brand"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/cd_brand_logo" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/iv_onBoarding"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/onboarding_4" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_seller_welcome"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="30dp"
+            android:textColor="?android:textColorPrimary"
+            android:fontFamily="@font/inter_regular" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/rental_terms_and_conditions_title"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/inter_bold"
+            android:textColor="@color/orange_1"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_seller_tos_heading_1"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="?android:textColorPrimary"
+            android:fontFamily="@font/inter_regular"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:lineSpacingExtra="4dp"
+            android:fontFamily="@font/inter_regular"
+            android:text="@string/txt_seller_tos_1"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_seller_tos_heading_2"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="?android:textColorPrimary"
+            android:fontFamily="@font/inter_regular"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_seller_tos_2"
+            android:lineSpacingExtra="4dp"
+            android:layout_marginBottom="25dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_regular" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_seller_tos_heading_3"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="?android:textColorPrimary"
+            android:fontFamily="@font/inter_regular"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_seller_tos_3"
+            android:lineSpacingExtra="4dp"
+            android:layout_marginBottom="25dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_regular" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_seller_tos_heading_4"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="?android:textColorPrimary"
+            android:fontFamily="@font/inter_regular"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_seller_tos_4"
+            android:lineSpacingExtra="4dp"
+            android:layout_marginBottom="25dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_regular" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_seller_tos_heading_5"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="?android:textColorPrimary"
+            android:fontFamily="@font/inter_regular"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_seller_tos_5"
+            android:lineSpacingExtra="4dp"
+            android:layout_marginBottom="25dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_regular" />
+
+        <!-- Jaminan dan Tanggung Jawab -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_seller_tos_heading_6"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="?android:textColorPrimary"
+            android:fontFamily="@font/inter_regular"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_seller_tos_6"
+            android:lineSpacingExtra="4dp"
+            android:layout_marginBottom="25dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_regular"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonAgree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_orange_button"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/accept"/>
+    </LinearLayout>
+</ScrollView>

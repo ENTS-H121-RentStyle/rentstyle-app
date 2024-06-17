@@ -25,9 +25,31 @@ class LoginSession private constructor (private val dataStore: DataStore<Prefere
         }
 
         val USER_ID = stringPreferencesKey("user_id")
+        val SELLER_ID = stringPreferencesKey("seller_id")
         val SESSION_TOKEN = stringPreferencesKey("session_token")
         val FIRST_TIME_LOGIN = booleanPreferencesKey("first_login")
         val PREF_CHECK = booleanPreferencesKey("pref_check")
+    }
+
+    suspend fun clearSession () {
+        dataStore.edit { preferences ->
+            preferences.remove(USER_ID)
+            preferences.remove(SELLER_ID)
+            preferences.remove(SESSION_TOKEN)
+            preferences[PREF_CHECK] = false
+        }
+    }
+
+    suspend fun setSellerId (id: String) {
+        dataStore.edit { preferences ->
+            preferences[SELLER_ID] = id
+        }
+    }
+
+    fun getSellerId(): Flow<String?> {
+        return dataStore.data.map { preferences ->
+            preferences[SELLER_ID]
+        }
     }
 
     suspend fun setUserIdAndToken (id: String, token: String) {

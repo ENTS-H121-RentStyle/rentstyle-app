@@ -18,6 +18,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -26,6 +27,7 @@ import com.example.rentstyle.databinding.FragmentAddProductBinding
 import com.example.rentstyle.helpers.CacheImageManager
 import com.example.rentstyle.helpers.CacheImageManager.clearTempImages
 import com.yalantis.ucrop.UCrop
+import kotlinx.coroutines.launch
 
 class AddProductFragment : Fragment() {
     private lateinit var _binding: FragmentAddProductBinding
@@ -98,7 +100,7 @@ class AddProductFragment : Fragment() {
         setUpProductCategory()
 
         binding.btnAdd.setOnClickListener {
-            findNavController().navigate(AddProductFragmentDirections.actionNavigationAddProductToNavigationSellerDashboard())
+            findNavController().navigate(AddProductFragmentDirections.actionNavigationAddProductToNavigationSellerDashboard(""))
             clearTempImages(requireContext())
             Glide.with(requireContext())
                 .clear(binding.ivProductImage)
@@ -167,7 +169,6 @@ class AddProductFragment : Fragment() {
     override fun onPause() {
         super.onPause()
 
-        dialogView.hide()
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
     }
 

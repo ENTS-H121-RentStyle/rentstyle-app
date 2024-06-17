@@ -22,7 +22,7 @@ class OnBoardingFragment : Fragment() {
         _binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
 
         vpAdapter = OnBoardingAdapter(childFragmentManager, lifecycle)
-        binding.vpWelcomeScreen.adapter = vpAdapter
+        binding.vpWelcomeScreenUser.adapter = vpAdapter
 
         return binding.root
     }

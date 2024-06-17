@@ -18,3 +18,26 @@ data class PrefResponse(
 	@field:SerializedName("category")
 	val category: String? = null
 )
+
+data class SellerResponseData(
+	@field:SerializedName("image")
+	val image: String? = null,
+
+	@field:SerializedName("address")
+	val address: String? = null,
+
+	@field:SerializedName("seller_name")
+	val sellerName: String? = null,
+
+	@field:SerializedName("city")
+	val city: String? = null,
+
+	@field:SerializedName("user_id")
+	val userId: String? = null,
+
+	@field:SerializedName("description")
+	val description: String? = null,
+
+	@field:SerializedName("id")
+	val id: String? = null
+)

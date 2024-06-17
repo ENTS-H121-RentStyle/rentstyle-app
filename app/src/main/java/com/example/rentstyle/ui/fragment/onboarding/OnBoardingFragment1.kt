@@ -31,7 +31,7 @@ class OnBoardingFragment1 : Fragment() {
     ): View {
         _binding = FragmentOnBoarding1Binding.inflate(inflater, container, false)
 
-        val viewPager = activity?.findViewById<ViewPager2>(R.id.vp_welcome_screen)
+        val viewPager = activity?.findViewById<ViewPager2>(R.id.vp_welcome_screen_user)
 
         pref = LoginSession.getInstance(requireActivity().application.dataStore)
 
