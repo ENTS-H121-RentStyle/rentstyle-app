@@ -1,613 +1,633 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".ui.fragment.SellerDashboardFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/group_header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/orange_1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_brand"
-                android:layout_width="180dp"
-                android:layout_height="70dp"
-                android:contentDescription="@string/cd_brand_logo"
-                android:src="@drawable/ic_brand_white"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <ImageView
-                android:id="@+id/btn_notification"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_chat_white"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="20dp"
-                android:contentDescription="@string/cd_icon_chat"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <LinearLayout
-                android:id="@+id/group_shop_detail"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/group_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="30dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/orange_1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_brand">
+                app:layout_constraintTop_toTopOf="parent">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/iv_user_image"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/img_placeholder" />
+                <ImageView
+                    android:id="@+id/iv_brand"
+                    android:layout_width="180dp"
+                    android:layout_height="70dp"
+                    android:contentDescription="@string/cd_brand_logo"
+                    android:src="@drawable/ic_brand_white"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="15dp"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_username"
-                        style="@style/TextView.Paragraph"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        tools:text="seller name" />
-
-                    <TextView
-                        style="@style/TextView.Paragraph"
-                        android:id="@+id/tv_shop_rating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:textColor="@color/white"
-                        tools:text="Pengikut 20"/>
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/btn_edit_profile"
-                    style="@style/TextView.Paragraph"
+                <ImageView
+                    android:id="@+id/btn_notification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:text="@string/txt_edit_profile"
-                    android:layout_marginStart="15dp"/>
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:src="@drawable/ic_chat_white"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/cd_icon_chat"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
-        <TextView
-            android:id="@+id/tv_heading_1"
-            style="@style/TextView.Heading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Welcome xxxx!"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/group_header" />
+                <LinearLayout
+                    android:id="@+id/group_shop_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_brand">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/selling_notification"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:paddingHorizontal="20dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_heading_1">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_user_image"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/img_placeholder" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="15dp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_username"
+                            style="@style/TextView.Paragraph"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            tools:text="seller name" />
+
+                        <TextView
+                            style="@style/TextView.Paragraph"
+                            android:id="@+id/tv_shop_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:textColor="@color/white"
+                            tools:text="Pengikut 20"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/btn_edit_profile"
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:text="@string/txt_edit_profile"
+                        android:layout_marginStart="15dp"/>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tv_heading_2"
+                android:id="@+id/tv_heading_1"
+                style="@style/TextView.Heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/txt_sell_notif"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/orange_1"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                tools:text="Welcome xxxx!"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/group_header" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btn_unconfirmed_order"
+                android:id="@+id/selling_notification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/tv_heading_2">
-
-                <ImageView
-                    android:id="@+id/circle_1"
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/shape_orange_button"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    tools:ignore="ContentDescription" />
+                android:paddingHorizontal="20dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_heading_1">
 
                 <TextView
-                    android:id="@+id/tv_unconfirmed_order"
-                    style="@style/TextView.Paragraph"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    tools:text="12"
+                    android:id="@+id/tv_heading_2"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:text="@string/txt_sell_notif"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:textAlignment="center"
-                    app:layout_constraintBottom_toBottomOf="@id/circle_1"
-                    app:layout_constraintEnd_toEndOf="@id/circle_1"
-                    app:layout_constraintStart_toStartOf="@+id/circle_1"
-                    app:layout_constraintTop_toTopOf="@+id/circle_1"/>
+                    android:textColor="@color/orange_1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    style="@style/TextView.Paragraph"
-                    android:layout_width="0dp"
-                    android:layout_weight="7"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_unconfirmed_order"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="14sp"
-                    android:layout_marginStart="20dp"
-                    android:text="@string/txt_unconfirmed_order"
-                    app:layout_constraintStart_toEndOf="@id/tv_unconfirmed_order"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_heading_2">
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    <ImageView
+                        android:id="@+id/circle_1"
+                        android:layout_width="50dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/shape_orange_button"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/tv_unconfirmed_order"
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="12"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        app:layout_constraintBottom_toBottomOf="@id/circle_1"
+                        app:layout_constraintEnd_toEndOf="@id/circle_1"
+                        app:layout_constraintStart_toStartOf="@+id/circle_1"
+                        app:layout_constraintTop_toTopOf="@+id/circle_1"/>
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="0dp"
+                        android:layout_weight="7"
+                        android:layout_height="wrap_content"
+                        android:textColor="?android:textColorPrimary"
+                        android:textSize="14sp"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/txt_unconfirmed_order"
+                        app:layout_constraintStart_toEndOf="@id/tv_unconfirmed_order"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_next_thin"
+                        tools:ignore="ContentDescription"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.example.rentstyle.ui.customview.CustomDividerBold
+                    android:id="@+id/divider_1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_next_thin"
                     tools:ignore="ContentDescription"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/btn_unconfirmed_order">
+                </com.example.rentstyle.ui.customview.CustomDividerBold>
 
-            <com.example.rentstyle.ui.customview.CustomDividerBold
-                android:id="@+id/divider_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="ContentDescription"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@id/btn_unconfirmed_order">
-            </com.example.rentstyle.ui.customview.CustomDividerBold>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_unshipping_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/divider_1">
+
+                    <ImageView
+                        android:id="@+id/circle_2"
+                        android:layout_width="50dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/shape_orange_button"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/tv_unshipping_order"
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="12"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        app:layout_constraintEnd_toEndOf="@+id/circle_2"
+                        app:layout_constraintBottom_toBottomOf="@+id/circle_2"
+                        app:layout_constraintStart_toStartOf="@+id/circle_2"
+                        app:layout_constraintTop_toTopOf="@+id/circle_2"/>
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="0dp"
+                        android:layout_weight="7"
+                        android:layout_height="wrap_content"
+                        android:textColor="?android:textColorPrimary"
+                        android:textSize="14sp"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/txt_unship"
+                        app:layout_constraintStart_toEndOf="@id/tv_unshipping_order"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_next_thin"
+                        tools:ignore="ContentDescription"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.example.rentstyle.ui.customview.CustomDividerBold
+                    android:id="@+id/divider_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="ContentDescription"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/btn_unshipping_order">
+                </com.example.rentstyle.ui.customview.CustomDividerBold>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_rented_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/divider_2">
+
+                    <ImageView
+                        android:id="@+id/circle_3"
+                        android:layout_width="50dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/shape_orange_button"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/tv_rented_order"
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="12"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        app:layout_constraintEnd_toEndOf="@+id/circle_3"
+                        app:layout_constraintBottom_toBottomOf="@+id/circle_3"
+                        app:layout_constraintStart_toStartOf="@+id/circle_3"
+                        app:layout_constraintTop_toTopOf="@+id/circle_3"/>
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="0dp"
+                        android:layout_weight="7"
+                        android:layout_height="wrap_content"
+                        android:textColor="?android:textColorPrimary"
+                        android:textSize="14sp"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/txt_rented_product"
+                        app:layout_constraintStart_toEndOf="@+id/tv_rented_order"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_next_thin"
+                        tools:ignore="ContentDescription"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.example.rentstyle.ui.customview.CustomDividerBold
+                    android:id="@+id/divider_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="ContentDescription"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/btn_rented_order">
+                </com.example.rentstyle.ui.customview.CustomDividerBold>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_returned_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/divider_3">
+
+                    <ImageView
+                        android:id="@+id/circle_4"
+                        android:layout_width="50dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/shape_orange_button"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/tv_returned_order"
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="12"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        app:layout_constraintEnd_toEndOf="@+id/circle_4"
+                        app:layout_constraintBottom_toBottomOf="@+id/circle_4"
+                        app:layout_constraintStart_toStartOf="@+id/circle_4"
+                        app:layout_constraintTop_toTopOf="@+id/circle_4"/>
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="0dp"
+                        android:layout_weight="7"
+                        android:layout_height="wrap_content"
+                        android:textColor="?android:textColorPrimary"
+                        android:textSize="14sp"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/txt_not_returned"
+                        app:layout_constraintStart_toEndOf="@+id/tv_returned_order"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_next_thin"
+                        tools:ignore="ContentDescription"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.example.rentstyle.ui.customview.CustomDividerBold
+                    android:id="@+id/divider_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="ContentDescription"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/btn_returned_order">
+                </com.example.rentstyle.ui.customview.CustomDividerBold>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btn_unshipping_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@id/divider_1">
-
-                <ImageView
-                    android:id="@+id/circle_2"
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/shape_orange_button"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    tools:ignore="ContentDescription" />
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/selling_notification">
 
                 <TextView
-                    android:id="@+id/tv_unshipping_order"
-                    style="@style/TextView.Paragraph"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    tools:text="12"
+                    android:id="@+id/tv_heading_3"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:text="@string/txt_seller_menu"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="@+id/circle_2"
-                    app:layout_constraintBottom_toBottomOf="@+id/circle_2"
-                    app:layout_constraintStart_toStartOf="@+id/circle_2"
-                    app:layout_constraintTop_toTopOf="@+id/circle_2"/>
-
-                <TextView
-                    style="@style/TextView.Paragraph"
-                    android:layout_width="0dp"
-                    android:layout_weight="7"
-                    android:layout_height="wrap_content"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="14sp"
+                    android:textColor="@color/orange_1"
                     android:layout_marginStart="20dp"
-                    android:text="@string/txt_unship"
-                    app:layout_constraintStart_toEndOf="@id/tv_unshipping_order"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_seller_product"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_next_thin"
+                    android:layout_marginTop="15dp"
+                    android:paddingHorizontal="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_heading_3">
+
+                    <ImageView
+                        android:id="@+id/iv_shop_icon"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_shop_2"
+                        tools:ignore="ContentDescription"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="0dp"
+                        android:layout_weight="7"
+                        android:layout_height="wrap_content"
+                        android:textColor="?android:textColorPrimary"
+                        android:textSize="14sp"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/txt_all_product"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_shop_icon"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_next"
+                        tools:ignore="ContentDescription"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.example.rentstyle.ui.customview.CustomDividerBold
+                    android:id="@+id/divider_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     tools:ignore="ContentDescription"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/btn_seller_product">
+                </com.example.rentstyle.ui.customview.CustomDividerBold>
 
-            <com.example.rentstyle.ui.customview.CustomDividerBold
-                android:id="@+id/divider_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="ContentDescription"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@id/btn_unshipping_order">
-            </com.example.rentstyle.ui.customview.CustomDividerBold>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btn_rented_order"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@id/divider_2">
-
-                <ImageView
-                    android:id="@+id/circle_3"
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/shape_orange_button"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/tv_rented_order"
-                    style="@style/TextView.Paragraph"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    tools:text="12"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_add_product"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="@+id/circle_3"
-                    app:layout_constraintBottom_toBottomOf="@+id/circle_3"
-                    app:layout_constraintStart_toStartOf="@+id/circle_3"
-                    app:layout_constraintTop_toTopOf="@+id/circle_3"/>
+                    android:layout_marginTop="5dp"
+                    android:paddingHorizontal="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/divider_5">
 
-                <TextView
-                    style="@style/TextView.Paragraph"
-                    android:layout_width="0dp"
-                    android:layout_weight="7"
-                    android:layout_height="wrap_content"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="14sp"
-                    android:layout_marginStart="20dp"
-                    android:text="@string/txt_rented_product"
-                    app:layout_constraintStart_toEndOf="@+id/tv_rented_order"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    <ImageView
+                        android:id="@+id/iv_product_icon"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_add_product"
+                        tools:ignore="ContentDescription"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="0dp"
+                        android:layout_weight="7"
+                        android:layout_height="wrap_content"
+                        android:textColor="?android:textColorPrimary"
+                        android:textSize="14sp"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/txt_add_new_product"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_product_icon"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_next"
+                        tools:ignore="ContentDescription"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.example.rentstyle.ui.customview.CustomDividerBold
+                    android:id="@+id/divider_6"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_next_thin"
                     tools:ignore="ContentDescription"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/btn_add_product">
+                </com.example.rentstyle.ui.customview.CustomDividerBold>
 
-            <com.example.rentstyle.ui.customview.CustomDividerBold
-                android:id="@+id/divider_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="ContentDescription"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@id/btn_rented_order">
-            </com.example.rentstyle.ui.customview.CustomDividerBold>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btn_returned_order"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@id/divider_3">
-
-                <ImageView
-                    android:id="@+id/circle_4"
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/shape_orange_button"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/tv_returned_order"
-                    style="@style/TextView.Paragraph"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    tools:text="12"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_seller_selling"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="@+id/circle_4"
-                    app:layout_constraintBottom_toBottomOf="@+id/circle_4"
-                    app:layout_constraintStart_toStartOf="@+id/circle_4"
-                    app:layout_constraintTop_toTopOf="@+id/circle_4"/>
+                    android:layout_marginTop="5dp"
+                    android:paddingHorizontal="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/divider_6">
 
-                <TextView
-                    style="@style/TextView.Paragraph"
-                    android:layout_width="0dp"
-                    android:layout_weight="7"
-                    android:layout_height="wrap_content"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="14sp"
-                    android:layout_marginStart="20dp"
-                    android:text="@string/txt_not_returned"
-                    app:layout_constraintStart_toEndOf="@+id/tv_returned_order"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    <ImageView
+                        android:id="@+id/iv_selling_icon"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_sell"
+                        tools:ignore="ContentDescription"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="0dp"
+                        android:layout_weight="7"
+                        android:layout_height="wrap_content"
+                        android:textColor="?android:textColorPrimary"
+                        android:textSize="14sp"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/txt_selling_results"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_selling_icon"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_next"
+                        tools:ignore="ContentDescription"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.example.rentstyle.ui.customview.CustomDividerBold
+                    android:id="@+id/divider_7"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_next_thin"
                     tools:ignore="ContentDescription"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/btn_seller_selling">
+                </com.example.rentstyle.ui.customview.CustomDividerBold>
 
-            <com.example.rentstyle.ui.customview.CustomDividerBold
-                android:id="@+id/divider_4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="ContentDescription"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@id/btn_returned_order">
-            </com.example.rentstyle.ui.customview.CustomDividerBold>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_seller_wallet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:paddingHorizontal="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/divider_7">
+
+                    <ImageView
+                        android:id="@+id/iv_seller_wallet"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_wallet"
+                        tools:ignore="ContentDescription"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        style="@style/TextView.Paragraph"
+                        android:layout_width="0dp"
+                        android:layout_weight="7"
+                        android:layout_height="wrap_content"
+                        android:textColor="?android:textColorPrimary"
+                        android:textSize="14sp"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/txt_seller_wallet"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_seller_wallet"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_next"
+                        tools:ignore="ContentDescription"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.example.rentstyle.ui.customview.CustomDividerBold
+                    android:id="@+id/divider_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="ContentDescription"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/btn_seller_wallet">
+                </com.example.rentstyle.ui.customview.CustomDividerBold>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            app:layout_constraintTop_toBottomOf="@id/selling_notification">
-
-            <TextView
-                android:id="@+id/tv_heading_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_seller_menu"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/orange_1"
-                android:layout_marginStart="20dp"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btn_seller_product"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:paddingHorizontal="20dp"
-                app:layout_constraintTop_toBottomOf="@id/tv_heading_3">
-
-                <ImageView
-                    android:id="@+id/iv_shop_icon"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_shop_2"
-                    tools:ignore="ContentDescription"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <TextView
-                    style="@style/TextView.Paragraph"
-                    android:layout_width="0dp"
-                    android:layout_weight="7"
-                    android:layout_height="wrap_content"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="14sp"
-                    android:layout_marginStart="20dp"
-                    android:text="@string/txt_all_product"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iv_shop_icon"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_next"
-                    tools:ignore="ContentDescription"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <com.example.rentstyle.ui.customview.CustomDividerBold
-                android:id="@+id/divider_5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="ContentDescription"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/btn_seller_product">
-            </com.example.rentstyle.ui.customview.CustomDividerBold>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btn_add_product"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:paddingHorizontal="20dp"
-                app:layout_constraintTop_toBottomOf="@id/divider_5">
-
-                <ImageView
-                    android:id="@+id/iv_product_icon"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_add_product"
-                    tools:ignore="ContentDescription"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <TextView
-                    style="@style/TextView.Paragraph"
-                    android:layout_width="0dp"
-                    android:layout_weight="7"
-                    android:layout_height="wrap_content"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="14sp"
-                    android:layout_marginStart="20dp"
-                    android:text="@string/txt_add_new_product"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iv_product_icon"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_next"
-                    tools:ignore="ContentDescription"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <com.example.rentstyle.ui.customview.CustomDividerBold
-                android:id="@+id/divider_6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="ContentDescription"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/btn_add_product">
-            </com.example.rentstyle.ui.customview.CustomDividerBold>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btn_seller_selling"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:paddingHorizontal="20dp"
-                app:layout_constraintTop_toBottomOf="@id/divider_6">
-
-                <ImageView
-                    android:id="@+id/iv_selling_icon"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_sell"
-                    tools:ignore="ContentDescription"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <TextView
-                    style="@style/TextView.Paragraph"
-                    android:layout_width="0dp"
-                    android:layout_weight="7"
-                    android:layout_height="wrap_content"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="14sp"
-                    android:layout_marginStart="20dp"
-                    android:text="@string/txt_selling_results"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iv_selling_icon"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_next"
-                    tools:ignore="ContentDescription"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <com.example.rentstyle.ui.customview.CustomDividerBold
-                android:id="@+id/divider_7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="ContentDescription"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/btn_seller_selling">
-            </com.example.rentstyle.ui.customview.CustomDividerBold>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btn_seller_wallet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:paddingHorizontal="20dp"
-                app:layout_constraintTop_toBottomOf="@id/divider_7">
-
-                <ImageView
-                    android:id="@+id/iv_seller_wallet"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_wallet"
-                    tools:ignore="ContentDescription"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <TextView
-                    style="@style/TextView.Paragraph"
-                    android:layout_width="0dp"
-                    android:layout_weight="7"
-                    android:layout_height="wrap_content"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="14sp"
-                    android:layout_marginStart="20dp"
-                    android:text="@string/txt_seller_wallet"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iv_seller_wallet"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_next"
-                    tools:ignore="ContentDescription"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <com.example.rentstyle.ui.customview.CustomDividerBold
-                android:id="@+id/divider_8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="ContentDescription"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/btn_seller_wallet">
-            </com.example.rentstyle.ui.customview.CustomDividerBold>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/iv_loading_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:SpinKit_Color="@color/orange_1"
+        style="@style/SpinKitView.Large"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

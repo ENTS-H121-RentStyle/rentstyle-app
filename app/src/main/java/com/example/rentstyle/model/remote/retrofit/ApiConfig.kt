@@ -16,15 +16,12 @@ class ApiConfig {
             )
 
             val authInterceptor = Interceptor { chain ->
-                val requestBuilder = chain.request().newBuilder()
-                val urlPath = chain.request().url.encodedPath
+                val req = chain.request()
+                val requestHeaders = req.newBuilder()
+                    .addHeader("Authorization", "Bearer $token")
+                    .build()
 
-                if (urlPath.contains("/product")) {
-                    requestBuilder.addHeader("Authorization", "Sudah izin pada Wildan dan Yoga")
-                } else {
-                    requestBuilder.addHeader("Authorization", "Bearer $token")
-                }
-                chain.proceed(requestBuilder.build())
+                chain.proceed(requestHeaders)
             }
 
             val client = OkHttpClient.Builder()

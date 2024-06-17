@@ -1,66 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.SellerRegisterFragment">
+    tools:context=".ui.fragment.EditSellerProfileFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_brand_image"
-                android:layout_width="250dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_brand"
-                android:layout_marginTop="80dp"
-                app:layout_constraintTop_toTopOf="parent"
+            <include
+                android:id="@+id/main_toolbar"
+                layout="@layout/toolbar" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/shop_image"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="40dp"
+                app:cardCornerRadius="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:contentDescription="@string/cd_brand_logo" />
+                app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
-            <TextView
-                style="@style/TextView.Paragraph"
-                android:id="@+id/tb_brand_slogan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="@string/welcome_msg"
-                android:textAlignment="center"
-                android:layout_marginHorizontal="20dp"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="20sp"
-                app:layout_constraintTop_toBottomOf="@id/iv_brand_image"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <TextView
-                android:id="@+id/tv_register"
-                style="@style/TextView.Heading"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_seller_registration_heading"
-                android:textAlignment="center"
-                android:textStyle="bold"
-                android:textSize="32sp"
-                android:textColor="?android:textColorPrimary"
-                android:layout_marginTop="60dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tb_brand_slogan"/>
+                <ImageView
+                    android:id="@+id/iv_shop_image"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:src="@drawable/ic_add_photo"
+                    android:scaleType="centerCrop"
+                    tools:ignore="ContentDescription" />
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/tv_shop_name"
@@ -68,11 +45,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/txt_shop_name"
                 android:textSize="16sp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="30dp"
                 android:textStyle="bold"
                 android:layout_marginStart="30dp"
                 android:textColor="?android:textColorPrimary"
-                app:layout_constraintTop_toBottomOf="@+id/tv_register"
+                app:layout_constraintTop_toBottomOf="@+id/shop_image"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -168,39 +145,11 @@
                     tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/tv_shop_city"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_shop_city"
-                android:textSize="16sp"
-                android:layout_marginTop="20dp"
-                android:textStyle="bold"
-                android:layout_marginStart="30dp"
-                android:textColor="?android:textColorPrimary"
-                app:layout_constraintTop_toBottomOf="@+id/input_shop_desc"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-            <Spinner
-                android:id="@+id/spinner_shop_city"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:background="@drawable/rounded_rect"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
-                android:layout_marginHorizontal="25dp"
-                android:paddingHorizontal="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_shop_city">
-            </Spinner>
-
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_register"
+                android:id="@+id/btn_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/register"
+                android:text="@string/txt_update"
                 android:textColor="@color/white"
                 android:fontFamily="@font/inter_regular"
                 android:textStyle="bold"
@@ -210,11 +159,11 @@
                 android:layout_marginHorizontal="30dp"
                 android:background="@drawable/shape_orange_button"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/spinner_shop_city"
+                app:layout_constraintTop_toBottomOf="@id/input_shop_desc"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/iv_loading_spinner"

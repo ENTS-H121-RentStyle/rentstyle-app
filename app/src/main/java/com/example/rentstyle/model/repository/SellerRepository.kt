@@ -14,6 +14,7 @@ class SellerRepository private constructor(
     private val apiService: ApiService,
 ){
     private val sellerResultData = MediatorLiveData<DataResult<SellerResponseData>>()
+    private val statusResult = MediatorLiveData<StatusResult>()
 
     suspend fun getSellerData (userId: String): LiveData<DataResult<SellerResponseData>> {
         sellerResultData.value = DataResult.Loading
@@ -60,6 +61,27 @@ class SellerRepository private constructor(
         }
 
         return sellerResultData
+    }
+
+    suspend fun updateSellerProfile (sellerId: String,
+                                     sellerName: RequestBody,
+                                     address: RequestBody,
+                                     desc: RequestBody): LiveData<StatusResult> {
+        statusResult.value = StatusResult.Loading
+
+        try {
+            val response = apiService.updateSellerData(sellerId, sellerName, address, desc)
+
+            if (response.code() == 200) {
+                statusResult.value = StatusResult.Success("Success update seller data")
+            } else {
+                statusResult.value = StatusResult.Error("Failed update seller data")
+            }
+        } catch (e: Exception) {
+            statusResult.value = StatusResult.Error(e.toString())
+        }
+
+        return statusResult
     }
 
     companion object {

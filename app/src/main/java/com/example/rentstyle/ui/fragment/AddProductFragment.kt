@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -29,6 +30,7 @@ import com.bumptech.glide.Glide
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentAddProductBinding
 import com.example.rentstyle.helpers.CacheImageManager
+import com.example.rentstyle.helpers.CacheImageManager.clearTempImages
 import com.example.rentstyle.helpers.ImageFileHelper.reduceFileImage
 import com.example.rentstyle.helpers.ImageFileHelper.uriToFile
 import com.example.rentstyle.helpers.ProductHelpers.getCategoryValue
@@ -37,6 +39,7 @@ import com.example.rentstyle.helpers.ProductHelpers.getProductSize
 import com.example.rentstyle.helpers.StatusResult
 import com.example.rentstyle.viewmodel.AddProductViewModel
 import com.example.rentstyle.viewmodel.ProductViewModelFactory
+import com.github.ybq.android.spinkit.style.WanderingCubes
 import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
@@ -149,13 +152,6 @@ class AddProductFragment : Fragment() {
         setUpProductSize()
         prepareUploadBody()
 
-//        uploadButton.setOnClickListener {
-//            findNavController().navigate(AddProductFragmentDirections.actionNavigationAddProductToNavigationSellerDashboard(""))
-//            clearTempImages(requireContext())
-//            Glide.with(requireContext())
-//                .clear(binding.ivProductImage)
-//        }
-
         return binding.root
     }
 
@@ -180,11 +176,11 @@ class AddProductFragment : Fragment() {
 
         viewModel.sizeLiveData.observe(requireActivity()) {
             when (it) {
-                getProductSize(requireContext())[0] -> inputProductsSize.setSelection(0)
-                getProductSize(requireContext())[1] -> inputProductsSize.setSelection(1)
-                getProductSize(requireContext())[2] -> inputProductsSize.setSelection(2)
-                getProductSize(requireContext())[3] -> inputProductsSize.setSelection(3)
-                getProductSize(requireContext())[4] -> inputProductsSize.setSelection(4)
+                getProductSize()[0] -> inputProductsSize.setSelection(0)
+                getProductSize()[1] -> inputProductsSize.setSelection(1)
+                getProductSize()[2] -> inputProductsSize.setSelection(2)
+                getProductSize()[3] -> inputProductsSize.setSelection(3)
+                getProductSize()[4] -> inputProductsSize.setSelection(4)
             }
         }
 
@@ -209,7 +205,7 @@ class AddProductFragment : Fragment() {
         val adapter: ArrayAdapter<String> = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
-            getProductSize(requireContext())
+            getProductSize()
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         inputProductsSize.adapter = adapter
@@ -251,6 +247,11 @@ class AddProductFragment : Fragment() {
         }
 
         uploadButton.setOnClickListener {
+            binding.ivLoadingSpinner.apply {
+                isVisible = true
+                setIndeterminateDrawable(WanderingCubes())
+            }
+
             val productName = inputProductsName.text.toString()
             val productColor = inputProductsColor.text.toString()
             val productDesc = inputProductsDesc.text.toString()
@@ -259,8 +260,9 @@ class AddProductFragment : Fragment() {
 
             if (productName.isNotEmpty() && productColor.isNotEmpty() && currentImageUri != Uri.EMPTY
                 && productDesc.isNotEmpty() && productRentPrice.isNotEmpty()
-                && productPrice.isNotEmpty() && productCategory != ""
-                && productSize != "" && viewModel.sellerIdLiveData.value?.isNotEmpty() == true ){
+                && productPrice.isNotEmpty() && productCategory != "" && productCategory != getProductCategory(requireContext())[0]
+                && productSize != "" && productSize != getProductSize()[0]
+                && viewModel.sellerIdLiveData.value?.isNotEmpty() == true ) {
 
                 try {
                     val bodyProductName = productName.toRequestBody("text/plain".toMediaType())
@@ -278,18 +280,21 @@ class AddProductFragment : Fragment() {
 
                     val bodyProductColor = productColor.toRequestBody("text/plain".toMediaType())
                     val bodyProductDesc = productDesc.toRequestBody("text/plain".toMediaType())
-                    val bodyProductRentPrice = productRentPrice.toRequestBody("text/plain".toMediaType())
-                    val bodyProductPrice = productPrice.toRequestBody("text/plain".toMediaType())
+                    val bodyProductRentPrice = productRentPrice.toInt().toString().toRequestBody("text/plain".toMediaType())
+                    val bodyProductPrice = productPrice.toInt().toString().toRequestBody("text/plain".toMediaType())
 
                     uploadNewProduct(bodyProductName, bodySellerId, bodyProductCategory,
                         bodyProductSize, multipartBody, bodyProductColor, bodyProductDesc,
                         bodyProductRentPrice, bodyProductPrice)
 
                 } catch (e: Exception) {
-                    Toast.makeText(requireContext(), "Invalid product rent price / product price", Toast.LENGTH_SHORT).show()
+                    binding.ivLoadingSpinner.isVisible = false
+                    Toast.makeText(requireContext(), "Invalid product size / category", Toast.LENGTH_SHORT).show()
                 }
+            } else {
+                binding.ivLoadingSpinner.isVisible = false
+                Toast.makeText(requireContext(), "All fields must be filled!", Toast.LENGTH_SHORT).show()
             }
-
         }
     }
 
@@ -311,18 +316,24 @@ class AddProductFragment : Fragment() {
                             is StatusResult.Loading -> {}
 
                             is StatusResult.Success -> {
+                                binding.ivLoadingSpinner.isVisible = false
                                 Toast.makeText(requireContext(), result.success, Toast.LENGTH_SHORT).show()
 
                                 if (run) {
-                                    findNavController().navigate(AddProductFragmentDirections.actionNavigationAddProductToNavigationSellerDashboard())
+                                    clearTempImages(requireContext())
+                                    Glide.with(requireContext())
+                                        .clear(binding.ivProductImage)
+                                    findNavController().navigateUp()
                                 }
                             }
 
                             is StatusResult.Error -> {
+                                binding.ivLoadingSpinner.isVisible = false
                                 Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                             }
                         }
                     } else {
+                        binding.ivLoadingSpinner.isVisible = false
                         Toast.makeText(requireContext(), "Error upload new product", Toast.LENGTH_SHORT).show()
                     }
             }

@@ -139,6 +139,7 @@
 
                 <TextView
                     style="@style/TextView.Paragraph"
+                    android:id="@+id/tv_btn_user_shop"
                     android:layout_width="0dp"
                     android:layout_weight="6"
                     android:layout_height="wrap_content"
@@ -146,7 +147,7 @@
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:layout_marginStart="10dp"
-                    android:text="@string/txt_join_us"/>
+                    tools:text="@string/txt_join_us"/>
 
                 <ImageView
                     android:layout_width="0dp"

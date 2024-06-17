@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -17,6 +18,7 @@ import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
 import com.example.rentstyle.viewmodel.SellerViewModel
 import com.example.rentstyle.viewmodel.SellerViewModelFactory
+import com.github.ybq.android.spinkit.style.WanderingCubes
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -41,6 +43,10 @@ class SellerDashboardFragment : Fragment() {
 
         getSellerData()
 
+        binding.btnEditProfile.setOnClickListener {
+            findNavController().navigate(SellerDashboardFragmentDirections.actionNavigationSellerDashboardToNavigationEditSellerProfile())
+        }
+
         binding.btnSellerSelling.setOnClickListener {
             Toast.makeText(requireContext(), "Feature is not available yet", Toast.LENGTH_SHORT).show()
         }
@@ -53,15 +59,22 @@ class SellerDashboardFragment : Fragment() {
     }
 
     private fun getSellerData() {
+        binding.ivLoadingSpinner.apply {
+            isVisible = true
+            setIndeterminateDrawable(WanderingCubes())
+        }
+        
         viewLifecycleOwner.lifecycleScope.launch {
             val userId = pref.getUserId().first().toString()
 
             viewModel.getSellerData(userId).observe(viewLifecycleOwner) { result ->
                 if (result != null) {
                     when (result) {
-                        is DataResult.Loading -> { }
+                        is DataResult.Loading -> {}
 
                         is DataResult.Success -> {
+                            binding.ivLoadingSpinner.isVisible = false
+
                             if (result.data.sellerName?.isNotEmpty() == true) {
                                 binding.tvUsername.text = result.data.sellerName
                                 binding.tvHeading1.text = "Welcome ${result.data.sellerName}"
@@ -73,6 +86,7 @@ class SellerDashboardFragment : Fragment() {
                         }
 
                         is DataResult.Error -> {
+                            binding.ivLoadingSpinner.isVisible = false
                             Toast.makeText(requireContext(), getString(R.string.error_toast, result.error), Toast.LENGTH_SHORT).show()
                         }
                     }

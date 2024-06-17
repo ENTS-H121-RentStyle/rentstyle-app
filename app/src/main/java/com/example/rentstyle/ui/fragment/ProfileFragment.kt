@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentProfileBinding
 import com.example.rentstyle.helpers.DataResult
@@ -19,6 +22,8 @@ import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
 import com.example.rentstyle.viewmodel.ProfileViewModel
 import com.example.rentstyle.viewmodel.SellerViewModelFactory
+import com.example.rentstyle.viewmodel.UserViewModel
+import com.example.rentstyle.viewmodel.UserViewModelFactory
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -27,6 +32,10 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding
 
     private lateinit var viewModel: ProfileViewModel
+
+    private val userViewModel: UserViewModel by activityViewModels {
+        UserViewModelFactory.getInstance(this.requireActivity().application)
+    }
 
     private lateinit var filterAdapter : RecyclerFilterAdapter
     private lateinit var orderListAdapter : RecyclerDummyOrderAdapter
@@ -46,6 +55,16 @@ class ProfileFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
 
         pref = LoginSession.getInstance(requireActivity().application.dataStore)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            if (pref.getSellerId().first() != null && pref.getSellerId().first() != "null") {
+                binding.tvBtnUserShop.text = getString(R.string.txt_shop_dashboard)
+            } else {
+                binding.tvBtnUserShop.text = getString(R.string.txt_join_us)
+            }
+        }
+
+        setUserProfile()
 
         val filterData = FilterModel.getOrderFilter()
         filterAdapter = RecyclerFilterAdapter(filterData)
@@ -82,6 +101,50 @@ class ProfileFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun setUserProfile() {
+
+            if (userViewModel.userData.value!!.isEmpty()) {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    userViewModel.getUserProfile().observe(viewLifecycleOwner) { result ->
+                        if (result != null) {
+                            when (result) {
+                                is DataResult.Loading -> { }
+
+                                is DataResult.Success -> {
+                                    val data = result.data
+                                    userViewModel.userData.value = arrayListOf(data.name, data.image)
+
+                                    updateUserProfile(data.name, data.image)
+                                    binding.btnEditProfile.setOnClickListener {
+                                        findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationEditUserProfile())
+                                    }
+                                }
+
+                                is DataResult.Error -> {
+                                    Toast.makeText(requireContext(), getString(R.string.error_toast, result.error), Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                val data = userViewModel.userData.value
+                updateUserProfile(data?.get(0), data?.get(1))
+                binding.btnEditProfile.setOnClickListener {
+                    findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationEditUserProfile())
+                }
+        }
+    }
+
+    private fun updateUserProfile (name: String?, image: String?) {
+        if (image != null) {
+            Glide.with(requireContext())
+                .load(image)
+                .into(binding.ivUserImage)
+        }
+        binding.tvUsername.text = name
     }
 
     private fun checkUser() {

@@ -16,20 +16,26 @@ object ProductHelpers {
     }
 
     fun getCategoryValue(category: String): String {
-        return if (category == "Traditional sets" || category == "Setelan adat") {
-            "Adat"
-        } else if (category == "Party sets" || category == "Setelan pesta") {
-            "Pesta"
-        } else if (category == "Formal sets" || category == "Setelan formal") {
-            "Formal"
-        } else if (category == "Character cosplay sets" || category == "Setelan cosplay karakter") {
-            "Cosplay"
-        } else {
-            "Default"
+        return when (category) {
+            "Traditional sets", "Setelan adat" -> {
+                "Adat"
+            }
+            "Party sets", "Setelan pesta" -> {
+                "Pesta"
+            }
+            "Formal sets", "Setelan formal" -> {
+                "Formal"
+            }
+            "Character cosplay sets", "Setelan cosplay karakter" -> {
+                "Cosplay"
+            }
+            else -> {
+                ""
+            }
         }
     }
 
-    fun getProductSize (context: Context): List<String> {
+    fun getProductSize (): List<String> {
         return arrayListOf("Choose", "S", "M", "L", "XL")
     }
 }

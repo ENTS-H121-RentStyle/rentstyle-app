@@ -8,4 +8,10 @@ import okhttp3.RequestBody
 
 class SellerViewModel (private val sellerRepository: SellerRepository): ViewModel() {
     suspend fun getSellerData(userId: String) = sellerRepository.getSellerData(userId)
+
+    suspend fun updateSellerProfile(sellerId: String,
+                                    sellerName: RequestBody,
+                                    address: RequestBody,
+                                    desc: RequestBody) = sellerRepository
+                                        .updateSellerProfile(sellerId, sellerName, address, desc)
 }

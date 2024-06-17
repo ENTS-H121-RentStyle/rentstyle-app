@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.rentstyle.di.Injection
 import com.example.rentstyle.model.repository.ProductRepository
 import com.example.rentstyle.model.repository.SellerRepository
+import com.example.rentstyle.model.repository.UserRepository
 
 class SellerViewModelFactory private constructor(private val sellerRepository: SellerRepository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -55,4 +56,27 @@ class ProductViewModelFactory private constructor(private val productRepository:
                     instance ?: ProductViewModelFactory(Injection.provideProductRepository(context))
                 }.also { instance = it }
         }
+}
+
+class UserViewModelFactory private constructor(private val userRepository: UserRepository) :
+    ViewModelProvider.NewInstanceFactory() {
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
+            return UserViewModel(userRepository) as T
+        }
+
+        throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
+    }
+
+    companion object {
+
+        @Volatile
+        private var instance: UserViewModelFactory? = null
+        fun getInstance (context: Context): UserViewModelFactory =
+            instance ?: synchronized(this) {
+                instance ?: UserViewModelFactory(Injection.provideUserRepository(context))
+            }.also { instance = it }
+    }
 }

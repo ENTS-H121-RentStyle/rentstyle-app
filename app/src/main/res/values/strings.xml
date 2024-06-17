@@ -204,4 +204,15 @@
     <string name="txt_seller_registration_heading">Seller registration</string>
 
     <string name="txt_choose">Choose</string>
+    <string name="txt_update">Update</string>
+    <string name="title_update_profile">Edit Profile</string>
+    <string name="txt_shop_dashboard">Shop dashboard</string>
+    <string name="txt_birth_date">Birth date</string>
+    <string name="txt_pick_a_date">Pick a date</string>
+    <string name="address">Address</string>
+    <string name="txt_phone_number">Phone number</string>
+    <string name="txt_62">+62</string>
+    <string name="txt_gender">Gender</string>
+    <string name="txt_male">Male</string>
+    <string name="txt_female">Female</string>
 </resources>

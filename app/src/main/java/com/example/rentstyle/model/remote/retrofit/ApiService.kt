@@ -5,6 +5,7 @@ import com.example.rentstyle.model.remote.response.Pref
 import com.example.rentstyle.model.remote.response.ProductDetailResponse
 import com.example.rentstyle.model.remote.response.SellerResponseData
 import com.example.rentstyle.model.remote.response.User
+import com.example.rentstyle.model.remote.response.UserResponseData
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -13,6 +14,7 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -78,4 +80,30 @@ interface ApiService {
         @Part("rent_price") rentPrice: RequestBody,
         @Part("product_price") productPrice: RequestBody
     ) : Response<Unit>
+
+    @Multipart
+    @PUT("seller/{sellerId}")
+    suspend fun updateSellerData (
+        @Path("sellerId") sellerId: String,
+        @Part("seller_name") sellerName: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("description") desc: RequestBody
+    ) : Response<Unit>
+
+    @Multipart
+    @PUT("user/{userId}")
+    suspend fun updateUserData (
+        @Path("userId") userId: String,
+        @Part("name") userName: RequestBody,
+        @Part("birth_date") birthDate: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part("gender") gender: RequestBody,
+        @Part file: MultipartBody.Part
+    ) : Response<Unit>
+
+    @GET("user/{userId}")
+    suspend fun getUserData(
+        @Path("userId") userId: String
+    ) : Response<UserResponseData>
 }

@@ -58,6 +58,9 @@
             android:id="@+id/action_navigation_profile_to_navigation_onboarding_seller"
             app:enterAnim="@anim/slide_in_right"
             app:destination="@id/navigation_onboarding_seller" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_edit_user_profile"
+            app:destination="@id/navigation_edit_user_profile" />
     </fragment>
 
     <fragment
@@ -140,6 +143,9 @@
         <action
             android:id="@+id/action_navigation_seller_dashboard_to_navigation_add_product"
             app:destination="@id/navigation_add_product" />
+        <action
+            android:id="@+id/action_navigation_seller_dashboard_to_navigation_edit_seller_profile"
+            app:destination="@id/navigation_edit_seller_profile" />
     </fragment>
 
     <fragment
@@ -149,9 +155,6 @@
         <action
             android:id="@+id/action_navigation_add_product_to_navigation_camera"
             app:destination="@id/navigation_camera" />
-        <action
-            android:id="@+id/action_navigation_add_product_to_navigation_seller_dashboard"
-            app:destination="@id/navigation_seller_dashboard" />
         <argument
             android:name="uri"
             app:argType="string"
@@ -185,4 +188,14 @@
             android:id="@+id/action_navigation_onboarding_seller_to_navigation_profile"
             app:destination="@id/navigation_profile" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_edit_seller_profile"
+        android:name="com.example.rentstyle.ui.fragment.EditSellerProfileFragment"
+        tools:layout="@layout/fragment_edit_seller_profile"/>
+
+    <fragment
+        android:id="@+id/navigation_edit_user_profile"
+        android:name="com.example.rentstyle.ui.fragment.EditUserProfileFragment"
+        tools:layout="@layout/fragment_edit_user_profile"/>
 </navigation>

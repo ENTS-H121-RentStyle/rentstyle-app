@@ -7,8 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -18,10 +22,13 @@ import com.example.rentstyle.databinding.FragmentSellerRegisterBinding
 import com.example.rentstyle.helpers.DataResult
 import com.example.rentstyle.helpers.ImageFileHelper.reduceFileImage
 import com.example.rentstyle.helpers.ImageFileHelper.uriToFile
+import com.example.rentstyle.helpers.ProductHelpers
+import com.example.rentstyle.helpers.SellerHelpers.getSellerCity
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
 import com.example.rentstyle.viewmodel.SellerRegisterViewModel
 import com.example.rentstyle.viewmodel.SellerViewModelFactory
+import com.github.ybq.android.spinkit.style.WanderingCubes
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
@@ -38,11 +45,12 @@ class SellerRegisterFragment : Fragment() {
     private lateinit var inputName: EditText
     private lateinit var inputAddress: EditText
     private lateinit var inputDesc: EditText
-    private lateinit var inputCity: EditText
+    private lateinit var inputCity: Spinner
 
     private lateinit var pref: LoginSession
     private lateinit var userId: String
     private var run = true
+    private var sellerCity = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +59,7 @@ class SellerRegisterFragment : Fragment() {
         _binding = FragmentSellerRegisterBinding.inflate(inflater, container, false)
 
         pref = LoginSession.getInstance(requireActivity().application.dataStore)
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             userId = pref.getUserId().first()!!
         }
 
@@ -59,22 +67,27 @@ class SellerRegisterFragment : Fragment() {
             inputName = edAddShopName
             inputAddress = edShopAddress
             inputDesc = edAddShopDesc
-            inputCity = edAddShopCity
+            inputCity = spinnerShopCity
         }
 
         val factory = SellerViewModelFactory.getInstance(this.requireActivity().application)
         viewModel = ViewModelProvider(this, factory)[SellerRegisterViewModel::class.java]
 
+        checkSpinner()
+
         binding.btnRegister.setOnClickListener {
+            binding.ivLoadingSpinner.apply {
+                isVisible = true
+                setIndeterminateDrawable(WanderingCubes())
+            }
+
             val name = inputName.text.toString()
             val address = inputAddress.text.toString()
             val desc = inputDesc.text.toString()
-            val city = inputCity.text.toString()
 
             if (name.isNotEmpty() &&
-                address.isNotEmpty() &&
-                desc.isNotEmpty() &&
-                city.isNotEmpty()) {
+                address.isNotEmpty() && desc.isNotEmpty() &&
+                sellerCity != "" && sellerCity != getSellerCity()[0]) {
 
                 val imageUri = getDrawableUri(requireContext(), R.drawable.img_placeholder)
                 val imageFile = uriToFile(imageUri, requireContext()).reduceFileImage()
@@ -89,7 +102,7 @@ class SellerRegisterFragment : Fragment() {
                 val bodyUserId = userId.toRequestBody("text/plain".toMediaType())
                 val bodyAddress = address.toRequestBody("text/plain".toMediaType())
                 val bodyDesc = desc.toRequestBody("text/plain".toMediaType())
-                val bodyCity = city.toRequestBody("text/plain".toMediaType())
+                val bodyCity = sellerCity.toRequestBody("text/plain".toMediaType())
 
                 viewLifecycleOwner.lifecycleScope.launch {
                     viewModel.registerSellerAccount(multipartBody,
@@ -100,6 +113,7 @@ class SellerRegisterFragment : Fragment() {
                                 is DataResult.Loading -> { }
 
                                 is DataResult.Success -> {
+                                    binding.ivLoadingSpinner.isVisible = false
                                     Toast.makeText(requireContext(), "Registering account is success", Toast.LENGTH_SHORT).show()
 
                                     lifecycleScope.launch {
@@ -113,6 +127,7 @@ class SellerRegisterFragment : Fragment() {
                                 }
 
                                 is DataResult.Error -> {
+                                    binding.ivLoadingSpinner.isVisible = false
                                     Toast.makeText(requireContext(), getString(R.string.error_toast, result.error), Toast.LENGTH_SHORT).show()
                                 }
                             }
@@ -121,11 +136,38 @@ class SellerRegisterFragment : Fragment() {
                 }
 
             } else {
+                binding.ivLoadingSpinner.isVisible = false
                 Toast.makeText(requireContext(), "All fields must be filled!", Toast.LENGTH_SHORT).show()
             }
         }
 
         return binding.root
+    }
+
+    private fun checkSpinner() {
+        val adapter: ArrayAdapter<String> = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            getSellerCity()
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        inputCity.adapter = adapter
+
+        inputCity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                sellerCity = parent?.getItemAtPosition(position).toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                Toast.makeText(requireContext(), "Please select city location", Toast.LENGTH_SHORT).show()
+            }
+
+        }
     }
 
     private fun getDrawableUri(context: Context, drawableId: Int): Uri {
