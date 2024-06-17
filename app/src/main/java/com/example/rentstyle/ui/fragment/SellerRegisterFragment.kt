@@ -22,7 +22,6 @@ import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
 import com.example.rentstyle.viewmodel.SellerRegisterViewModel
 import com.example.rentstyle.viewmodel.SellerViewModelFactory
-import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
@@ -37,13 +36,9 @@ class SellerRegisterFragment : Fragment() {
     private lateinit var viewModel: SellerRegisterViewModel
 
     private lateinit var inputName: EditText
-    private lateinit var inputNameLayout: TextInputLayout
     private lateinit var inputAddress: EditText
-    private lateinit var inputAddressLayout: TextInputLayout
     private lateinit var inputDesc: EditText
-    private lateinit var inputDescLayout: TextInputLayout
     private lateinit var inputCity: EditText
-    private lateinit var inputCityLayout: TextInputLayout
 
     private lateinit var pref: LoginSession
     private lateinit var userId: String
@@ -62,13 +57,9 @@ class SellerRegisterFragment : Fragment() {
 
         binding.apply {
             inputName = edAddShopName
-            inputNameLayout = inputShopName
             inputAddress = edShopAddress
-            inputAddressLayout = inputShopAddress
             inputDesc = edAddShopDesc
-            inputDescLayout = inputShopDesc
             inputCity = edAddShopCity
-            inputCityLayout = inputShopCity
         }
 
         val factory = SellerViewModelFactory.getInstance(this.requireActivity().application)
@@ -112,13 +103,12 @@ class SellerRegisterFragment : Fragment() {
                                     Toast.makeText(requireContext(), "Registering account is success", Toast.LENGTH_SHORT).show()
 
                                     lifecycleScope.launch {
-                                        if (result.data.id?.isNotEmpty() == true)
-                                        pref.setSellerId(result.data.id)
+                                        if (result.data.id?.isNotEmpty() == true) pref.setSellerId(result.data.id)
                                     }
 
                                     if (run && result.data.id?.isNotEmpty() == true) {
                                         run = false
-                                        findNavController().navigate(OnBoardingSellerFragmentDirections.actionNavigationOnboardingSellerToNavigationSellerDashboard(result.data.id))
+                                        findNavController().navigate(OnBoardingSellerFragmentDirections.actionNavigationOnboardingSellerToNavigationSellerDashboard())
                                     }
                                 }
 

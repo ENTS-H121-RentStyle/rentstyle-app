@@ -35,6 +35,7 @@
     <string name="txt_new_product">New products</string>
     <string name="txt_product_rec">Recommendation for you</string>
     <string name="cd_fav_product">Favorite product</string>
+    <string name="title_add_product">Add Product</string>
 
     <!-- Pemesanan dan Pembayaran -->
     <string name="booking_and_payment">Pemesanan dan Pembayaran:</string>
@@ -136,7 +137,7 @@
     <string name="txt_description">Description</string>
     <string name="txt_rent_price">Rent price</string>
     <string name="txt_currency">Rp</string>
-    <string name="txt_product_price_optional">Product price (optional)</string>
+    <string name="txt_product_price">Product price</string>
     <string name="txt_pick_up_from">Pick up from</string>
     <string name="txt_camera">Camera</string>
     <string name="txt_gallery">Gallery</string>
@@ -201,4 +202,6 @@
     <string name="txt_shop_desc">Shop detail / description</string>
     <string name="txt_shop_address">Shop address</string>
     <string name="txt_seller_registration_heading">Seller registration</string>
+
+    <string name="txt_choose">Choose</string>
 </resources>

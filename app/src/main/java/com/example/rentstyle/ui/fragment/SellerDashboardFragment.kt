@@ -13,8 +13,11 @@ import androidx.navigation.fragment.navArgs
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentSellerDashboardBinding
 import com.example.rentstyle.helpers.DataResult
+import com.example.rentstyle.model.local.datastore.LoginSession
+import com.example.rentstyle.model.local.datastore.dataStore
 import com.example.rentstyle.viewmodel.SellerViewModel
 import com.example.rentstyle.viewmodel.SellerViewModelFactory
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class SellerDashboardFragment : Fragment() {
@@ -23,7 +26,7 @@ class SellerDashboardFragment : Fragment() {
 
     private lateinit var viewModel: SellerViewModel
 
-    private val args: SellerDashboardFragmentArgs by navArgs()
+    private lateinit var pref: LoginSession
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +36,8 @@ class SellerDashboardFragment : Fragment() {
 
         val factory = SellerViewModelFactory.getInstance(this.requireActivity().application)
         viewModel = ViewModelProvider(this, factory)[SellerViewModel::class.java]
+
+        pref = LoginSession.getInstance(requireActivity().application.dataStore)
 
         getSellerData()
 
@@ -44,17 +49,13 @@ class SellerDashboardFragment : Fragment() {
             Toast.makeText(requireContext(), "Feature is not available yet", Toast.LENGTH_SHORT).show()
         }
 
-        binding.btnAddProduct.setOnClickListener {
-            findNavController().navigate(SellerDashboardFragmentDirections.actionNavigationSellerDashboardToNavigationAddProduct(null))
-        }
-
         return binding.root
     }
 
     private fun getSellerData() {
-        val userId: String = args.id.ifEmpty { "" }
-
         viewLifecycleOwner.lifecycleScope.launch {
+            val userId = pref.getUserId().first().toString()
+
             viewModel.getSellerData(userId).observe(viewLifecycleOwner) { result ->
                 if (result != null) {
                     when (result) {
@@ -64,6 +65,10 @@ class SellerDashboardFragment : Fragment() {
                             if (result.data.sellerName?.isNotEmpty() == true) {
                                 binding.tvUsername.text = result.data.sellerName
                                 binding.tvHeading1.text = "Welcome ${result.data.sellerName}"
+                            }
+
+                            binding.btnAddProduct.setOnClickListener {
+                                findNavController().navigate(SellerDashboardFragmentDirections.actionNavigationSellerDashboardToNavigationAddProduct(uri = null, id = result.data.id))
                             }
                         }
 

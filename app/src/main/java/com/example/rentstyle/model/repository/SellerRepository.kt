@@ -14,7 +14,6 @@ class SellerRepository private constructor(
     private val apiService: ApiService,
 ){
     private val sellerResultData = MediatorLiveData<DataResult<SellerResponseData>>()
-    private val statusResult = MediatorLiveData<StatusResult>()
 
     suspend fun getSellerData (userId: String): LiveData<DataResult<SellerResponseData>> {
         sellerResultData.value = DataResult.Loading

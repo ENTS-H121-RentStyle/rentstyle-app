@@ -72,7 +72,7 @@ class ProfileFragment : Fragment() {
         binding.btnUserShop.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
                 if (pref.getSellerId().first() != null && pref.getSellerId().first() != "null") {
-                    findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationSellerDashboard(pref.getSellerId().first()!!))
+                    findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationSellerDashboard())
                 } else if (pref.getSellerId().first() == "null"){
                     findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationOnboardingSeller())
                 } else {
@@ -101,7 +101,7 @@ class ProfileFragment : Fragment() {
 
                             if (run) {
                                 run = false
-                                findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationSellerDashboard(result.data.id!!))
+                                findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationSellerDashboard())
                             }
                         }
 

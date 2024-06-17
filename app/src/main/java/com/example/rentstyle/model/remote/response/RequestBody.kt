@@ -15,7 +15,7 @@ data class User(
 
 data class Pref(
     @field:SerializedName("user_id")
-    val user_id: String,
+    val userId: String,
 
     @field:SerializedName("category")
     val category: List<String>,

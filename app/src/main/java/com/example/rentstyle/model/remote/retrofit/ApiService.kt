@@ -2,7 +2,6 @@ package com.example.rentstyle.model.remote.retrofit
 
 import com.example.rentstyle.model.Product
 import com.example.rentstyle.model.remote.response.Pref
-import com.example.rentstyle.model.remote.response.PrefResponse
 import com.example.rentstyle.model.remote.response.ProductDetailResponse
 import com.example.rentstyle.model.remote.response.SellerResponseData
 import com.example.rentstyle.model.remote.response.User
@@ -65,4 +64,18 @@ interface ApiService {
         @Part("description") desc: RequestBody,
         @Part("city") city: RequestBody
     ) : Response<SellerResponseData>
+
+    @Multipart
+    @POST("product")
+    suspend fun createNewProduct (
+        @Part("product_name") productName: RequestBody,
+        @Part("seller_id") sellerId: RequestBody,
+        @Part("category") category: RequestBody,
+        @Part("size") size: RequestBody,
+        @Part file: MultipartBody.Part,
+        @Part("color") color: RequestBody,
+        @Part("desc") desc: RequestBody,
+        @Part("rent_price") rentPrice: RequestBody,
+        @Part("product_price") productPrice: RequestBody
+    ) : Response<Unit>
 }

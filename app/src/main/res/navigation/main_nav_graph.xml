@@ -140,9 +140,6 @@
         <action
             android:id="@+id/action_navigation_seller_dashboard_to_navigation_add_product"
             app:destination="@id/navigation_add_product" />
-        <argument
-            android:name="id"
-            app:argType="string" />
     </fragment>
 
     <fragment
@@ -152,13 +149,17 @@
         <action
             android:id="@+id/action_navigation_add_product_to_navigation_camera"
             app:destination="@id/navigation_camera" />
+        <action
+            android:id="@+id/action_navigation_add_product_to_navigation_seller_dashboard"
+            app:destination="@id/navigation_seller_dashboard" />
         <argument
             android:name="uri"
             app:argType="string"
             app:nullable="true" />
-        <action
-            android:id="@+id/action_navigation_add_product_to_navigation_seller_dashboard"
-            app:destination="@id/navigation_seller_dashboard" />
+        <argument
+            android:name="id"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
     <fragment

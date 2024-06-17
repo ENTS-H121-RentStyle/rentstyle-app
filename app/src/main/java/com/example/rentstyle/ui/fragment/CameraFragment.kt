@@ -82,7 +82,7 @@ class CameraFragment : Fragment() {
         if (uri != Uri.EMPTY){
             try {
                 requireContext().contentResolver.delete(inputUriToDelete!!, null, null)
-                findNavController().navigate(CameraFragmentDirections.actionNavigationCameraToNavigationAddProduct(uri.toString()))
+                findNavController().navigate(CameraFragmentDirections.actionNavigationCameraToNavigationAddProduct(uri = uri.toString(), id = null))
             } catch (e: IOException) {
                 showToast(resources.getString(R.string.error_toast, e.message))
             }

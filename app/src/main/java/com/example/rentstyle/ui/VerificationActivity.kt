@@ -177,6 +177,8 @@ class VerificationActivity : AppCompatActivity() {
             if (res.isSuccessful) {
                 if (res.result.token != null) {
 
+                    Log.d("token", res.result.token!!)
+
                     lifecycleScope.launch {
                         pref.setUserIdAndToken(auth.currentUser!!.uid, res.result.token!!)
 

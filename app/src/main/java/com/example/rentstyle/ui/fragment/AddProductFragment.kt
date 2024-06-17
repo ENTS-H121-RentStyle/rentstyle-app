@@ -5,12 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +21,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -25,19 +29,49 @@ import com.bumptech.glide.Glide
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentAddProductBinding
 import com.example.rentstyle.helpers.CacheImageManager
-import com.example.rentstyle.helpers.CacheImageManager.clearTempImages
+import com.example.rentstyle.helpers.ImageFileHelper.reduceFileImage
+import com.example.rentstyle.helpers.ImageFileHelper.uriToFile
+import com.example.rentstyle.helpers.ProductHelpers.getCategoryValue
+import com.example.rentstyle.helpers.ProductHelpers.getProductCategory
+import com.example.rentstyle.helpers.ProductHelpers.getProductSize
+import com.example.rentstyle.helpers.StatusResult
+import com.example.rentstyle.viewmodel.AddProductViewModel
+import com.example.rentstyle.viewmodel.ProductViewModelFactory
 import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class AddProductFragment : Fragment() {
     private lateinit var _binding: FragmentAddProductBinding
     private val binding get() = _binding
     private lateinit var dialogView: Dialog
 
+    private val viewModel: AddProductViewModel by activityViewModels {
+        ProductViewModelFactory.getInstance(this.requireActivity().application)
+    }
+
     private val args: AddProductFragmentArgs by navArgs()
 
     private lateinit var currentImageUri: Uri
     private var isImageFromGallery = false
+
+    private lateinit var inputProductsName: EditText
+    private lateinit var inputProductsCategory: Spinner
+    private lateinit var inputProductsSize: Spinner
+    private lateinit var inputProductsColor: EditText
+    private lateinit var inputProductsDesc: EditText
+    private lateinit var inputProductsRentPrice: EditText
+    private lateinit var inputProductsPrice: EditText
+    private lateinit var uploadButton: AppCompatButton
+
+    private var productCategory = ""
+    private var productSize = ""
+
+    private var run = true
 
     private val launcherIntentGallery = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -89,24 +123,210 @@ class AddProductFragment : Fragment() {
     ): View {
         _binding = FragmentAddProductBinding.inflate(inflater, container, false)
 
+        currentImageUri = Uri.EMPTY
+
         binding.mainToolbar.apply {
-            tvToolbarTitle.text = "Add product"
+            tvToolbarTitle.text = getString(R.string.title_add_product)
             ivBackButton.setOnClickListener {
                 findNavController().navigateUp()
             }
         }
 
-        setUpProductImage()
-        setUpProductCategory()
-
-        binding.btnAdd.setOnClickListener {
-            findNavController().navigate(AddProductFragmentDirections.actionNavigationAddProductToNavigationSellerDashboard(""))
-            clearTempImages(requireContext())
-            Glide.with(requireContext())
-                .clear(binding.ivProductImage)
+        binding.apply {
+            inputProductsName = edAddProductName
+            inputProductsCategory = spinnerProductCategory
+            inputProductsSize = spinnerProductSize
+            inputProductsColor = edAddProductColor
+            inputProductsDesc = edAddDescription
+            inputProductsRentPrice = edAddProductRentPrice
+            inputProductsPrice = edAddProductPrice
+            uploadButton = btnAdd
         }
 
+        checkLatestProductData()
+        setUpProductImage()
+        setUpProductCategory()
+        setUpProductSize()
+        prepareUploadBody()
+
+//        uploadButton.setOnClickListener {
+//            findNavController().navigate(AddProductFragmentDirections.actionNavigationAddProductToNavigationSellerDashboard(""))
+//            clearTempImages(requireContext())
+//            Glide.with(requireContext())
+//                .clear(binding.ivProductImage)
+//        }
+
         return binding.root
+    }
+
+    private fun checkLatestProductData() {
+        if (args.id != null) {
+            viewModel.sellerIdLiveData.value = args.id
+        }
+
+        viewModel.productNameLiveData.observe(requireActivity()) {
+            inputProductsName.setText(it)
+        }
+
+        viewModel.categoryLiveData.observe(requireActivity()) {
+            when (it) {
+                getProductCategory(requireContext())[0] -> inputProductsCategory.setSelection(0)
+                getProductCategory(requireContext())[1] -> inputProductsCategory.setSelection(1)
+                getProductCategory(requireContext())[2] -> inputProductsCategory.setSelection(2)
+                getProductCategory(requireContext())[3] -> inputProductsCategory.setSelection(3)
+                getProductCategory(requireContext())[4] -> inputProductsCategory.setSelection(4)
+            }
+        }
+
+        viewModel.sizeLiveData.observe(requireActivity()) {
+            when (it) {
+                getProductSize(requireContext())[0] -> inputProductsSize.setSelection(0)
+                getProductSize(requireContext())[1] -> inputProductsSize.setSelection(1)
+                getProductSize(requireContext())[2] -> inputProductsSize.setSelection(2)
+                getProductSize(requireContext())[3] -> inputProductsSize.setSelection(3)
+                getProductSize(requireContext())[4] -> inputProductsSize.setSelection(4)
+            }
+        }
+
+        viewModel.colorLiveData.observe(requireActivity()) {
+            inputProductsColor.setText(it)
+        }
+
+        viewModel.descLiveData.observe(requireActivity()) {
+            inputProductsDesc.setText(it)
+        }
+
+        viewModel.rentPriceLiveData.observe(requireActivity()) {
+            inputProductsRentPrice.setText(it.toString())
+        }
+
+        viewModel.productPriceLiveData.observe(requireActivity()) {
+            inputProductsPrice.setText(it.toString())
+        }
+    }
+
+    private fun setUpProductSize() {
+        val adapter: ArrayAdapter<String> = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            getProductSize(requireContext())
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        inputProductsSize.adapter = adapter
+    }
+
+    private fun prepareUploadBody() {
+        inputProductsCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedCategory = parent?.getItemAtPosition(position).toString()
+
+                productCategory = getCategoryValue(selectedCategory)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                Toast.makeText(requireContext(), "Please select product category", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        inputProductsSize.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                productSize = parent?.getItemAtPosition(position).toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                Toast.makeText(requireContext(), "Please select product category", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        uploadButton.setOnClickListener {
+            val productName = inputProductsName.text.toString()
+            val productColor = inputProductsColor.text.toString()
+            val productDesc = inputProductsDesc.text.toString()
+            val productRentPrice = inputProductsRentPrice.text.toString()
+            val productPrice = inputProductsPrice.text.toString()
+
+            if (productName.isNotEmpty() && productColor.isNotEmpty() && currentImageUri != Uri.EMPTY
+                && productDesc.isNotEmpty() && productRentPrice.isNotEmpty()
+                && productPrice.isNotEmpty() && productCategory != ""
+                && productSize != "" && viewModel.sellerIdLiveData.value?.isNotEmpty() == true ){
+
+                try {
+                    val bodyProductName = productName.toRequestBody("text/plain".toMediaType())
+                    val bodySellerId = viewModel.sellerIdLiveData.value!!.toRequestBody("text/plain".toMediaType())
+                    val bodyProductCategory = getCategoryValue(productCategory).toRequestBody("text/plain".toMediaType())
+                    val bodyProductSize = productSize.toRequestBody("text/plain".toMediaType())
+
+                    val imageFile = uriToFile(currentImageUri, requireContext()).reduceFileImage()
+                    val requestImageFile = imageFile.asRequestBody("image/jpg".toMediaType())
+                    val multipartBody = MultipartBody.Part.createFormData(
+                        "image",
+                        imageFile.name,
+                        requestImageFile
+                    )
+
+                    val bodyProductColor = productColor.toRequestBody("text/plain".toMediaType())
+                    val bodyProductDesc = productDesc.toRequestBody("text/plain".toMediaType())
+                    val bodyProductRentPrice = productRentPrice.toRequestBody("text/plain".toMediaType())
+                    val bodyProductPrice = productPrice.toRequestBody("text/plain".toMediaType())
+
+                    uploadNewProduct(bodyProductName, bodySellerId, bodyProductCategory,
+                        bodyProductSize, multipartBody, bodyProductColor, bodyProductDesc,
+                        bodyProductRentPrice, bodyProductPrice)
+
+                } catch (e: Exception) {
+                    Toast.makeText(requireContext(), "Invalid product rent price / product price", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        }
+    }
+
+    private fun uploadNewProduct (productName: RequestBody,
+                                  sellerId: RequestBody,
+                                  category: RequestBody,
+                                  size: RequestBody,
+                                  image: MultipartBody.Part,
+                                  color: RequestBody,
+                                  desc: RequestBody,
+                                  rentPrice: RequestBody,
+                                  productPrice: RequestBody) {
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.addNewProduct(productName, sellerId, category,
+                size, image, color, desc, rentPrice, productPrice).observe(viewLifecycleOwner) { result ->
+                    if (result != null) {
+                        when (result) {
+                            is StatusResult.Loading -> {}
+
+                            is StatusResult.Success -> {
+                                Toast.makeText(requireContext(), result.success, Toast.LENGTH_SHORT).show()
+
+                                if (run) {
+                                    findNavController().navigate(AddProductFragmentDirections.actionNavigationAddProductToNavigationSellerDashboard())
+                                }
+                            }
+
+                            is StatusResult.Error -> {
+                                Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), "Error upload new product", Toast.LENGTH_SHORT).show()
+                    }
+            }
+        }
     }
 
     private fun setUpProductImage() {
@@ -119,10 +339,10 @@ class AddProductFragment : Fragment() {
         val adapter: ArrayAdapter<String> = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
-            listOf("Choose", "Adat", "Formal", "Cosplay", "Pesta")
+            getProductCategory(requireContext())
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerProductCategory.adapter = adapter
+        inputProductsCategory.adapter = adapter
     }
 
     private fun showDialogBox() {
@@ -133,6 +353,7 @@ class AddProductFragment : Fragment() {
         dialogView.setCanceledOnTouchOutside(true)
 
         dialogView.findViewById<AppCompatButton>(R.id.btn_camera).setOnClickListener {
+            saveProductData()
             dialogView.hide()
             findNavController().navigate(AddProductFragmentDirections.actionNavigationAddProductToNavigationCamera())
         }
@@ -147,6 +368,20 @@ class AddProductFragment : Fragment() {
         }
 
         dialogView.show()
+    }
+
+    private fun saveProductData () {
+        viewModel.apply {
+            productNameLiveData.value = inputProductsName.text.toString()
+
+            categoryLiveData.value = productCategory
+
+            sizeLiveData.value = productSize
+            colorLiveData.value = inputProductsColor.text.toString()
+            descLiveData.value = inputProductsDesc.text.toString()
+            rentPriceLiveData.value = inputProductsRentPrice.text.toString()
+            productPriceLiveData.value = inputProductsPrice.text.toString()
+        }
     }
 
     private fun setProductImage(uri: Uri) {
@@ -170,10 +405,5 @@ class AddProductFragment : Fragment() {
         super.onPause()
 
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
-    }
-
-    companion object{
-        const val IMAGE_RESULT = "result"
-        const val UPLOAD_RESULT = "upload"
     }
 }
