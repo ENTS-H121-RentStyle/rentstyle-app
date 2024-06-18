@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.rentstyle.di.Injection
+import com.example.rentstyle.model.local.datastore.SettingPref
 import com.example.rentstyle.model.repository.ProductRepository
 import com.example.rentstyle.model.repository.SellerRepository
 import com.example.rentstyle.model.repository.UserRepository
@@ -25,13 +26,8 @@ class SellerViewModelFactory private constructor(private val sellerRepository: S
     }
 
         companion object {
-
-            @Volatile
-            private var instance: SellerViewModelFactory? = null
             fun getInstance (context: Context): SellerViewModelFactory =
-                instance ?: synchronized(this) {
-                    instance ?: SellerViewModelFactory(Injection.provideSellerRepository(context))
-                }.also { instance = it }
+                SellerViewModelFactory(Injection.provideSellerRepository(context))
         }
 }
 
@@ -48,13 +44,8 @@ class ProductViewModelFactory private constructor(private val productRepository:
     }
 
         companion object {
-
-            @Volatile
-            private var instance: ProductViewModelFactory? = null
             fun getInstance (context: Context): ProductViewModelFactory =
-                instance ?: synchronized(this) {
-                    instance ?: ProductViewModelFactory(Injection.provideProductRepository(context))
-                }.also { instance = it }
+                ProductViewModelFactory(Injection.provideProductRepository(context))
         }
 }
 
@@ -71,12 +62,27 @@ class UserViewModelFactory private constructor(private val userRepository: UserR
     }
 
     companion object {
+        fun getInstance (context: Context): UserViewModelFactory =
+            UserViewModelFactory(Injection.provideUserRepository(context))
+    }
+}
+
+class SettingViewModelFactory (private val pref: SettingPref): ViewModelProvider.NewInstanceFactory() {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T: ViewModel> create(modelClass: Class<T>): T{
+        if (modelClass.isAssignableFrom(SettingViewModel::class.java)){
+            return SettingViewModel(pref) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
+    }
+
+    companion object {
 
         @Volatile
-        private var instance: UserViewModelFactory? = null
-        fun getInstance (context: Context): UserViewModelFactory =
+        private var instance: SettingViewModelFactory? = null
+        fun getInstance (pref: SettingPref): SettingViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: UserViewModelFactory(Injection.provideUserRepository(context))
+                instance ?: SettingViewModelFactory(pref)
             }.also { instance = it }
     }
 }

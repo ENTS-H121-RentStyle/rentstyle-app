@@ -52,7 +52,7 @@ class ProductDetailFragment : Fragment() {
     ): View {
         _binding = FragmentProductDetailBinding.inflate(inflater, container, false)
         recommendationAdapter = ProductAdapter()
-        database = AppDatabase.getDatabase(requireContext()) // Inisialisasi database
+        database = AppDatabase.getDatabase(requireContext())
 
         binding.mainToolbar.tvToolbarTitle.text = "Product Detail"
         binding.mainToolbar.ivBackButton.setOnClickListener {

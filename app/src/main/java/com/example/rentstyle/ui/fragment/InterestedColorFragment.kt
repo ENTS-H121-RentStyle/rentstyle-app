@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentInterestedColorBinding
+import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
 import com.example.rentstyle.model.remote.response.Pref
@@ -57,6 +58,8 @@ class InterestedColorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentInterestedColorBinding.inflate(inflater, container, false)
+
+        updateTokenId(requireContext(), viewLifecycleOwner)
 
         binding.apply {
             redButton = btnRed

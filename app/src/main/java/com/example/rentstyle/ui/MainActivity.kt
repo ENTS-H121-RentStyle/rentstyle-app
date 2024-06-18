@@ -2,13 +2,14 @@ package com.example.rentstyle.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,9 +17,13 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.ActivityMainBinding
+import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
 import com.example.rentstyle.model.local.datastore.LoginSession
+import com.example.rentstyle.model.local.datastore.SettingPref
 import com.example.rentstyle.model.local.datastore.dataStore
-import com.github.ybq.android.spinkit.style.WanderingCubes
+import com.example.rentstyle.model.local.datastore.settingDataStore
+import com.example.rentstyle.viewmodel.SettingViewModel
+import com.example.rentstyle.viewmodel.SettingViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -33,6 +38,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navView: BottomNavigationView
 
+    private lateinit var viewModel: SettingViewModel
+    private lateinit var settingPref: SettingPref
+
     private lateinit var pref: LoginSession
     private lateinit var auth: FirebaseAuth
 
@@ -44,6 +52,8 @@ class MainActivity : AppCompatActivity() {
 
         pref = LoginSession.getInstance(application.dataStore)
         auth = Firebase.auth
+
+        updateTokenId(this, this)
 
         supportActionBar!!.hide()
 
@@ -57,15 +67,17 @@ class MainActivity : AppCompatActivity() {
         checkLoginSession()
     }
 
-    fun startLoadingSpinner () {
-        binding.ivLoadingSpinner.apply {
-            isVisible = true
-            setIndeterminateDrawable(WanderingCubes())
-        }
-    }
+    private fun checkAppTheme() {
+        settingPref = SettingPref.getInstance(this.application.settingDataStore)
+        viewModel = ViewModelProvider(this, SettingViewModelFactory.getInstance(settingPref))[SettingViewModel::class.java]
 
-    fun stopLoadingSpinner () {
-        binding.ivLoadingSpinner.isVisible = false
+        viewModel.getThemeSettings().observe(this){ isDarkModeActive ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }else{
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
     }
 
     fun navigateToVerificationActivity () {
@@ -78,6 +90,7 @@ class MainActivity : AppCompatActivity() {
         val firebaseUser = auth.currentUser
 
         lifecycleScope.launch {
+            checkAppTheme()
             if (firebaseUser == null || !pref.getPrefCheck().first()) {
                 navigateToVerificationActivity()
             }

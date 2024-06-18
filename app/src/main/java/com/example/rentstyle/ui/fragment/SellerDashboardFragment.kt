@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentSellerDashboardBinding
 import com.example.rentstyle.helpers.DataResult
+import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
 import com.example.rentstyle.viewmodel.SellerViewModel
@@ -36,16 +36,14 @@ class SellerDashboardFragment : Fragment() {
     ): View {
         _binding = FragmentSellerDashboardBinding.inflate(inflater, container, false)
 
+        updateTokenId(requireContext(), viewLifecycleOwner)
+
         val factory = SellerViewModelFactory.getInstance(this.requireActivity().application)
         viewModel = ViewModelProvider(this, factory)[SellerViewModel::class.java]
 
         pref = LoginSession.getInstance(requireActivity().application.dataStore)
 
         getSellerData()
-
-        binding.btnEditProfile.setOnClickListener {
-            findNavController().navigate(SellerDashboardFragmentDirections.actionNavigationSellerDashboardToNavigationEditSellerProfile())
-        }
 
         binding.btnSellerSelling.setOnClickListener {
             Toast.makeText(requireContext(), "Feature is not available yet", Toast.LENGTH_SHORT).show()
@@ -76,8 +74,11 @@ class SellerDashboardFragment : Fragment() {
                             binding.ivLoadingSpinner.isVisible = false
 
                             if (result.data.sellerName?.isNotEmpty() == true) {
-                                binding.tvUsername.text = result.data.sellerName
-                                binding.tvHeading1.text = "Welcome ${result.data.sellerName}"
+                                updateSellerData(result.data.sellerName)
+                            }
+
+                            binding.btnEditProfile.setOnClickListener {
+                                findNavController().navigate(SellerDashboardFragmentDirections.actionNavigationSellerDashboardToNavigationEditSellerProfile())
                             }
 
                             binding.btnAddProduct.setOnClickListener {
@@ -92,6 +93,17 @@ class SellerDashboardFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun updateSellerData(sellerName: String) {
+        binding.apply {
+            tvHeading1.text = getString(R.string.welcome_seller, sellerName)
+            tvUsername.text = sellerName
+            tvRentedOrder.text = "0"
+            tvUnconfirmedOrder.text = "0"
+            tvReturnedOrder.text = "0"
+            tvUnshippingOrder.text = "0"
         }
     }
 }

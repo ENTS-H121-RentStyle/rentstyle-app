@@ -20,9 +20,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentSellerRegisterBinding
 import com.example.rentstyle.helpers.DataResult
+import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
 import com.example.rentstyle.helpers.ImageFileHelper.reduceFileImage
 import com.example.rentstyle.helpers.ImageFileHelper.uriToFile
-import com.example.rentstyle.helpers.ProductHelpers
 import com.example.rentstyle.helpers.SellerHelpers.getSellerCity
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
@@ -57,6 +57,8 @@ class SellerRegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSellerRegisterBinding.inflate(inflater, container, false)
+
+        updateTokenId(requireContext(), viewLifecycleOwner)
 
         pref = LoginSession.getInstance(requireActivity().application.dataStore)
         viewLifecycleOwner.lifecycleScope.launch {

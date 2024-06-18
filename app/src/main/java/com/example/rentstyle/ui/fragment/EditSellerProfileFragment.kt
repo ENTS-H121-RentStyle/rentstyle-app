@@ -15,9 +15,7 @@ import com.bumptech.glide.Glide
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentEditSellerProfileBinding
 import com.example.rentstyle.helpers.DataResult
-import com.example.rentstyle.helpers.ImageFileHelper
-import com.example.rentstyle.helpers.ImageFileHelper.reduceFileImage
-import com.example.rentstyle.helpers.SellerHelpers
+import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
 import com.example.rentstyle.helpers.StatusResult
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
@@ -27,8 +25,6 @@ import com.github.ybq.android.spinkit.style.WanderingCubes
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
 class EditSellerProfileFragment : Fragment() {
@@ -50,6 +46,8 @@ class EditSellerProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEditSellerProfileBinding.inflate(inflater, container, false)
+
+        updateTokenId(requireContext(), viewLifecycleOwner)
 
         binding.mainToolbar.apply {
             tvToolbarTitle.text = getString(R.string.title_update_profile)

@@ -16,6 +16,7 @@ import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentProfileBinding
 import com.example.rentstyle.helpers.DataResult
 import com.example.rentstyle.helpers.FilterModel
+import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
 import com.example.rentstyle.helpers.adapter.RecyclerDummyOrderAdapter
 import com.example.rentstyle.helpers.adapter.RecyclerFilterAdapter
 import com.example.rentstyle.model.local.datastore.LoginSession
@@ -24,6 +25,7 @@ import com.example.rentstyle.viewmodel.ProfileViewModel
 import com.example.rentstyle.viewmodel.SellerViewModelFactory
 import com.example.rentstyle.viewmodel.UserViewModel
 import com.example.rentstyle.viewmodel.UserViewModelFactory
+import com.github.ybq.android.spinkit.style.WanderingCubes
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -49,7 +51,7 @@ class ProfileFragment : Fragment() {
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        binding.tvUsername.text = "username"
+        updateTokenId(requireContext(), viewLifecycleOwner)
 
         val factory = SellerViewModelFactory.getInstance(this.requireActivity().application)
         viewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
@@ -104,6 +106,10 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setUserProfile() {
+        binding.ivLoadingSpinner.apply {
+            isVisible = true
+            setIndeterminateDrawable(WanderingCubes())
+        }
 
             if (userViewModel.userData.value!!.isEmpty()) {
                 viewLifecycleOwner.lifecycleScope.launch {
@@ -117,12 +123,14 @@ class ProfileFragment : Fragment() {
                                     userViewModel.userData.value = arrayListOf(data.name, data.image)
 
                                     updateUserProfile(data.name, data.image)
+                                    binding.ivLoadingSpinner.isVisible = false
                                     binding.btnEditProfile.setOnClickListener {
                                         findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationEditUserProfile())
                                     }
                                 }
 
                                 is DataResult.Error -> {
+                                    binding.ivLoadingSpinner.isVisible = false
                                     Toast.makeText(requireContext(), getString(R.string.error_toast, result.error), Toast.LENGTH_SHORT).show()
                                 }
                             }
@@ -132,6 +140,7 @@ class ProfileFragment : Fragment() {
             } else {
                 val data = userViewModel.userData.value
                 updateUserProfile(data?.get(0), data?.get(1))
+                binding.ivLoadingSpinner.isVisible = false
                 binding.btnEditProfile.setOnClickListener {
                     findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationEditUserProfile())
                 }

@@ -113,21 +113,21 @@ class ForYouFragment : Fragment() {
 
         highestRatingAdapter.setOnClickListener(object : ProductAdapter.OnClickListener {
             override fun onClick(position: Int, image: ImageView) {
-                val product = highestRatingAdapter.snapshot().get(position)
+                val product = highestRatingAdapter.snapshot()[position]
                 product?.let { navigateToProductDetail(it.id) }
             }
         })
 
         newProductAdapter.setOnClickListener(object : ProductAdapter.OnClickListener {
             override fun onClick(position: Int, image: ImageView) {
-                val product = newProductAdapter.snapshot().get(position)
+                val product = newProductAdapter.snapshot()[position]
                 product?.let { navigateToProductDetail(it.id) }
             }
         })
 
         recommendationProductAdapter.setOnClickListener(object : ProductAdapter.OnClickListener {
             override fun onClick(position: Int, image: ImageView) {
-                val product = recommendationProductAdapter.snapshot().get(position)
+                val product = recommendationProductAdapter.snapshot()[position]
                 product?.let { navigateToProductDetail(it.id) }
             }
         })

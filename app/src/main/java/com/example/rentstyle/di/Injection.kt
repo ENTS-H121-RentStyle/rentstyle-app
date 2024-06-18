@@ -1,8 +1,6 @@
 package com.example.rentstyle.di
 
 import android.content.Context
-import android.util.Log
-import com.example.rentstyle.model.Product
 import com.example.rentstyle.model.database.ProductDatabase
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
@@ -36,8 +34,6 @@ object Injection {
     fun provideUserRepository (context: Context): UserRepository {
         val pref = LoginSession.getInstance(context.dataStore)
         val token = runBlocking { pref.getSessionToken().first() }
-
-        Log.d("token richard", token.toString())
 
         val apiService = ApiConfig.getApiService(token!!)
         val userId = runBlocking { pref.getUserId().first().toString() }

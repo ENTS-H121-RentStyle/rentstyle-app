@@ -31,6 +31,7 @@ import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentAddProductBinding
 import com.example.rentstyle.helpers.CacheImageManager
 import com.example.rentstyle.helpers.CacheImageManager.clearTempImages
+import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
 import com.example.rentstyle.helpers.ImageFileHelper.reduceFileImage
 import com.example.rentstyle.helpers.ImageFileHelper.uriToFile
 import com.example.rentstyle.helpers.ProductHelpers.getCategoryValue
@@ -125,6 +126,8 @@ class AddProductFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddProductBinding.inflate(inflater, container, false)
+
+        updateTokenId(requireContext(), viewLifecycleOwner)
 
         currentImageUri = Uri.EMPTY
 
@@ -267,7 +270,7 @@ class AddProductFragment : Fragment() {
                 try {
                     val bodyProductName = productName.toRequestBody("text/plain".toMediaType())
                     val bodySellerId = viewModel.sellerIdLiveData.value!!.toRequestBody("text/plain".toMediaType())
-                    val bodyProductCategory = getCategoryValue(productCategory).toRequestBody("text/plain".toMediaType())
+                    val bodyProductCategory = productCategory.toRequestBody("text/plain".toMediaType())
                     val bodyProductSize = productSize.toRequestBody("text/plain".toMediaType())
 
                     val imageFile = uriToFile(currentImageUri, requireContext()).reduceFileImage()
@@ -280,8 +283,8 @@ class AddProductFragment : Fragment() {
 
                     val bodyProductColor = productColor.toRequestBody("text/plain".toMediaType())
                     val bodyProductDesc = productDesc.toRequestBody("text/plain".toMediaType())
-                    val bodyProductRentPrice = productRentPrice.toInt().toString().toRequestBody("text/plain".toMediaType())
-                    val bodyProductPrice = productPrice.toInt().toString().toRequestBody("text/plain".toMediaType())
+                    val bodyProductRentPrice = productRentPrice.toRequestBody("text/plain".toMediaType())
+                    val bodyProductPrice = productPrice.toRequestBody("text/plain".toMediaType())
 
                     uploadNewProduct(bodyProductName, bodySellerId, bodyProductCategory,
                         bodyProductSize, multipartBody, bodyProductColor, bodyProductDesc,

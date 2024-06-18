@@ -7,7 +7,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,14 +28,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.target.Target
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentEditUserProfileBinding
 import com.example.rentstyle.helpers.CacheImageManager
 import com.example.rentstyle.helpers.DataResult
+import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
 import com.example.rentstyle.helpers.ImageFileHelper.reduceFileImage
 import com.example.rentstyle.helpers.ImageFileHelper.uriToFile
 import com.example.rentstyle.helpers.StatusResult
@@ -52,7 +49,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.File
 import java.util.Calendar
 
 class EditUserProfileFragment : Fragment() {
@@ -124,6 +120,8 @@ class EditUserProfileFragment : Fragment() {
     ): View {
         _binding = FragmentEditUserProfileBinding.inflate(inflater, container, false)
 
+        updateTokenId(requireContext(), viewLifecycleOwner)
+
         currentImageUri = Uri.EMPTY
 
         binding.mainToolbar.apply {
@@ -174,7 +172,7 @@ class EditUserProfileFragment : Fragment() {
                     val bodyUserBirthDate = userBirthDate.toRequestBody("text/plain".toMediaType())
                     val bodyUserAddress = address.toRequestBody("text/plain".toMediaType())
                     val bodyUserPhone = phone.toRequestBody("text/plain".toMediaType())
-                    val bodyUserGender = userGender.toRequestBody("text/plain".toMediaType())
+                    val bodyUserGender = getUserGenderValue(userGender).toRequestBody("text/plain".toMediaType())
 
                     val imageFile = uriToFile(currentImageUri, requireContext()).reduceFileImage()
                     val requestImageFile = imageFile.asRequestBody("image/jpg".toMediaType())
@@ -219,6 +217,7 @@ class EditUserProfileFragment : Fragment() {
                             Toast.makeText(requireContext(), result.success, Toast.LENGTH_SHORT).show()
 
                             if (run) {
+                                viewModel.userData.value = arrayListOf()
                                 CacheImageManager.clearTempImages(requireContext())
                                 Glide.with(requireContext())
                                     .clear(binding.ivUserImage)
@@ -335,34 +334,6 @@ class EditUserProfileFragment : Fragment() {
 
         if (image != null) {
             setProductImage(image.toUri())
-            Glide.with(this)
-                .asFile()
-                .load(image.toUri())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .listener(object : com.bumptech.glide.request.RequestListener<File?> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<File?>,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: File,
-                        model: Any,
-                        target: Target<File?>?,
-                        dataSource: DataSource,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        currentImageUri = resource.toUri()
-
-                        return false
-                    }
-                }).submit()
-
-            Log.d("image uri", currentImageUri.toString())
         }
 
         if (name != null) {

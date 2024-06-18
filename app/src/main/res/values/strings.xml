@@ -203,4 +203,21 @@
     <string name="txt_gender">Gender</string>
     <string name="txt_male">Male</string>
     <string name="txt_female">Female</string>
+    <string name="txt_change_theme">Change theme</string>
+    <string name="txt_about_us">About us</string>
+    <string name="txt_logout">Logout</string>
+    <string name="txt_rentstyle_v1_0">Rentstyle v1.0</string>
+    <string name="txt_about_rentstyle">Rentstyle was developed by the ENTS-H121 team as our final capstone project for Bangkit 2024. Our goal with Rentstyle is to provide users with a seamless and convenient platform to rent outfits for various occasions, promoting accessibility and sustainability in fashion choices.</string>
+    <string name="txt_machine_learning_teams">Machine learning teams :</string>
+    <string name="txt_faisal">1. Faishal Syams Afif (M011D4KY2939)</string>
+    <string name="txt_yafi">2. Muhammad Yafi (M004D4KY2720)</string>
+    <string name="txt_sueb">3. Shuhaib Yahya Banamah (M011D4KY3263)</string>
+    <string name="txt_cloud_computing_teams">Cloud computing teams :</string>
+    <string name="txt_wildan">1. Wildan Fauzan (C291D4KY0379)</string>
+    <string name="txt_yoga">2. Yoga Permana (C369D4KY1284)</string>
+    <string name="txt_mobile_development_teams">Mobile development teams :</string>
+    <string name="txt_akmal">1. Akmal Sidik (A193D4KY4352)</string>
+    <string name="txt_richard">2. Richard Arya Winarta (A119D4KY3884)</string>
+    <string name="txt_rentstyle_dev">About RentStyle</string>
+    <string name="welcome_seller">Welcome %1$s!</string>
 </resources>
