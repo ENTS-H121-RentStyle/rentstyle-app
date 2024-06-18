@@ -97,14 +97,13 @@ class RecyclerShoppingCartAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun deleteItem(position: Int, id: String) {
-        dataset.map {
-            if (it.id == id) {
-                dataset.remove(it)
-            }
-        }
+        dataset.removeAt(position)
 
-        viewHolderList.removeAt(position)
-        notifyDataSetChanged()
+        if (dataset.isNotEmpty()) {
+            notifyDataSetChanged()
+        } else {
+            notifyItemRemoved(0)
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

@@ -117,8 +117,7 @@ interface ApiService {
 
     @GET("favorite/{userId}")
     suspend fun getFavorites(
-        @Path("userId") userId: String,
-        @Header("Authorization") token: String
+        @Path("userId") userId: String
     ): Response<List<FavoriteResponse>>
 
     @DELETE("favorite/{id}")

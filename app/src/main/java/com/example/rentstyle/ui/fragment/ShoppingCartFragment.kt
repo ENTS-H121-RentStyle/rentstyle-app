@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentShoppingCartBinding
 import com.example.rentstyle.helpers.DataResult
+import com.example.rentstyle.helpers.FirebaseToken
+import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
 import com.example.rentstyle.helpers.StatusResult
 import com.example.rentstyle.helpers.adapter.RecyclerShoppingCartAdapter
 import com.example.rentstyle.model.local.datastore.LoginSession
@@ -65,6 +67,8 @@ class ShoppingCartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentShoppingCartBinding.inflate(inflater, container, false)
+
+        updateTokenId(requireContext(), viewLifecycleOwner)
 
         binding.mainToolbar.tvToolbarTitle.text = getString(R.string.title_shopping_cart)
         binding.mainToolbar.ivBackButton.setOnClickListener {
@@ -136,9 +140,9 @@ class ShoppingCartFragment : Fragment() {
                 setIndeterminateDrawable(WanderingCubes())
             }
             try {
-                val loginSession = LoginSession.getInstance(requireContext().dataStore)
-                val token = loginSession.getSessionToken().first() ?: ""
-                val userId = loginSession.getUserId().first() ?: ""
+                val loginSession = LoginSession.getInstance(requireActivity().application.dataStore)
+                val token = loginSession.getSessionToken().first().toString()
+                val userId = loginSession.getUserId().first().toString()
 
                 val apiService = ApiConfig.getApiService(token)
                 val cartResponse = apiService.getCart(userId, "Bearer $token")
@@ -157,6 +161,10 @@ class ShoppingCartFragment : Fragment() {
         shoppingCartAdapter = RecyclerShoppingCartAdapter(cartResponses.toMutableList())
         rvProductShoppingCart.adapter = shoppingCartAdapter
 
+        if (cartResponses.isEmpty()) {
+            binding.tvEmptyCart.isVisible = true
+        }
+
         shoppingCartAdapter.setOnClickListener(object : RecyclerShoppingCartAdapter.OnClickListener {
             @SuppressLint("NotifyDataSetChanged")
             override fun onClick(position: Int, id: String) {
@@ -174,6 +182,9 @@ class ShoppingCartFragment : Fragment() {
                                 is StatusResult.Success -> {
                                     binding.ivLoadingSpinner.isVisible = false
                                     shoppingCartAdapter.deleteItem(position, id)
+                                    if (shoppingCartAdapter.itemCount == 0) {
+                                        binding.tvEmptyCart.isVisible = true
+                                    }
                                     Toast.makeText(requireContext(), result.success, Toast.LENGTH_SHORT).show()
                                 }
 

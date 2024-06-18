@@ -8,6 +8,7 @@ import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.rentstyle.databinding.FragmentExploreBinding
+import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
 import com.example.rentstyle.helpers.adapter.RecyclerDummyShopAdapter
 
 class ExploreFragment : Fragment() {
@@ -21,6 +22,8 @@ class ExploreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
+
+        updateTokenId(requireContext(), viewLifecycleOwner)
 
         shopListAdapter = RecyclerDummyShopAdapter()
         binding.rvShopList.adapter = shopListAdapter

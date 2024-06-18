@@ -24,6 +24,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentForYouBinding
 import com.example.rentstyle.di.Injection
+import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
 import com.example.rentstyle.helpers.GridSpacingItemDecoration
 import com.example.rentstyle.helpers.adapter.ImageSliderAdapter
 import com.example.rentstyle.helpers.adapter.ProductAdapter
@@ -83,7 +84,9 @@ class ForYouFragment : Fragment() {
     ): View {
         _binding = FragmentForYouBinding.inflate(inflater, container, false)
 
-        loginSession = LoginSession.getInstance(requireContext().dataStore)
+        updateTokenId(requireContext(), viewLifecycleOwner)
+
+        loginSession = LoginSession.getInstance(requireActivity().application.dataStore)
         viewLifecycleOwner.lifecycleScope.launch {
             val token = loginSession.getSessionToken().first().toString()
             if (token.isNotEmpty()) {

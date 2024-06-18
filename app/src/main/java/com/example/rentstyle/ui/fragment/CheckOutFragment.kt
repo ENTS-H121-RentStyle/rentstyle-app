@@ -19,6 +19,8 @@ import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentCheckOutBinding
 import com.example.rentstyle.helpers.DataResult
 import com.example.rentstyle.helpers.DateHelpers.getReturnDate
+import com.example.rentstyle.helpers.FirebaseToken
+import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
 import com.example.rentstyle.helpers.StatusResult
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
@@ -70,6 +72,8 @@ class CheckOutFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCheckOutBinding.inflate(inflater, container, false)
+
+        updateTokenId(requireContext(), viewLifecycleOwner)
 
         binding.mainToolbar.apply {
             tvToolbarTitle.text = getString(R.string.title_checkout)

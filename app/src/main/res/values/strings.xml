@@ -228,4 +228,5 @@
     <string name="title_checkout">Checkout</string>
     <string name="product_co_price">Rp. %1$s (%2$s days)</string>
     <string name="txt_self_pick_up">Self pick up</string>
+    <string name="txt_your_cart_is_empty">Your cart is empty</string>
 </resources>

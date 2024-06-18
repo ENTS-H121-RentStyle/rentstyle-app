@@ -32,14 +32,23 @@
                     android:layout_marginTop="10dp"
                     android:text="@string/txt_rent_warning" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_shop_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="10"
-                    tools:listitem="@layout/shopping_cart_item" />
+            <TextView
+                android:id="@+id/tv_empty_cart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:visibility="gone"
+                android:text="@string/txt_your_cart_is_empty" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_shop_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="10"
+                tools:listitem="@layout/shopping_cart_item" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

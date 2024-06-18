@@ -83,7 +83,6 @@ class LoginSession private constructor(private val dataStore: DataStore<Preferen
             preferences.remove(SELLER_ID)
             preferences.remove(SESSION_TOKEN)
             preferences[PREF_CHECK] = false
-            preferences[FIRST_TIME_LOGIN] = false
             preferences[FAVORITES] = emptySet()
         }
     }

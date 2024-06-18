@@ -2,7 +2,6 @@ package com.example.rentstyle.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,6 +51,12 @@ class ProductDetailFragment : Fragment() {
         binding.mainToolbar.ivBackButton.setOnClickListener {
             findNavController().navigateUp()
         }
+        binding.mainToolbar.ivIcon.apply {
+            setImageResource(R.drawable.ic_cart)
+            setOnClickListener {
+                findNavController().navigate(ProductDetailFragmentDirections.actionNavigationProductDetailToNavigationShoppingCart())
+            }
+        }
 
         binding.apply {
             productDescription = tvProductDescription
@@ -59,7 +64,7 @@ class ProductDetailFragment : Fragment() {
             ivLoadingSpinner.setIndeterminateDrawable(WanderingCubes())
         }
 
-        loginSession = LoginSession.getInstance(requireContext().dataStore)
+        loginSession = LoginSession.getInstance(requireActivity().application.dataStore)
 
         binding.ivFavButton.setOnClickListener {
             val productId = arguments?.getString("productId")
@@ -68,6 +73,10 @@ class ProductDetailFragment : Fragment() {
             }
         }
         binding.btnCart.setOnClickListener {
+            binding.ivLoadingSpinner2.apply {
+                isVisible = true
+                setIndeterminateDrawable(WanderingCubes())
+            }
             val productId = arguments?.getString("productId")
             productId?.let {
                 addToCart(it)
@@ -92,8 +101,8 @@ class ProductDetailFragment : Fragment() {
     private fun toggleFavorite(productId: String) {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val token = loginSession.getSessionToken().first() ?: ""
-                userId = loginSession.getUserId().first() ?: ""
+                val token = loginSession.getSessionToken().first().toString()
+                userId = loginSession.getUserId().first().toString()
                 val apiService = ApiConfig.getApiService(token)
 
                 if (isFavorite) {
@@ -121,7 +130,7 @@ class ProductDetailFragment : Fragment() {
                             binding.ivFavButton.setImageResource(R.drawable.ic_fav_2)
                         }
                     } else {
-                        Toast.makeText(requireContext(), "Failed to remove from favorite", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Failed to add to favorite", Toast.LENGTH_SHORT).show()
                     }
                 }
             } catch (e: Exception) {
@@ -135,8 +144,9 @@ class ProductDetailFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val token = loginSession.getSessionToken().first() ?: ""
-                userId = loginSession.getUserId().first() ?: ""
+                val token = loginSession.getSessionToken().first().toString()
+                userId = loginSession.getUserId().first().toString()
+
                 val apiService = ApiConfig.getApiService(token)
                 val response = apiService.getProductDetail(productId)
                 if (response.isSuccessful) {
@@ -192,38 +202,28 @@ class ProductDetailFragment : Fragment() {
                     favoriteId = favorite.productId
                     binding.ivFavButton.setImageResource(R.drawable.ic_fav_2)
                 } else {
-                    val token = loginSession.getSessionToken().first() ?: ""
+                    val token = loginSession.getSessionToken().first().toString()
+
                     val apiService = ApiConfig.getApiService(token)
-                    val response = apiService.getFavorites(userId, token)
+                    val response = apiService.getFavorites(userId)
                     if (response.isSuccessful) {
-                        val favorites = response.body() ?: emptyList()
-                        val serverFavorite = favorites.find { it.product_id == productId }
-                        if (serverFavorite != null) {
-                            isFavorite = true
-                            favoriteId = serverFavorite.product_id
-                            binding.ivFavButton.setImageResource(R.drawable.ic_fav_2)
-                        } else {
-                            isFavorite = false
-                            favoriteId = null
-                            binding.ivFavButton.setImageResource(R.drawable.ic_fav)
+                        response.body()?.map {
+                            if (it.id == productId) {
+                                isFavorite = true
+                                favoriteId = it.id
+                                binding.ivFavButton.setImageResource(R.drawable.ic_fav_2)
+                            }
                         }
-                    } else {
-                        Log.e(
-                            "ProductDetailFragment",
-                            "Failed to check favorites: ${response.code()}"
-                        )
                     }
                 }
-            } catch (e: Exception) {
-                Log.e("ProductDetailFragment", "Failed to check favorites: ${e.message}", e)
-            }
+            } catch (_: Exception) { }
         }
     }
 
     private fun addToCart(productId: String) {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val token = loginSession.getSessionToken().first() ?: ""
+                val token = loginSession.getSessionToken().first().toString()
                 val apiService = ApiConfig.getApiService(token)
                 val response = apiService.addToCart(
                     CartRequest(
@@ -240,9 +240,11 @@ class ProductDetailFragment : Fragment() {
                 } else {
                     Toast.makeText(requireContext(), "Failed to add to cart", Toast.LENGTH_SHORT).show()
                 }
+                binding.ivLoadingSpinner2.isVisible = false
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), "Failed to add to cart", Toast.LENGTH_SHORT).show()
             }
+            binding.ivLoadingSpinner2.isVisible = false
         }
     }
 
