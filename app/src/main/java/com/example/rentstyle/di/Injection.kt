@@ -6,6 +6,7 @@ import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
 import com.example.rentstyle.model.remote.retrofit.ApiConfig
 import com.example.rentstyle.model.repository.ProductRepository
+import com.example.rentstyle.model.repository.RecommendationRepository
 import com.example.rentstyle.model.repository.SellerRepository
 import com.example.rentstyle.model.repository.UserRepository
 import kotlinx.coroutines.flow.first
@@ -39,5 +40,14 @@ object Injection {
         val userId = runBlocking { pref.getUserId().first().toString() }
 
         return UserRepository.getInstance(apiService, userId)
+    }
+
+    fun provideRecommendationRepository (context: Context): RecommendationRepository {
+        val pref = LoginSession.getInstance(context.dataStore)
+        val token = runBlocking { pref.getSessionToken().first() }
+
+        val apiService = ApiConfig.getApiService(token.toString())
+
+        return RecommendationRepository(apiService)
     }
 }

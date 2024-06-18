@@ -38,6 +38,12 @@ class ProductViewModelFactory private constructor(private val productRepository:
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AddProductViewModel::class.java)) {
             return AddProductViewModel(productRepository) as T
+        } else if (modelClass.isAssignableFrom(ExploreViewModel::class.java)) {
+            return ExploreViewModel(productRepository) as T
+        } else if (modelClass.isAssignableFrom(CartViewModel::class.java)) {
+            return CartViewModel(productRepository) as T
+        } else if (modelClass.isAssignableFrom(OrderViewModel::class.java)) {
+            return OrderViewModel(productRepository) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

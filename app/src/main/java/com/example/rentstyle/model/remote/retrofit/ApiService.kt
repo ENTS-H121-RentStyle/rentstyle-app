@@ -125,9 +125,42 @@ interface ApiService {
     suspend fun deleteFavorite(
         @Path("id") id: String
     ): Response<Unit>
+
     @GET("cart/{userId}")
     suspend fun getCart(
         @Path("userId") userId: String,
         @Header("Authorization") token: String
     ): List<CartResponse>
+
+    @GET("product/search")
+    suspend fun getProductByKeyword(
+        @Query("q") q: String,
+        @Query("page") page: Int
+    ): Response<ProductResponse>
+
+    @DELETE("cart/{cartId}")
+    suspend fun deleteShoppingCartItem(
+        @Path("cartId") id: String
+    ): Response<Unit>
+
+    @Multipart
+    @PUT("cart/{cartId}")
+    suspend fun updateCartDuration(
+        @Path("cartId") id: String,
+        @Part("duration") duration: RequestBody,
+    ): Response<Unit>
+
+    @Multipart
+    @POST("order")
+    suspend fun makeOrder(
+        @Part("product_id") productId: RequestBody,
+        @Part("user_id") userId: RequestBody,
+        @Part("order_date") orderDate: RequestBody,
+        @Part("return_date") returnDate: RequestBody,
+        @Part("rent_duration") rentDuration: RequestBody,
+        @Part("service_fee") serviceFee: RequestBody,
+        @Part("deposit") deposit: RequestBody,
+        @Part("rent_price") rentPrice: RequestBody,
+        @Part("total_payment") totalPayment: RequestBody
+    ): Response<Unit>
 }

@@ -6,31 +6,26 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentProductDetailBinding
-import com.example.rentstyle.helpers.GridSpacingItemDecoration
-import com.example.rentstyle.helpers.adapter.ProductAdapter
 import com.example.rentstyle.model.database.Favorite
 import com.example.rentstyle.model.database.room.AppDatabase
-import com.example.rentstyle.model.remote.retrofit.ApiConfig
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
 import com.example.rentstyle.model.remote.request.CartRequest
 import com.example.rentstyle.model.remote.request.FavoriteRequest
 import com.example.rentstyle.model.remote.response.ProductDetailResponse
-import com.example.rentstyle.model.repository.RecommendationRepository
-import com.example.rentstyle.ui.viewmodel.RecommendationViewModel
-import com.example.rentstyle.ui.viewmodel.RecommendationViewModelFactory
-import kotlinx.coroutines.flow.collectLatest
+import com.example.rentstyle.model.remote.retrofit.ApiConfig
+import com.github.ybq.android.spinkit.style.WanderingCubes
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -38,39 +33,31 @@ class ProductDetailFragment : Fragment() {
     private var _binding: FragmentProductDetailBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var recommendationAdapter: ProductAdapter
-    private lateinit var recommendationViewModel: RecommendationViewModel
     private lateinit var loginSession: LoginSession
     private var isFavorite: Boolean = false
     private var favoriteId: String? = null
     private lateinit var userId: String
     private lateinit var database: AppDatabase
+    private lateinit var productDescription: TextView
+    private lateinit var btnViewMore: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProductDetailBinding.inflate(inflater, container, false)
-        recommendationAdapter = ProductAdapter()
         database = AppDatabase.getDatabase(requireContext())
 
-        binding.mainToolbar.tvToolbarTitle.text = "Product Detail"
+        binding.mainToolbar.tvToolbarTitle.text = getString(R.string.title_product_detail)
         binding.mainToolbar.ivBackButton.setOnClickListener {
             findNavController().navigateUp()
         }
 
         binding.apply {
-            rvRecommendation.adapter = recommendationAdapter
-            rvRecommendation.layoutManager = GridLayoutManager(context, 2)
-            rvRecommendation.addItemDecoration(GridSpacingItemDecoration(2, 25, true))
+            productDescription = tvProductDescription
+            btnViewMore = btnViewMoreDescription
+            ivLoadingSpinner.setIndeterminateDrawable(WanderingCubes())
         }
-
-        recommendationAdapter.setOnClickListener(object : ProductAdapter.OnClickListener {
-            override fun onClick(position: Int, image: ImageView) {
-                val product = recommendationAdapter.snapshot().get(position)
-                product?.let { navigateToProductDetail(it.id) }
-            }
-        })
 
         loginSession = LoginSession.getInstance(requireContext().dataStore)
 
@@ -87,8 +74,17 @@ class ProductDetailFragment : Fragment() {
             }
         }
 
+        binding.btnViewMoreDescription.setOnClickListener {
+            if (productDescription.maxLines == 2) {
+                productDescription.maxLines = 999
+                btnViewMore.text = getString(R.string.txt_view_less)
+            } else {
+                productDescription.maxLines = 2
+                btnViewMore.text = getString(R.string.txt_view_more)
+            }
+        }
+
         fetchProductDetail()
-        observeRecommendationProducts()
 
         return binding.root
     }
@@ -109,10 +105,10 @@ class ProductDetailFragment : Fragment() {
                             favoriteId = null
                             binding.ivFavButton.setImageResource(R.drawable.ic_fav)
                         } else {
-                            Log.e("ProductDetailFragment", "Failed to remove favorite: ${response.code()} - ${response.errorBody()?.string()}")
+                            Toast.makeText(requireContext(), "Failed to remove from favorite", Toast.LENGTH_SHORT).show()
                         }
                     } ?: run {
-                        Log.e("ProductDetailFragment", "favoriteId is null, cannot remove favorite")
+                        Toast.makeText(requireContext(), "Failed to remove from favorite", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     val favoriteRequest = FavoriteRequest(product_id = productId, user_id = userId)
@@ -125,27 +121,17 @@ class ProductDetailFragment : Fragment() {
                             binding.ivFavButton.setImageResource(R.drawable.ic_fav_2)
                         }
                     } else {
-                        Log.e("ProductDetailFragment", "Failed to add favorite: ${response.code()} - ${response.errorBody()?.string()}")
+                        Toast.makeText(requireContext(), "Failed to remove from favorite", Toast.LENGTH_SHORT).show()
                     }
                 }
             } catch (e: Exception) {
-                Log.e("ProductDetailFragment", "Failed to toggle favorite: ${e.message}", e)
+                Toast.makeText(requireContext(), "Failed to add to favorite", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-
-    private fun navigateToProductDetail(productId: String) {
-        val action = ProductDetailFragmentDirections.actionNavigationProductDetailSelf(productId)
-        findNavController().navigate(action)
-    }
-
     private fun fetchProductDetail() {
-        val productId = arguments?.getString("productId")
-        if (productId == null) {
-            Log.e("ProductDetailFragment", "Product ID is null")
-            return
-        }
+        val productId = arguments?.getString("productId") ?: return
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
@@ -154,46 +140,22 @@ class ProductDetailFragment : Fragment() {
                 val apiService = ApiConfig.getApiService(token)
                 val response = apiService.getProductDetail(productId)
                 if (response.isSuccessful) {
+                    binding.loadingDetail.isVisible = false
                     val product = response.body()
                     if (product != null) {
                         bindProductData(product)
                         checkFavorite(productId)
                     } else {
-                        Log.e("ProductDetailFragment", "Empty product detail response")
+                        Toast.makeText(requireContext(), "Failed to get product detail", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Log.e(
-                        "ProductDetailFragment",
-                        "Failed to load product detail: ${response.code()}"
-                    )
+                    binding.loadingDetail.isVisible = false
+                    Toast.makeText(requireContext(), "Failed to load product detail", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Log.e("ProductDetailFragment", "Failed to load product detail: ${e.message}", e)
+                Toast.makeText(requireContext(), e.toString(), Toast.LENGTH_SHORT).show()
             }
-        }
-    }
-
-    private fun observeRecommendationProducts() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                val token = loginSession.getSessionToken().first() ?: ""
-                userId = loginSession.getUserId().first() ?: ""
-                val repository = RecommendationRepository(ApiConfig.getApiService(token))
-                val viewModelFactory = RecommendationViewModelFactory(repository)
-                recommendationViewModel =
-                    ViewModelProvider(this@ProductDetailFragment, viewModelFactory)
-                        .get(RecommendationViewModel::class.java)
-
-                recommendationViewModel.getRecommendationProducts(userId)
-                    .collectLatest { pagingData ->
-                        recommendationAdapter.submitData(pagingData)
-                    }
-            } catch (e: Exception) {
-                Log.e(
-                    "ProductDetailFragment",
-                    "Failed to observe recommendation products: ${e.message}"
-                )
-            }
+            binding.loadingDetail.isVisible = false
         }
     }
 
@@ -210,9 +172,8 @@ class ProductDetailFragment : Fragment() {
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(ivProductImage)
             tvProductName.text = product.productName
-            tvProductPrice.text = "Rp ${product.rentPrice} / hari"
-            tvProductRating.text =
-                "Rating: %.1f".format(product.reviews.map { it.rating }.average())
+            tvProductPrice.text = getString(R.string.txt_per_day, product.rentPrice.toString())
+            tvProductRating.text = "Rating: %.1f".format(product.reviews.map { it.rating }.average())
             tvProductShopName.text = product.seller.sellerName
             tvShopLocation.text = product.seller.city
             tvProductCategory.text = product.category
@@ -266,7 +227,7 @@ class ProductDetailFragment : Fragment() {
                 val apiService = ApiConfig.getApiService(token)
                 val response = apiService.addToCart(
                     CartRequest(
-                        duration = 3,
+                        duration = 1,
                         product_id = productId,
                         user_id = userId
                     )
@@ -274,15 +235,13 @@ class ProductDetailFragment : Fragment() {
                 if (response.isSuccessful) {
                     val cartResponse = response.body()
                     if (cartResponse != null) {
-                        Log.d("ProductDetailFragment", "Added to cart successfully")
-                    } else {
-                        Log.e("ProductDetailFragment", "Empty response body")
+                        Toast.makeText(requireContext(), "Added to cart successfully", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Log.e("ProductDetailFragment", "Failed to add to cart: ${response.code()}")
+                    Toast.makeText(requireContext(), "Failed to add to cart", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Log.e("ProductDetailFragment", "Failed to add to cart: ${e.message}", e)
+                Toast.makeText(requireContext(), "Failed to add to cart", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -37,7 +37,9 @@ class ExploreFragment : Fragment() {
 
         binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                findNavController().navigate(ExploreFragmentDirections.actionNavigationExploreToNavigationExploreResult())
+                if (query != null) {
+                    findNavController().navigate(ExploreFragmentDirections.actionNavigationExploreToNavigationExploreResult(query))
+                }
                 binding.searchView.setQuery(null, false)
                 return false
             }

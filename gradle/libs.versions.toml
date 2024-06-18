@@ -13,6 +13,7 @@ kotlin = "1.9.0"
 coreKtx = "1.13.1"
 coreSplashscreen = "1.0.1"
 cameraCamera2 = "1.4.0-beta02"
+shimmer = "0.5.0"
 ucrop = "2.2.8"
 exifinterface = "1.3.7"
 junit = "4.13.2"
@@ -56,6 +57,7 @@ androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", versi
 androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCamera2" }
 androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraCamera2" }
 androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraCamera2" }
+shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
 ucrop = { module = "com.github.yalantis:ucrop", version.ref = "ucrop" }
 androidx-exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifinterface" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

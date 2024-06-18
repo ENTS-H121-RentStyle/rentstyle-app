@@ -5,7 +5,6 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.rentstyle.helpers.DataResult
 import com.example.rentstyle.helpers.StatusResult
-import com.example.rentstyle.model.remote.response.SellerResponseData
 import com.example.rentstyle.model.remote.response.UserResponseData
 import com.example.rentstyle.model.remote.retrofit.ApiService
 import okhttp3.MultipartBody

@@ -10,29 +10,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.paging.PagingData
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentForYouBinding
+import com.example.rentstyle.di.Injection
 import com.example.rentstyle.helpers.GridSpacingItemDecoration
 import com.example.rentstyle.helpers.adapter.ImageSliderAdapter
 import com.example.rentstyle.helpers.adapter.ProductAdapter
+import com.example.rentstyle.helpers.adapter.ProductPagingAdapter
+import com.example.rentstyle.helpers.adapter.ProductSkeletonAdapter
 import com.example.rentstyle.model.Product
-import com.example.rentstyle.model.remote.retrofit.ApiConfig
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
-import com.example.rentstyle.model.repository.RecommendationRepository
+import com.example.rentstyle.model.remote.retrofit.ApiConfig
 import com.example.rentstyle.ui.viewmodel.RecommendationViewModel
 import com.example.rentstyle.ui.viewmodel.RecommendationViewModelFactory
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -50,7 +52,14 @@ class ForYouFragment : Fragment() {
     private lateinit var recommendationProductRecyclerView: RecyclerView
     private lateinit var highestRatingAdapter: ProductAdapter
     private lateinit var newProductAdapter: ProductAdapter
-    private lateinit var recommendationProductAdapter: ProductAdapter
+    private lateinit var recommendationProductAdapter: ProductPagingAdapter
+
+    private lateinit var highestRatingSkeleton: RecyclerView
+    private lateinit var highestRatingSkeletonAdapter: ProductSkeletonAdapter
+    private lateinit var newProductSkeleton: RecyclerView
+    private lateinit var newProductSkeletonAdapter: ProductSkeletonAdapter
+    private lateinit var recommendationSkeleton: RecyclerView
+    private lateinit var recommendationSkeletonAdapter: ProductSkeletonAdapter
 
     private lateinit var loginSession: LoginSession
     private lateinit var userId: String
@@ -64,21 +73,20 @@ class ForYouFragment : Fragment() {
         }
     }
 
-    private lateinit var recommendationViewModel: RecommendationViewModel
+    private val recommendationViewModel: RecommendationViewModel by activityViewModels {
+        RecommendationViewModelFactory(Injection.provideRecommendationRepository(requireContext()))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentForYouBinding.inflate(inflater, container, false)
+
         loginSession = LoginSession.getInstance(requireContext().dataStore)
         viewLifecycleOwner.lifecycleScope.launch {
-            val token = loginSession.getSessionToken().first() ?: ""
+            val token = loginSession.getSessionToken().first().toString()
             if (token.isNotEmpty()) {
-                val repository = RecommendationRepository(ApiConfig.getApiService(token))
-                val viewModelFactory = RecommendationViewModelFactory(repository)
-                recommendationViewModel = ViewModelProvider(this@ForYouFragment, viewModelFactory)[RecommendationViewModel::class.java]
-
                 createCarouselInstance()
                 createProductRecyclerViewInstance()
                 fetchFilteredProducts(token)
@@ -96,20 +104,33 @@ class ForYouFragment : Fragment() {
             highestRatingRecyclerView = rvHighestRating
             newProductRecyclerView = rvNewProduct
             recommendationProductRecyclerView = rvRecommendation
+
+            highestRatingSkeleton = rvHighestRatingSkeleton
+            newProductSkeleton = rvNewProductSkeleton
+            recommendationSkeleton = rvRecommendationSkeleton
         }
 
         highestRatingAdapter = ProductAdapter()
         newProductAdapter = ProductAdapter()
-        recommendationProductAdapter = ProductAdapter()
+        recommendationProductAdapter = ProductPagingAdapter()
+
+        highestRatingSkeletonAdapter = ProductSkeletonAdapter(4)
+        newProductSkeletonAdapter = ProductSkeletonAdapter(4)
+        recommendationSkeletonAdapter = ProductSkeletonAdapter(10)
 
         val screenWidth = getDisplayWidthInDp(requireContext())
         val spacing = abs((screenWidth - 340) / 3)
 
         recommendationProductRecyclerView.addItemDecoration(GridSpacingItemDecoration(2, spacing, true))
+        recommendationSkeleton.addItemDecoration(GridSpacingItemDecoration(2, spacing, true))
 
         highestRatingRecyclerView.adapter = highestRatingAdapter
         newProductRecyclerView.adapter = newProductAdapter
         recommendationProductRecyclerView.adapter = recommendationProductAdapter
+
+        highestRatingSkeleton.adapter = highestRatingSkeletonAdapter
+        newProductSkeleton.adapter = newProductSkeletonAdapter
+        recommendationSkeleton.adapter = recommendationSkeletonAdapter
 
         highestRatingAdapter.setOnClickListener(object : ProductAdapter.OnClickListener {
             override fun onClick(position: Int, image: ImageView) {
@@ -125,8 +146,8 @@ class ForYouFragment : Fragment() {
             }
         })
 
-        recommendationProductAdapter.setOnClickListener(object : ProductAdapter.OnClickListener {
-            override fun onClick(position: Int, image: ImageView) {
+        recommendationProductAdapter.setOnClickListener(object : ProductPagingAdapter.OnClickListener {
+            override fun onClick(position: Int, model: Product) {
                 val product = recommendationProductAdapter.snapshot()[position]
                 product?.let { navigateToProductDetail(it.id) }
             }
@@ -175,15 +196,23 @@ class ForYouFragment : Fragment() {
             try {
                 val highestRatingResponse = ApiConfig.getApiService(token).getFilteredProducts("Tertinggi", 1, 10)
                 if (highestRatingResponse.isSuccessful) {
+                    binding.shimmerViewHighestRating.isVisible = false
+                    highestRatingRecyclerView.isVisible = true
                     highestRatingResponse.body()?.products?.let { updateHighestRatingAdapter(it) }
                 } else {
+                    binding.shimmerViewHighestRating.isVisible = false
+                    binding.rvHighestRating.isVisible = true
                     logError(highestRatingResponse)
                 }
 
                 val newProductResponse = ApiConfig.getApiService(token).getFilteredProducts("Terbaru", 1, 10)
                 if (newProductResponse.isSuccessful) {
+                    binding.shimmerViewNewProduct.isVisible = false
+                    newProductRecyclerView.isVisible = true
                     newProductResponse.body()?.products?.let { updateNewProductAdapter(it) }
                 } else {
+                    binding.shimmerViewHighestRating.isVisible = false
+                    binding.rvHighestRating.isVisible = true
                     logError(newProductResponse)
                 }
             } catch (e: Exception) {
@@ -193,14 +222,18 @@ class ForYouFragment : Fragment() {
     }
 
     private fun observeRecommendationProducts() {
+        recommendationProductAdapter.addLoadStateListener {
+            binding.shimmerViewRecommendation.isVisible = it.source.refresh is LoadState.Loading
+            recommendationProductRecyclerView.isVisible = it.source.refresh is LoadState.NotLoading && recommendationProductAdapter.itemCount > 0
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val token = loginSession.getSessionToken().first() ?: ""
-                userId = loginSession.getUserId().first() ?: ""
-                recommendationViewModel.getRecommendationProducts(userId)
-                    .collectLatest { pagingData ->
-                        recommendationProductAdapter.submitData(pagingData)
-                    }
+                userId = loginSession.getUserId().first().toString()
+
+                recommendationViewModel.recommendationFlow(userId).observe(viewLifecycleOwner) {
+                    recommendationProductAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+                }
             } catch (e: Exception) {
                 Log.e(
                     "ForYouFragment",

@@ -220,4 +220,12 @@
     <string name="txt_richard">2. Richard Arya Winarta (A119D4KY3884)</string>
     <string name="txt_rentstyle_dev">About RentStyle</string>
     <string name="welcome_seller">Welcome %1$s!</string>
+    <string name="title_product_detail">Product Detail</string>
+    <string name="txt_view_less">View less</string>
+    <string name="txt_per_day">%1$s / day</string>
+    <string name="txt_total_days">Total for %1$s days</string>
+    <string name="title_shopping_cart">Shopping Cart</string>
+    <string name="title_checkout">Checkout</string>
+    <string name="product_co_price">Rp. %1$s (%2$s days)</string>
+    <string name="txt_self_pick_up">Self pick up</string>
 </resources>

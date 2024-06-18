@@ -111,39 +111,39 @@ class ProfileFragment : Fragment() {
             setIndeterminateDrawable(WanderingCubes())
         }
 
-            if (userViewModel.userData.value!!.isEmpty()) {
-                viewLifecycleOwner.lifecycleScope.launch {
-                    userViewModel.getUserProfile().observe(viewLifecycleOwner) { result ->
-                        if (result != null) {
-                            when (result) {
-                                is DataResult.Loading -> { }
+        if (userViewModel.userData.value!!.isEmpty()) {
+            viewLifecycleOwner.lifecycleScope.launch {
+                userViewModel.getUserProfile().observe(viewLifecycleOwner) { result ->
+                    if (result != null) {
+                        when (result) {
+                            is DataResult.Loading -> { }
 
-                                is DataResult.Success -> {
-                                    val data = result.data
-                                    userViewModel.userData.value = arrayListOf(data.name, data.image)
+                            is DataResult.Success -> {
+                                val data = result.data
+                                userViewModel.userData.value = arrayListOf(data.name, data.image)
 
-                                    updateUserProfile(data.name, data.image)
-                                    binding.ivLoadingSpinner.isVisible = false
-                                    binding.btnEditProfile.setOnClickListener {
-                                        findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationEditUserProfile())
-                                    }
+                                updateUserProfile(data.name, data.image)
+                                binding.ivLoadingSpinner.isVisible = false
+                                binding.btnEditProfile.setOnClickListener {
+                                    findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationEditUserProfile())
                                 }
+                            }
 
-                                is DataResult.Error -> {
-                                    binding.ivLoadingSpinner.isVisible = false
-                                    Toast.makeText(requireContext(), getString(R.string.error_toast, result.error), Toast.LENGTH_SHORT).show()
-                                }
+                            is DataResult.Error -> {
+                                binding.ivLoadingSpinner.isVisible = false
+                                Toast.makeText(requireContext(), getString(R.string.error_toast, result.error), Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
                 }
-            } else {
-                val data = userViewModel.userData.value
-                updateUserProfile(data?.get(0), data?.get(1))
-                binding.ivLoadingSpinner.isVisible = false
-                binding.btnEditProfile.setOnClickListener {
-                    findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationEditUserProfile())
-                }
+            }
+        } else {
+            val data = userViewModel.userData.value
+            updateUserProfile(data?.get(0), data?.get(1))
+            binding.ivLoadingSpinner.isVisible = false
+            binding.btnEditProfile.setOnClickListener {
+                findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationEditUserProfile())
+            }
         }
     }
 

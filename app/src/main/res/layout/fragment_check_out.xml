@@ -69,6 +69,7 @@
                 tools:ignore="RtlSymmetry" />
 
             <TextView
+                android:visibility="gone"
                 style="@style/TextView.Paragraph"
                 android:id="@+id/btn_change_address"
                 android:layout_width="wrap_content"
@@ -116,7 +117,7 @@
                 android:textColor="?android:textColorPrimary"
                 app:layout_constraintTop_toBottomOf="@id/tv_heading_2"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:text="Self pick up" />
+                android:text="@string/txt_self_pick_up" />
 
             <TextView
                 android:id="@+id/tv_heading_3"
@@ -320,7 +321,7 @@
         android:elevation="4dp">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_access_1"
+            android:id="@+id/btn_check_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_orange_button"
@@ -336,4 +337,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/iv_loading_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:SpinKit_Color="@color/orange_1"
+        style="@style/SpinKitView.Large"
+        android:visibility="invisible"
+        android:layout_gravity="center"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

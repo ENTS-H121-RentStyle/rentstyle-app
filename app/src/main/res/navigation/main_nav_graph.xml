@@ -104,6 +104,9 @@
         <action
             android:id="@+id/action_navigation_shopping_cart_to_navigation_check_out"
             app:destination="@id/navigation_check_out" />
+        <action
+            android:id="@+id/action_navigation_shopping_cart_to_navigation_edit_user_profile"
+            app:destination="@id/navigation_edit_user_profile" />
     </fragment>
 
     <fragment
@@ -116,6 +119,9 @@
         <action
             android:id="@+id/action_navigation_explore_result_to_navigation_product_detail"
             app:destination="@id/navigation_product_detail" />
+        <argument
+            android:name="query"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -130,7 +136,27 @@
     <fragment
         android:id="@+id/navigation_check_out"
         android:name="com.example.rentstyle.ui.fragment.CheckOutFragment"
-        tools:layout="@layout/fragment_check_out" />
+        tools:layout="@layout/fragment_check_out" >
+        <argument
+            android:name="productId"
+            app:argType="string" />
+        <argument
+            android:name="rentDuration"
+            app:argType="integer" />
+        <argument
+            android:name="rentPrice"
+            app:argType="integer" />
+        <argument
+            android:name="productName"
+            app:argType="string" />
+        <argument
+            android:name="productImage"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_navigation_check_out_to_navigation_profile"
+            app:destination="@id/navigation_profile"
+            app:popUpTo="@id/navigation_profile" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_setting"

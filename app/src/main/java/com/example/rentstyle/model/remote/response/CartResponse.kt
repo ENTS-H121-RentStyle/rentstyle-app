@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class CartResponse(
     @SerializedName("id") val id: String,
-    @SerializedName("duration") val duration: Int,
+    @SerializedName("duration") var duration: Int,
     @SerializedName("Product") val product: Product,
     @SerializedName("product_id") val productId: String,
     @SerializedName("user_id") val userId: String
