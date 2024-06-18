@@ -11,8 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -25,13 +27,20 @@ import com.example.rentstyle.helpers.adapter.ImageSliderAdapter
 import com.example.rentstyle.helpers.adapter.ProductAdapter
 import com.example.rentstyle.model.Product
 import com.example.rentstyle.model.remote.retrofit.ApiConfig
+import com.example.rentstyle.model.local.datastore.LoginSession
+import com.example.rentstyle.model.local.datastore.dataStore
+import com.example.rentstyle.model.repository.RecommendationRepository
+import com.example.rentstyle.ui.viewmodel.RecommendationViewModel
+import com.example.rentstyle.ui.viewmodel.RecommendationViewModelFactory
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import kotlin.math.abs
 
 class ForYouFragment : Fragment() {
-    private lateinit var _binding: FragmentForYouBinding
-    private val binding get() = _binding
+    private var _binding: FragmentForYouBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var carousel: ViewPager2
     private lateinit var carouselAdapter: ImageSliderAdapter
@@ -43,6 +52,9 @@ class ForYouFragment : Fragment() {
     private lateinit var newProductAdapter: ProductAdapter
     private lateinit var recommendationProductAdapter: ProductAdapter
 
+    private lateinit var loginSession: LoginSession
+    private lateinit var userId: String
+
     private val handler = Handler(Looper.getMainLooper())
     private val slideRunnable = Runnable {
         if (carousel.currentItem == 2) {
@@ -52,16 +64,30 @@ class ForYouFragment : Fragment() {
         }
     }
 
+    private lateinit var recommendationViewModel: RecommendationViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentForYouBinding.inflate(inflater, container, false)
+        loginSession = LoginSession.getInstance(requireContext().dataStore)
+        viewLifecycleOwner.lifecycleScope.launch {
+            val token = loginSession.getSessionToken().first() ?: ""
+            if (token.isNotEmpty()) {
+                val repository = RecommendationRepository(ApiConfig.getApiService(token))
+                val viewModelFactory = RecommendationViewModelFactory(repository)
+                recommendationViewModel = ViewModelProvider(this@ForYouFragment, viewModelFactory)[RecommendationViewModel::class.java]
 
-        val token = getTokenFromPreferences()
-        fetchFilteredProducts(token)
-        createCarouselInstance()
-        createProductRecyclerViewInstance()
+                createCarouselInstance()
+                createProductRecyclerViewInstance()
+                fetchFilteredProducts(token)
+                observeRecommendationProducts()
+            } else {
+                Log.e("ForYouFragment", "Token is empty")
+            }
+        }
+
         return binding.root
     }
 
@@ -72,12 +98,12 @@ class ForYouFragment : Fragment() {
             recommendationProductRecyclerView = rvRecommendation
         }
 
-        highestRatingAdapter = ProductAdapter(emptyList())
-        newProductAdapter = ProductAdapter(emptyList())
-        recommendationProductAdapter = ProductAdapter(emptyList())
+        highestRatingAdapter = ProductAdapter()
+        newProductAdapter = ProductAdapter()
+        recommendationProductAdapter = ProductAdapter()
 
         val screenWidth = getDisplayWidthInDp(requireContext())
-        val spacing = abs((screenWidth - 340)/3)
+        val spacing = abs((screenWidth - 340) / 3)
 
         recommendationProductRecyclerView.addItemDecoration(GridSpacingItemDecoration(2, spacing, true))
 
@@ -87,22 +113,22 @@ class ForYouFragment : Fragment() {
 
         highestRatingAdapter.setOnClickListener(object : ProductAdapter.OnClickListener {
             override fun onClick(position: Int, image: ImageView) {
-                val product = highestRatingAdapter.getItem(position)
-                navigateToProductDetail(product.id)
+                val product = highestRatingAdapter.snapshot().get(position)
+                product?.let { navigateToProductDetail(it.id) }
             }
         })
 
         newProductAdapter.setOnClickListener(object : ProductAdapter.OnClickListener {
             override fun onClick(position: Int, image: ImageView) {
-                val product = newProductAdapter.getItem(position)
-                navigateToProductDetail(product.id)
+                val product = newProductAdapter.snapshot().get(position)
+                product?.let { navigateToProductDetail(it.id) }
             }
         })
 
         recommendationProductAdapter.setOnClickListener(object : ProductAdapter.OnClickListener {
             override fun onClick(position: Int, image: ImageView) {
-                val product = recommendationProductAdapter.getItem(position)
-                navigateToProductDetail(product.productId ?: product.id)
+                val product = recommendationProductAdapter.snapshot().get(position)
+                product?.let { navigateToProductDetail(it.id) }
             }
         })
     }
@@ -145,57 +171,57 @@ class ForYouFragment : Fragment() {
     }
 
     private fun fetchFilteredProducts(token: String) {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             try {
-                // Fetch products with highest ratings
                 val highestRatingResponse = ApiConfig.getApiService(token).getFilteredProducts("Tertinggi", 1, 10)
                 if (highestRatingResponse.isSuccessful) {
-                    highestRatingResponse.body()?.let { updateHighestRatingAdapter(it) }
+                    highestRatingResponse.body()?.products?.let { updateHighestRatingAdapter(it) }
                 } else {
                     logError(highestRatingResponse)
                 }
 
-                // Fetch new products
                 val newProductResponse = ApiConfig.getApiService(token).getFilteredProducts("Terbaru", 1, 10)
                 if (newProductResponse.isSuccessful) {
-                    newProductResponse.body()?.let { updateNewProductAdapter(it) }
+                    newProductResponse.body()?.products?.let { updateNewProductAdapter(it) }
                 } else {
                     logError(newProductResponse)
                 }
-
-                // Fetch recommendation products
-                val recommendationResponse = ApiConfig.getApiService(token).getProducts(1, 10)
-                if (recommendationResponse.isSuccessful) {
-                    recommendationResponse.body()?.let { updateRecommendationAdapter(it) }
-                } else {
-                    logError(recommendationResponse)
-                }
             } catch (e: Exception) {
-                e.printStackTrace()
-                showErrorLog("An error occurred: ${e.message}")
+                Log.e("ForYouFragment", "Terjadi kesalahan: ${e.message}", e)
+            }
+        }
+    }
+
+    private fun observeRecommendationProducts() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val token = loginSession.getSessionToken().first() ?: ""
+                userId = loginSession.getUserId().first() ?: ""
+                recommendationViewModel.getRecommendationProducts(userId)
+                    .collectLatest { pagingData ->
+                        recommendationProductAdapter.submitData(pagingData)
+                    }
+            } catch (e: Exception) {
+                Log.e(
+                    "ForYouFragment",
+                    "Failed to observe recommendation products: ${e.message}",
+                    e
+                )
             }
         }
     }
 
     private fun updateHighestRatingAdapter(products: List<Product>) {
-        highestRatingAdapter.updateData(products)
+        highestRatingAdapter.submitData(lifecycle, PagingData.from(products))
     }
 
     private fun updateNewProductAdapter(products: List<Product>) {
-        newProductAdapter.updateData(products)
-    }
-
-    private fun updateRecommendationAdapter(products: List<Product>) {
-        recommendationProductAdapter.updateData(products)
+        newProductAdapter.submitData(lifecycle, PagingData.from(products))
     }
 
     private fun logError(response: Response<*>) {
         val errorBody = response.errorBody()?.string()
-        showErrorLog("Failed to load data. Status Code: ${response.code()}, Error: $errorBody")
-    }
-    private fun getTokenFromPreferences(): String {
-        val sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        return sharedPreferences.getString("auth_token", "") ?: ""
+        Log.e("ForYouFragment", "Failed to load data. Status Code: ${response.code()}, Error: $errorBody")
     }
 
     private fun getDisplayWidthInDp(context: Context): Int {
@@ -204,7 +230,9 @@ class ForYouFragment : Fragment() {
         return dpWidth.toInt()
     }
 
-    private fun showErrorLog(message: String) {
-        Log.e("ForYouFragment", message)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        handler.removeCallbacks(slideRunnable)
+        _binding = null
     }
 }

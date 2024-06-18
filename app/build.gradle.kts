@@ -92,6 +92,7 @@ dependencies {
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.room.paging)
     implementation(libs.androidx.paging.runtime.ktx)
+    implementation (libs.androidx.databinding.runtime)
 
     //Coroutine, livedata
     implementation(libs.kotlinx.coroutines.core)
