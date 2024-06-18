@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 app:iconifiedByDefault="false"
                 app:queryBackground="@android:color/transparent"
-                app:queryHint="Search products" />
+                app:queryHint="Cari produk" />
         </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView

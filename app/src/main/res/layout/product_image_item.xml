@@ -13,10 +13,10 @@
         android:id="@+id/iv_product_image"
         android:layout_width="match_parent"
         android:layout_height="170dp"
+        android:contentDescription="@string/cd_product_image"
         android:scaleType="centerCrop"
         android:src="@drawable/img_placeholder"
-        android:transitionName="shared_product_image"
-        android:contentDescription="@string/cd_product_image" />
+        android:transitionName="shared_product_image" />
 
     <LinearLayout
         android:layout_width="match_parent"
