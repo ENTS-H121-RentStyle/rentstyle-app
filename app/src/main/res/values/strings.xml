@@ -37,32 +37,20 @@
     <string name="cd_fav_product">Favorite product</string>
     <string name="title_add_product">Add Product</string>
 
-    <!-- Pemesanan dan Pembayaran -->
-    <string name="booking_and_payment">Pemesanan dan Pembayaran:</string>
-    <string name="booking_description">Pemesanan dapat dilakukan melalui aplikasi atau langsung datang ke toko. Pembayaran harus dilakukan penuh sebelum pengambilan barang. Pembatalan pemesanan dapat dilakukan maksimal 24 jam sebelum jadwal pengambilan dengan potongan biaya tertentu.</string>
-
-    <!-- Jadwal Pengambilan dan Pengembalian -->
-    <string name="pickup_and_return">Jadwal Pengambilan dan Pengembalian:</string>
-    <string name="pickup_description">Barang harus diambil sesuai dengan jadwal yang telah ditentukan. Keterlambatan pengembalian akan dikenakan biaya tambahan sesuai dengan perjanjian. Pengembalian barang harus dalam kondisi baik seperti saat diambil, tanpa kerusakan atau noda yang signifikan.</string>
-
-    <!-- Penggantian dan Perbaikan -->
-    <string name="replacement_and_repair">Penggantian dan Perbaikan:</string>
-    <string name="replacement_description">Penggantian barang yang rusak atau tidak sesuai dapat dilakukan maksimal 24 jam setelah pengambilan. Kerusakan yang terjadi selama penggunaan akan ditanggung oleh penyewa, kecuali kerusakan yang disebabkan oleh kesalahan dari pihak penyedia.</string>
-
-    <!-- Kebersihan dan Perawatan -->
-    <string name="cleanliness_and_maintenance">Kebersihan dan Perawatan:</string>
-    <string name="cleanliness_description">Barang harus dikembalikan dalam keadaan bersih dan siap pakai. Jika terdapat noda atau kotoran, biaya pembersihan tambahan akan dikenakan. Penyewa bertanggung jawab atas perawatan barang selama dalam penggunaan.</string>
-
-    <!-- Penggunaan dan Kewajiban Penyewa -->
-    <string name="usage_and_responsibility">Penggunaan dan Kewajiban Penyewa:</string>
-    <string name="usage_description">Barang hanya boleh digunakan untuk keperluan yang sesuai dan tidak melanggar norma sosial atau hukum. Penyewa wajib menjaga dan menggunakan barang dengan baik sesuai dengan fungsi dan tujuan penggunaan.</string>
-
-    <!-- Jaminan dan Tanggung Jawab -->
-    <string name="guarantee_and_responsibility">Jaminan dan Tanggung Jawab:</string>
-    <string name="guarantee_description">Penyewa wajib memberikan jaminan identitas dan deposit tertentu sebelum pengambilan barang. Penyedia tidak bertanggung jawab atas kerugian atau kecelakaan yang terjadi selama penggunaan barang.</string>
-
-    <!-- Button Text -->
-    <string name="button_submit">Setuju</string>
+    <!-- Terms and Services -->
+    <string name="booking_and_payment">Booking and Payment:</string>
+    <string name="booking_description">Bookings can be made through the application or by visiting the store directly. Full payment must be made before collecting the items. Cancellations can be made up to 24 hours before the scheduled pickup with a certain fee deduction.</string>
+    <string name="pickup_and_return">Pickup and Return Schedule:</string>
+    <string name="pickup_description">Items must be picked up according to the scheduled time. Late returns will incur additional charges as per the agreement. Items must be returned in good condition as received, without significant damage or stains.</string>
+    <string name="replacement_and_repair">Replacement and Repair:</string>
+    <string name="replacement_description">Replacement of damaged or non-compliant items can be done within 24 hours after pickup. Damages that occur during use will be the responsibility of the renter, except for damage caused by the provider\'s fault.</string>
+    <string name="cleanliness_and_maintenance">Cleanliness and Maintenance:</string>
+    <string name="cleanliness_description">Items must be returned clean and ready for use. If there are stains or dirt, additional cleaning fees will be charged. The renter is responsible for the maintenance of the items during use.</string>
+    <string name="usage_and_responsibility">Usage and Renter\'s Obligations:</string>
+    <string name="usage_description">Items should only be used for appropriate purposes and must not violate social norms or laws. The renter is obligated to care for and use the items properly according to their function and intended use.</string>
+    <string name="guarantee_and_responsibility">Guarantee and Responsibility:</string>
+    <string name="guarantee_description">The renter must provide identity guarantees and a certain deposit before collecting the items. The provider is not responsible for any loss or accident that occurs during the use of the items.</string>
+    <string name="button_submit">Agree</string>
 
     <string name="txt_home">Home</string>
     <string name="txt_explore">Explore</string>
