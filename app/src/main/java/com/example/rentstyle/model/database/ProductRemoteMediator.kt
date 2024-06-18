@@ -1,8 +1,9 @@
 package com.example.rentstyle.model.database
 
-
-import androidx.paging.*
-import com.example.rentstyle.model.Product
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadType
+import androidx.paging.PagingState
+import androidx.paging.RemoteMediator
 import com.example.rentstyle.model.local.LocalProduct
 import com.example.rentstyle.model.remote.retrofit.ApiService
 import retrofit2.HttpException
@@ -33,9 +34,10 @@ class ProductRemoteMediator(
 
         return try {
             val pageSize = state.config.pageSize
-            val response = apiService.getProducts(page, pageSize)
+            val userId = getUserIdFromPreferences() // Mendapatkan user ID dari SharedPreferences
+            val response = apiService.getRecommendations(userId, page)
             if (response.isSuccessful) {
-                val products = response.body().orEmpty()
+                val products = response.body()?.products.orEmpty()
                 productDao.withTransaction {
                     if (loadType == LoadType.REFRESH) {
                         productDao.clearAll()
@@ -51,5 +53,13 @@ class ProductRemoteMediator(
         } catch (exception: HttpException) {
             MediatorResult.Error(exception)
         }
+    }
+
+    private fun getUserIdFromPreferences(): String {
+        // Implementasi ini sesuaikan dengan cara Anda mengambil user ID dari SharedPreferences
+        // Contoh sederhana:
+        // val sharedPreferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
+        // return sharedPreferences.getString("userId", "") ?: ""
+        return "123456" // Dummy implementation, ganti dengan yang sesuai
     }
 }
