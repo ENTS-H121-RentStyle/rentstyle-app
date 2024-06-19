@@ -87,6 +87,9 @@
             android:id="@+id/action_navigation_product_detail_to_navigation_edit_user_profile"
             app:destination="@id/navigation_edit_user_profile"
             app:popUpTo="@id/navigation_home" />
+        <action
+            android:id="@+id/action_navigation_product_detail_to_navigation_list_review"
+            app:destination="@id/navigation_list_review" />
     </fragment>
 
     <fragment
@@ -138,6 +141,9 @@
         <action
             android:id="@+id/action_navigation_order_detail_to_navigation_product_detail"
             app:destination="@id/navigation_product_detail" />
+        <argument
+            android:name="orderId"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -252,4 +258,9 @@
         android:id="@+id/navigation_contributor"
         android:name="com.example.rentstyle.ui.fragment.ContributorFragment"
         tools:layout="@layout/fragment_contributor"/>
+
+    <fragment
+        android:id="@+id/navigation_list_review"
+        android:name="com.example.rentstyle.ui.fragment.ListReviewFragment"
+        tools:layout="@layout/fragment_list_review"/>
 </navigation>

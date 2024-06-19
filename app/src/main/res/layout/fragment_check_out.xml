@@ -326,7 +326,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_orange_button"
             android:fontFamily="@font/inter_regular"
-            tools:text="Checkout"
+            android:text="@string/title_checkout"
             android:textAllCaps="false"
             android:paddingHorizontal="30dp"
             android:textColor="@color/white"

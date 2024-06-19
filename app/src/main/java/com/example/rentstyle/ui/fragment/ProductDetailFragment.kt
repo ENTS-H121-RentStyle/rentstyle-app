@@ -2,7 +2,6 @@ package com.example.rentstyle.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentProductDetailBinding
 import com.example.rentstyle.helpers.DataResult
-import com.example.rentstyle.model.database.Favorite
 import com.example.rentstyle.model.database.room.AppDatabase
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
@@ -149,6 +147,10 @@ class ProductDetailFragment : Fragment() {
     }
 
     private fun toggleFavorite(productId: String) {
+        binding.ivLoadingSpinner2.apply {
+            isVisible = true
+            setIndeterminateDrawable(WanderingCubes())
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val token = loginSession.getSessionToken().first().toString()
@@ -159,33 +161,37 @@ class ProductDetailFragment : Fragment() {
                     favoriteId?.let { favId ->
                         val response = apiService.deleteFavorite(favId)
                         if (response.isSuccessful) {
-                            database.favoriteDao().deleteFavorite(Favorite(productId, userId, ""))
                             isFavorite = false
                             favoriteId = null
                             binding.ivFavButton.setImageResource(R.drawable.ic_fav)
+                            Toast.makeText(requireContext(), "Success removed from favorite", Toast.LENGTH_SHORT).show()
                         } else {
                             Toast.makeText(requireContext(), "Failed to remove from favorite", Toast.LENGTH_SHORT).show()
                         }
+                        binding.ivLoadingSpinner2.isVisible = false
                     } ?: run {
                         Toast.makeText(requireContext(), "Failed to remove from favorite", Toast.LENGTH_SHORT).show()
                     }
+                    binding.ivLoadingSpinner2.isVisible = false
                 } else {
                     val favoriteRequest = FavoriteRequest(product_id = productId, user_id = userId)
                     val response = apiService.addFavorite(favoriteRequest)
                     if (response.code() == 201) {
                         response.body()?.id?.let { favId ->
-                            database.favoriteDao().insertFavorite(Favorite(favoriteId!!, userId, ""))
                             isFavorite = true
                             favoriteId = favId
                             binding.ivFavButton.setImageResource(R.drawable.ic_fav_2)
+                            Toast.makeText(requireContext(), "Success add to favorite", Toast.LENGTH_SHORT).show()
                         }
                     } else {
                         Toast.makeText(requireContext(), "Failed to add to favorite", Toast.LENGTH_SHORT).show()
                     }
+                    binding.ivLoadingSpinner2.isVisible = false
                 }
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), "Failed to add to favorite", Toast.LENGTH_SHORT).show()
             }
+            binding.ivLoadingSpinner2.isVisible = false
         }
     }
 
@@ -200,7 +206,6 @@ class ProductDetailFragment : Fragment() {
                 val apiService = ApiConfig.getApiService(token)
                 val response = apiService.getProductDetail(productId)
                 if (response.isSuccessful) {
-                    binding.loadingDetail.isVisible = false
                     val product = response.body()
                     if (product != null) {
                         bindProductData(product)
@@ -257,26 +262,30 @@ class ProductDetailFragment : Fragment() {
 
                 val apiService = ApiConfig.getApiService(token)
                 val response = apiService.getFavorites(userId)
-                val favorite = database.favoriteDao().getFavorite(productId, userId)
                 if (response.code() == 200) {
-                    if (favorite != null) {
+                    if (response.body()?.isNotEmpty() == true) {
                         response.body()?.map {
-                            if (it.id == favorite.favId) {
+                            if (it.product?.productId == productId) {
                                 isFavorite = true
                                 favoriteId = it.id
                                 binding.ivFavButton.setImageResource(R.drawable.ic_fav_2)
                             }
                         }
+                    } else {
+                        isFavorite = false
+                        binding.ivFavButton.setImageResource(R.drawable.ic_fav)
                     }
                 } else {
                     isFavorite = false
                     binding.ivFavButton.setImageResource(R.drawable.ic_fav)
                 }
 
+                binding.loadingDetail.isVisible = false
+
                 binding.ivFavButton.setOnClickListener {
                     val productsId = arguments?.getString("productId")
                     productsId?.let {
-                        toggleFavorite(it)
+                        toggleFavorite(productId)
                     }
                 }
             } catch (_: Exception) { }

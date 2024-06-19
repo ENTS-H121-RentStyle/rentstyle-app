@@ -229,4 +229,12 @@
     <string name="product_co_price">Rp. %1$s (%2$s days)</string>
     <string name="txt_self_pick_up">Self pick up</string>
     <string name="txt_your_cart_is_empty">Your cart is empty</string>
+    <string name="txt_order_quantity">Quantity : 1</string>
+    <string name="txt_order_duration">Rent duration : %1$s</string>
+    <string name="txt_total_order_payment">Total payments : Rp. %1$s</string>
+    <string name="txt_check_order">View order</string>
+    <string name="txt_no_transaction_histories">No transaction histories</string>
+    <string name="txt_no_favorite">No favorite products found</string>
+    <string name="title_order_detail">Order Detail</string>
+    <string name="txt_order_money">Rp. %1$s</string>
 </resources>

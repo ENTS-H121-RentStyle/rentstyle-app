@@ -1,23 +1,14 @@
 package com.example.rentstyle.helpers.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FavoriteProductImageItemBinding
-import com.example.rentstyle.model.Product
+import com.example.rentstyle.model.remote.response.FavoriteResponse
 
-class FavoriteProductAdapter : RecyclerView.Adapter<FavoriteProductAdapter.FavoriteProductViewHolder>() {
-
-    private var favoriteProducts = listOf<Product>()
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun submitList(products: List<Product>) {
-        favoriteProducts = products
-        notifyDataSetChanged()
-    }
+class FavoriteProductAdapter (private val favoriteProducts: List<FavoriteResponse>) : RecyclerView.Adapter<FavoriteProductAdapter.FavoriteProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteProductViewHolder {
         val binding = FavoriteProductImageItemBinding.inflate(
@@ -27,7 +18,7 @@ class FavoriteProductAdapter : RecyclerView.Adapter<FavoriteProductAdapter.Favor
 
     override fun onBindViewHolder(holder: FavoriteProductViewHolder, position: Int) {
         val product = favoriteProducts[position]
-        holder.bind(product)
+        holder.bind(product.product?.image!!)
     }
 
     override fun getItemCount(): Int = favoriteProducts.size
@@ -35,10 +26,10 @@ class FavoriteProductAdapter : RecyclerView.Adapter<FavoriteProductAdapter.Favor
     inner class FavoriteProductViewHolder(private val binding: FavoriteProductImageItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(product: Product) {
+        fun bind(product: String) {
             binding.apply {
                 Glide.with(itemView.context)
-                    .load(product.image)
+                    .load(product)
                     .placeholder(R.drawable.img_placeholder)
                     .into(listItemImage)
             }

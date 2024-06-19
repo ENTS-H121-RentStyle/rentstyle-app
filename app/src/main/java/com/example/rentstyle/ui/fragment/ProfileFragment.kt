@@ -1,6 +1,7 @@
 package com.example.rentstyle.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,14 +16,13 @@ import com.bumptech.glide.Glide
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentProfileBinding
 import com.example.rentstyle.helpers.DataResult
-import com.example.rentstyle.helpers.FilterModel
 import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
-import com.example.rentstyle.helpers.adapter.RecyclerDummyOrderAdapter
-import com.example.rentstyle.helpers.adapter.RecyclerFilterAdapter
+import com.example.rentstyle.helpers.adapter.OrderAdapter
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
 import com.example.rentstyle.viewmodel.ProfileViewModel
 import com.example.rentstyle.viewmodel.SellerViewModelFactory
+import com.example.rentstyle.viewmodel.TransactionViewModel
 import com.example.rentstyle.viewmodel.UserViewModel
 import com.example.rentstyle.viewmodel.UserViewModelFactory
 import com.github.ybq.android.spinkit.style.WanderingCubes
@@ -39,8 +39,11 @@ class ProfileFragment : Fragment() {
         UserViewModelFactory.getInstance(this.requireActivity().application)
     }
 
-    private lateinit var filterAdapter : RecyclerFilterAdapter
-    private lateinit var orderListAdapter : RecyclerDummyOrderAdapter
+    private val orderViewModel: TransactionViewModel by activityViewModels {
+        UserViewModelFactory.getInstance(this.requireActivity().application)
+    }
+
+    private lateinit var orderListAdapter : OrderAdapter
 
     private lateinit var pref: LoginSession
     private var run = true
@@ -68,19 +71,7 @@ class ProfileFragment : Fragment() {
 
         setUserProfile()
 
-        val filterData = FilterModel.getOrderFilter()
-        filterAdapter = RecyclerFilterAdapter(filterData)
-        binding.rvFilterRentalHistory.adapter = filterAdapter
-
-        orderListAdapter = RecyclerDummyOrderAdapter()
-        binding.rvRentalHistory.adapter = orderListAdapter
-
-        orderListAdapter.setOnClickListener(object : RecyclerDummyOrderAdapter.OnClickListener {
-            override fun onClick(position: Int) {
-                findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationOrderDetail())
-            }
-
-        })
+        getOrderHistory()
 
         binding.btnShoppingCart.setOnClickListener {
             findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationShoppingCart())
@@ -103,6 +94,51 @@ class ProfileFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun getOrderHistory() {
+        binding.ivLoadingSpinner.apply {
+            isVisible = true
+            setIndeterminateDrawable(WanderingCubes())
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            orderViewModel.getAllOrder().observe(viewLifecycleOwner) { result ->
+                if (result != null) {
+                    when (result) {
+                        is DataResult.Loading -> { }
+
+                        is DataResult.Success -> {
+                            val data = result.data
+                            orderListAdapter = OrderAdapter(data)
+                            binding.rvRentalHistory.adapter = orderListAdapter
+
+                            if (data.isEmpty()) {
+                                binding.tvNoHistory.isVisible = true
+                            }
+
+                            orderListAdapter.setOnClickListener(object : OrderAdapter.OnClickListener {
+                                override fun onClick(position: Int, orderId: String) {
+                                    findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationOrderDetail(orderId))
+                                }
+
+                            })
+                            binding.ivLoadingSpinner.isVisible = false
+                        }
+
+                        is DataResult.Error -> {
+                            binding.ivLoadingSpinner.isVisible = false
+                            Toast.makeText(requireContext(), getString(R.string.error_toast, result.error), Toast.LENGTH_SHORT).show()
+                            binding.ivLoadingSpinner.isVisible = false
+                            binding.tvNoHistory.isVisible = true
+                        }
+                    }
+                } else {
+                    binding.ivLoadingSpinner.isVisible = false
+                    Toast.makeText(requireContext(), "Fail to get transaction histories", Toast.LENGTH_SHORT).show()
+                    binding.tvNoHistory.isVisible = true
+                }
+            }
+        }
     }
 
     private fun setUserProfile() {

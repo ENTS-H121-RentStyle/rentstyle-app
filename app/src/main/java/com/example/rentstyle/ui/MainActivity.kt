@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         val firebaseUser = auth.currentUser
 
         lifecycleScope.launch {
-            checkAppTheme()
+            //checkAppTheme()
             if (firebaseUser == null || !pref.getPrefCheck().first()) {
                 navigateToVerificationActivity()
             }

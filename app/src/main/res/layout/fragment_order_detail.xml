@@ -187,6 +187,7 @@
                 tools:ignore="RtlSymmetry" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_heading_4"
                 style="@style/TextView.Heading"
                 android:layout_width="wrap_content"
@@ -199,6 +200,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_order_user_address" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_seller_username"
                 style="@style/TextView.Paragraph"
                 android:layout_width="wrap_content"
@@ -212,6 +214,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_heading_4"/>
 
             <TextView
+                android:visibility="gone"
                 style="@style/TextView.Paragraph"
                 android:id="@+id/tv_seller_phone"
                 android:layout_width="wrap_content"
@@ -223,6 +226,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_seller_username"/>
 
             <TextView
+                android:visibility="gone"
                 style="@style/TextView.Paragraph"
                 android:id="@+id/tv_seller_address"
                 android:layout_width="match_parent"
@@ -385,6 +389,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_deposit_info"/>
 
             <TextView
+                android:visibility="invisible"
                 android:id="@+id/payment_method"
                 style="@style/TextView.Heading"
                 android:layout_width="wrap_content"
@@ -399,6 +404,7 @@
                 app:layout_constraintTop_toBottomOf="@id/order_payment" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_order_payment_method"
                 style="@style/TextView.Paragraph"
                 android:layout_width="wrap_content"
@@ -453,4 +459,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/iv_loading_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:SpinKit_Color="@color/orange_1"
+        style="@style/SpinKitView.Large"
+        android:visibility="invisible"
+        android:layout_gravity="center"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

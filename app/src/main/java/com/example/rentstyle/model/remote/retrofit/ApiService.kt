@@ -162,4 +162,14 @@ interface ApiService {
         @Part("rent_price") rentPrice: RequestBody,
         @Part("total_payment") totalPayment: RequestBody
     ): Response<Unit>
+
+    @GET("order/filter")
+    suspend fun getOrderByUserId(
+        @Query("userId") userId: String
+    ): Response<List<ResponseOrderItem>>
+
+    @GET("order/{orderId}")
+    suspend fun getOrderByOrderId(
+        @Path("orderId") orderId: String
+    ): Response<ResponseOrderItem>
 }

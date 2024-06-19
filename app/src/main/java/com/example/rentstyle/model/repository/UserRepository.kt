@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.rentstyle.helpers.DataResult
 import com.example.rentstyle.helpers.StatusResult
+import com.example.rentstyle.model.remote.response.ResponseOrderItem
 import com.example.rentstyle.model.remote.response.UserResponseData
 import com.example.rentstyle.model.remote.retrofit.ApiService
 import okhttp3.MultipartBody
@@ -16,6 +17,8 @@ class UserRepository (
 ) {
     private val userResultData = MediatorLiveData<DataResult<UserResponseData>>()
     private val statusResult = MediatorLiveData<StatusResult>()
+    private val userOrderData = MediatorLiveData<DataResult<List<ResponseOrderItem>>>()
+    private val userOrder = MediatorLiveData<DataResult<ResponseOrderItem>>()
 
     suspend fun updateUserProfile(userName: RequestBody,
                                   birthDate: RequestBody,
@@ -59,5 +62,45 @@ class UserRepository (
         }
 
         return userResultData
+    }
+
+    suspend fun getUserOrder(): LiveData<DataResult<List<ResponseOrderItem>>> {
+        userOrderData.value = DataResult.Loading
+
+        try {
+            val response = apiService.getOrderByUserId(userId).body()
+
+            if (response!!.isNotEmpty()) {
+                val orderLiveData: LiveData<List<ResponseOrderItem>> = MutableLiveData(response)
+                userOrderData.addSource(orderLiveData) { data ->
+                    userOrderData.value = DataResult.Success(data)
+                }
+            }
+        } catch (e: Exception) {
+            userOrderData.value = DataResult.Error(e.toString())
+        }
+
+        return userOrderData
+    }
+
+    suspend fun getUserOrderById(orderId: String): LiveData<DataResult<ResponseOrderItem>> {
+        userOrder.value = DataResult.Loading
+
+        try {
+            val response = apiService.getOrderByOrderId(orderId)
+
+            if (response.code() == 200) {
+                val orderLiveData: LiveData<ResponseOrderItem> = MutableLiveData(response.body())
+                userOrder.addSource(orderLiveData) { data ->
+                    userOrder.value = DataResult.Success(data)
+                }
+            } else {
+                userOrder.value = DataResult.Error("Fail to get order data")
+            }
+        } catch (e: Exception) {
+            userOrder.value = DataResult.Error(e.toString())
+        }
+
+        return userOrder
     }
 }
