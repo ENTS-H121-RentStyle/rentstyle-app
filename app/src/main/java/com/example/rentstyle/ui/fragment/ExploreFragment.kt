@@ -30,7 +30,7 @@ class ExploreFragment : Fragment() {
 
         shopListAdapter.setOnClickListener(object : RecyclerDummyShopAdapter.OnClickListener {
             override fun onClick(position: Int) {
-                findNavController().navigate(ExploreFragmentDirections.actionNavigationExploreToNavigationShopDetail())
+                findNavController().navigate(ExploreFragmentDirections.actionNavigationExploreToNavigationShopDetail(""))
             }
         })
 

@@ -4,38 +4,59 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
+import com.example.rentstyle.R
 import com.example.rentstyle.databinding.ProductImageItemBinding
+import com.example.rentstyle.model.Product
 
-class RecyclerDummyAdapter : RecyclerView.Adapter<RecyclerDummyAdapter.ViewHolder>() {
-    inner class ViewHolder (binding: ProductImageItemBinding): RecyclerView.ViewHolder(binding.root) {
-        val image = binding.ivProductImage
+class RecyclerDummyAdapter : RecyclerView.Adapter<RecyclerDummyAdapter.ProductViewHolder>() {
+    private var productList: List<Product> = emptyList()
+    private var onClickListener: OnClickListener? = null
+
+    fun setOnClickListener(onClickListener: OnClickListener) {
+        this.onClickListener = onClickListener
     }
 
-    private var onClickListener: OnClickListener?=null
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ProductImageItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
-        return ViewHolder(binding)
+    interface OnClickListener {
+        fun onClick(product: Product, image: ImageView)
     }
 
-    override fun getItemCount(): Int {
-        return 5
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
+        return ProductViewHolder(ProductImageItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
+        val product = productList[position]
+
+        Glide.with(holder.itemView.context)
+            .load(product.image ?: R.drawable.img_placeholder)
+            .apply(RequestOptions().placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder))
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(holder.binding.ivProductImage)
+
+        holder.bind(product)
         holder.itemView.setOnClickListener {
-            if (onClickListener != null) {
-                onClickListener!!.onClick(position, holder.image)
-            }
+            onClickListener?.onClick(product, holder.ivProductImage)
         }
     }
 
-    interface OnClickListener{
-        fun onClick(position: Int, image: ImageView)
+    override fun getItemCount(): Int = productList.size
+
+    inner class ProductViewHolder(val binding: ProductImageItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        val ivProductImage: ImageView = binding.ivProductImage
+
+        fun bind(product: Product) {
+            binding.tvProductName.text = product.productName
+            binding.tvProductPrice.text = "Rp ${product.rentPrice}"
+            binding.tvProductRating.text = product.avgRating.toString()
+            binding.tvProductLocation.text = product.city
+        }
     }
 
-    fun setOnClickListener(onClickListener: OnClickListener){
-        this.onClickListener = onClickListener
+    fun updateData(newProductList: List<Product>) {
+        productList = newProductList
+        notifyDataSetChanged()
     }
 }

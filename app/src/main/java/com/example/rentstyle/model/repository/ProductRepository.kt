@@ -34,6 +34,19 @@ class ProductRepository(
             emptyList()
         }
     }
+    suspend fun getFilteredProducts(filter: String, limit: Int, page: Int): List<Product> {
+        return try {
+            val response = apiService.getFilteredProducts(filter, limit, page)
+
+            if (response.isSuccessful) {
+                response.body()?.products ?: emptyList()
+            } else {
+                emptyList()
+            }
+        } catch (_: Exception) {
+            emptyList()
+        }
+    }
 
     suspend fun uploadProduct(
         productName: RequestBody,

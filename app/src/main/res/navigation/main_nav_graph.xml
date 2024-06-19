@@ -96,12 +96,22 @@
         android:id="@+id/navigation_shop_detail"
         android:name="com.example.rentstyle.ui.fragment.ShopDetailFragment"
         tools:layout="@layout/fragment_shop_detail">
+        <argument
+            android:name="sellerId"
+            app:argType="string" />
         <action
             android:id="@+id/action_navigation_shop_detail_to_navigation_product_detail"
             app:destination="@id/navigation_product_detail" />
         <action
             android:id="@+id/action_navigation_shop_detail_to_navigation_shopping_cart"
             app:destination="@id/navigation_shopping_cart" />
+        <action
+            android:id="@+id/action_navigation_product_detail_to_navigation_shop_detail"
+            app:destination="@id/navigation_shop_detail">
+            <argument
+                android:name="sellerId"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment

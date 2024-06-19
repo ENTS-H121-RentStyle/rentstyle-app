@@ -52,6 +52,7 @@ class ProductDetailFragment : Fragment() {
     private var rentPrice: Int = 0
     private var rentDuration: Int = 0
     private var productImage: String = ""
+    private var sellerId: String = ""
 
     private var run = true
 
@@ -99,6 +100,15 @@ class ProductDetailFragment : Fragment() {
             } else {
                 productDescription.maxLines = 2
                 btnViewMore.text = getString(R.string.txt_view_more)
+            }
+        }
+        binding.tvViewShop.setOnClickListener {
+            if (sellerId.isNotEmpty()) {
+                findNavController().navigate(
+                    ProductDetailFragmentDirections.actionNavigationProductDetailToNavigationShopDetail(sellerId)
+                )
+            } else {
+                Toast.makeText(requireContext(), "Seller ID not found", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -251,6 +261,7 @@ class ProductDetailFragment : Fragment() {
             rentPrice = product.rentPrice
             rentDuration = 1
             productImage = product.image.toString()
+            sellerId = product.sellerId
             checkOutListener()
         }
     }
