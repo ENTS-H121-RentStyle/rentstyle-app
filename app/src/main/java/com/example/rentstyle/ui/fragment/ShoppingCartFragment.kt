@@ -109,7 +109,7 @@ class ShoppingCartFragment : Fragment() {
 
                                     if (run) {
                                         run = false
-                                        if (data.address != null && rentDuration != 0 && productId != "" && rentPrice != 0 && productName != "" && productImage != "") {
+                                        if (data.address != null && data.phone != null && rentDuration != 0 && productId != "" && rentPrice != 0 && productName != "" && productImage != "") {
                                             findNavController().navigate(ShoppingCartFragmentDirections.actionNavigationShoppingCartToNavigationCheckOut(rentDuration = rentDuration,
                                                 productId = productId, rentPrice = rentPrice, productName = productName, productImage = productImage))
                                         } else {
@@ -202,7 +202,8 @@ class ShoppingCartFragment : Fragment() {
             }
 
             @SuppressLint("NotifyDataSetChanged")
-            override fun onAddClick(position: Int, id: String, duration: Int, model: CartResponse) {
+            override fun onAddClick(position: Int, id: String, duration: Int, model: CartResponse, isChecked: Boolean
+            ) {
                 binding.ivLoadingSpinner.apply {
                     isVisible = true
                     setIndeterminateDrawable(WanderingCubes())
@@ -219,8 +220,10 @@ class ShoppingCartFragment : Fragment() {
 
                                 is StatusResult.Success -> {
                                     binding.ivLoadingSpinner.isVisible = false
-                                    shoppingCartAdapter.updateItemDuration(position, id, duration+1)
-                                    updateBottomSheet(model, duration+1 )
+                                    shoppingCartAdapter.updateItemDuration(position, id, duration + 1)
+                                    if (isChecked) {
+                                        updateBottomSheet(model, duration+1 )
+                                    }
                                 }
 
                                 is StatusResult.Error -> {
@@ -236,35 +239,71 @@ class ShoppingCartFragment : Fragment() {
                 }
             }
 
-            override fun onReduceClick(position: Int, id: String, duration: Int, model: CartResponse) {
+            override fun onReduceClick(
+                position: Int,
+                id: String,
+                duration: Int,
+                model: CartResponse,
+                isChecked: Boolean
+            ) {
                 binding.ivLoadingSpinner.apply {
                     isVisible = true
                     setIndeterminateDrawable(WanderingCubes())
                 }
 
-                viewLifecycleOwner.lifecycleScope.launch {
+                if (duration > 1) {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        val bodyDuration = (duration - 1).toString().toRequestBody("text/plain".toMediaType())
 
-                    val bodyDuration = (duration - 1).toString().toRequestBody("text/plain".toMediaType())
+                        viewModel.updateItemInCart(id, bodyDuration).observe(viewLifecycleOwner) { result ->
+                            if (result != null) {
+                                when (result) {
+                                    is StatusResult.Loading -> {}
 
-                    viewModel.updateItemInCart(id, bodyDuration).observe(viewLifecycleOwner) { result ->
-                        if (result != null) {
-                            when (result) {
-                                is StatusResult.Loading -> {}
+                                    is StatusResult.Success -> {
+                                        binding.ivLoadingSpinner.isVisible = false
+                                        shoppingCartAdapter.updateItemDuration(position, id, duration-1)
+                                        if (isChecked) {
+                                            updateBottomSheet(model, duration-1 )
+                                        }
+                                    }
 
-                                is StatusResult.Success -> {
-                                    binding.ivLoadingSpinner.isVisible = false
-                                    shoppingCartAdapter.updateItemDuration(position, id, duration-1)
-                                    updateBottomSheet(model, duration-1 )
+                                    is StatusResult.Error -> {
+                                        binding.ivLoadingSpinner.isVisible = false
+                                        Log.d("error", result.error)
+                                        Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+                                    }
                                 }
-
-                                is StatusResult.Error -> {
-                                    binding.ivLoadingSpinner.isVisible = false
-                                    Log.d("error", result.error)
-                                    Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
-                                }
+                            } else {
+                                Toast.makeText(requireContext(), "Error delete item from cart", Toast.LENGTH_SHORT).show()
                             }
-                        } else {
-                            Toast.makeText(requireContext(), "Error delete item from cart", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } else {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        viewModel.deleteItemInCart(id).observe(viewLifecycleOwner) { result ->
+                            if (result != null) {
+                                when (result) {
+                                    is StatusResult.Loading -> {}
+
+                                    is StatusResult.Success -> {
+                                        binding.ivLoadingSpinner.isVisible = false
+                                        shoppingCartAdapter.deleteItem(position, id)
+                                        if (shoppingCartAdapter.itemCount == 0) {
+                                            binding.tvEmptyCart.isVisible = true
+                                        }
+                                        Toast.makeText(requireContext(), result.success, Toast.LENGTH_SHORT).show()
+                                    }
+
+                                    is StatusResult.Error -> {
+                                        binding.ivLoadingSpinner.isVisible = false
+                                        Log.d("error", result.error)
+                                        Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            } else {
+                                Toast.makeText(requireContext(), "Error delete item from cart", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }

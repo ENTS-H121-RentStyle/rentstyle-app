@@ -11,11 +11,14 @@ interface FavoriteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavorite(favorite: Favorite)
 
-    @Query("SELECT * FROM favorites WHERE productId = :productId")
-    suspend fun getFavorite(productId: String): Favorite?
+    @Query("DELETE FROM favorites WHERE (favId = :favId and userId = :userId)")
+    suspend fun deleteFavorite(favId:String, userId: String)
 
-    @Query("SELECT * FROM favorites")
-    suspend fun getAllFavorites(): List<Favorite>
+    @Query("SELECT * FROM favorites WHERE (productId = :productId and userId = :userId)")
+    suspend fun getFavorite(productId: String, userId: String) : Favorite?
+
+    @Query("SELECT favId FROM favorites WHERE userId = :userId")
+    suspend fun getAllFavoriteId(userId: String): List<String>?
 
     @Delete
     suspend fun deleteFavorite(favorite: Favorite)

@@ -70,13 +70,14 @@ class RecyclerShoppingCartAdapter(
 
         holder.minCart.setOnClickListener {
             if (onClickListener!=null){
-                onClickListener!!.onReduceClick(position, item.id, item.duration, item)
+                onClickListener!!.onReduceClick(position, item.id, item.duration, item, holder.selectBox.isChecked)
             }
+
         }
 
         holder.addCart.setOnClickListener {
             if (onClickListener!=null){
-                onClickListener!!.onAddClick(position, item.id, item.duration, item)
+                onClickListener!!.onAddClick(position, item.id, item.duration, item, holder.selectBox.isChecked)
             }
         }
 
@@ -119,9 +120,9 @@ class RecyclerShoppingCartAdapter(
     interface OnClickListener{
         fun onClick(position: Int, id: String)
 
-        fun onAddClick(position: Int, id: String, duration: Int, model: CartResponse)
+        fun onAddClick(position: Int, id: String, duration: Int, model: CartResponse, isChecked: Boolean)
 
-        fun onReduceClick(position: Int, id: String, duration: Int, model: CartResponse)
+        fun onReduceClick(position: Int, id: String, duration: Int, model: CartResponse, isChecked: Boolean)
 
         fun onItemSelected(position: Int, id:String, model: CartResponse)
 

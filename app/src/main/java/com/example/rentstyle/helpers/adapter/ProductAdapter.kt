@@ -14,11 +14,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.rentstyle.R
+import com.example.rentstyle.databinding.ProductImageItemBinding
 import com.example.rentstyle.model.Product
 
 class ProductAdapter : PagingDataAdapter<Product, ProductAdapter.ProductViewHolder>(ProductComparator) {
-
-    private lateinit var context: Context
     private var onClickListener: OnClickListener? = null
 
     fun setOnClickListener(onClickListener: OnClickListener) {
@@ -30,14 +29,19 @@ class ProductAdapter : PagingDataAdapter<Product, ProductAdapter.ProductViewHold
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        context = parent.context
-        val view = LayoutInflater.from(context).inflate(R.layout.product_image_item, parent, false)
-        return ProductViewHolder(view)
+        return ProductViewHolder(ProductImageItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = getItem(position)
-        product?.let {
+
+        Glide.with(holder.itemView.context)
+            .load(product!!.image ?: R.drawable.img_placeholder)
+            .apply(RequestOptions().placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder))
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(holder.binding.ivProductImage)
+
+        product.let {
             holder.bind(it)
             holder.itemView.setOnClickListener {
                 onClickListener?.onClick(position, holder.ivProductImage)
@@ -45,21 +49,19 @@ class ProductAdapter : PagingDataAdapter<Product, ProductAdapter.ProductViewHold
         }
     }
 
-    inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val ivProductImage: ImageView = itemView.findViewById(R.id.iv_product_image)
-        private val tvProductName: TextView = itemView.findViewById(R.id.tv_product_name)
-        private val tvProductPrice: TextView = itemView.findViewById(R.id.tv_product_price)
+    inner class ProductViewHolder(val binding: ProductImageItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        val ivProductImage: ImageView = binding.ivProductImage
+        private val tvProductName: TextView = binding.tvProductName
+        private val tvProductPrice: TextView = binding.tvProductPrice
+        private val tvProductRating: TextView = binding.tvProductRating
+        private val tvProductLocation: TextView = binding.tvProductLocation
 
         @SuppressLint("SetTextI18n")
         fun bind(product: Product) {
-            Glide.with(context)
-                .load(product.image ?: R.drawable.img_placeholder)
-                .apply(RequestOptions().placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder))
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(ivProductImage)
-
             tvProductName.text = product.productName
             tvProductPrice.text = "Rp ${product.rentPrice}"
+            tvProductRating.text = product.avgRating.toString()
+            tvProductLocation.text = product.city
         }
     }
 

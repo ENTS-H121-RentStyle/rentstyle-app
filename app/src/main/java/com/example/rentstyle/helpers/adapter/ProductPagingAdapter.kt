@@ -44,7 +44,7 @@ class ProductPagingAdapter: PagingDataAdapter<Product, ProductPagingAdapter.View
             tvProductName.text = currentProduct?.productName
             tvProductPrice.text = currentProduct?.rentPrice.toString()
             tvProductRating.text = currentProduct?.avgRating.toString()
-            tvProductLocation.text = currentProduct?.city
+            tvProductLocation.text = currentProduct?.city.toString()
         }
 
         holder.itemView.setOnClickListener {

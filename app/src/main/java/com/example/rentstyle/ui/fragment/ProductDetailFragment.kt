@@ -2,6 +2,7 @@ package com.example.rentstyle.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -16,6 +18,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentProductDetailBinding
+import com.example.rentstyle.helpers.DataResult
 import com.example.rentstyle.model.database.Favorite
 import com.example.rentstyle.model.database.room.AppDatabase
 import com.example.rentstyle.model.local.datastore.LoginSession
@@ -24,6 +27,8 @@ import com.example.rentstyle.model.remote.request.CartRequest
 import com.example.rentstyle.model.remote.request.FavoriteRequest
 import com.example.rentstyle.model.remote.response.ProductDetailResponse
 import com.example.rentstyle.model.remote.retrofit.ApiConfig
+import com.example.rentstyle.viewmodel.UserViewModel
+import com.example.rentstyle.viewmodel.UserViewModelFactory
 import com.github.ybq.android.spinkit.style.WanderingCubes
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -32,6 +37,10 @@ class ProductDetailFragment : Fragment() {
     private var _binding: FragmentProductDetailBinding? = null
     private val binding get() = _binding!!
 
+    private val userViewModel: UserViewModel by activityViewModels {
+        UserViewModelFactory.getInstance(this.requireActivity().application)
+    }
+
     private lateinit var loginSession: LoginSession
     private var isFavorite: Boolean = false
     private var favoriteId: String? = null
@@ -39,6 +48,14 @@ class ProductDetailFragment : Fragment() {
     private lateinit var database: AppDatabase
     private lateinit var productDescription: TextView
     private lateinit var btnViewMore: TextView
+
+    private var productId: String = ""
+    private var productName: String = ""
+    private var rentPrice: Int = 0
+    private var rentDuration: Int = 0
+    private var productImage: String = ""
+
+    private var run = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,12 +83,6 @@ class ProductDetailFragment : Fragment() {
 
         loginSession = LoginSession.getInstance(requireActivity().application.dataStore)
 
-        binding.ivFavButton.setOnClickListener {
-            val productId = arguments?.getString("productId")
-            productId?.let {
-                toggleFavorite(it)
-            }
-        }
         binding.btnCart.setOnClickListener {
             binding.ivLoadingSpinner2.apply {
                 isVisible = true
@@ -98,6 +109,45 @@ class ProductDetailFragment : Fragment() {
         return binding.root
     }
 
+    private fun checkOutListener() {
+        binding.btnRent.setOnClickListener {
+            binding.ivLoadingSpinner2.apply {
+                isVisible = true
+                setIndeterminateDrawable(WanderingCubes())
+            }
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                userViewModel.getUserProfile().observe(viewLifecycleOwner) { result ->
+                    if (result != null) {
+                        when (result) {
+                            is DataResult.Loading -> { }
+
+                            is DataResult.Success -> {
+                                val data = result.data
+
+                                if (run) {
+                                    run = false
+                                    if (data.address != null && data.phone != null) {
+                                        findNavController().navigate(ProductDetailFragmentDirections.actionNavigationProductDetailToNavigationCheckOut(productId, rentDuration, rentPrice, productName, productImage))
+                                    } else {
+                                        Toast.makeText(requireContext(), "Please complete your profile", Toast.LENGTH_SHORT).show()
+                                        findNavController().navigate(ProductDetailFragmentDirections.actionNavigationProductDetailToNavigationEditUserProfile())
+                                    }
+                                    binding.ivLoadingSpinner2.isVisible = false
+                                }
+                            }
+
+                            is DataResult.Error -> {
+                                binding.ivLoadingSpinner2.isVisible = false
+                                Toast.makeText(requireContext(), getString(R.string.error_toast, result.error), Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private fun toggleFavorite(productId: String) {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
@@ -109,7 +159,7 @@ class ProductDetailFragment : Fragment() {
                     favoriteId?.let { favId ->
                         val response = apiService.deleteFavorite(favId)
                         if (response.isSuccessful) {
-                            database.favoriteDao().deleteFavorite(Favorite(productId, userId))
+                            database.favoriteDao().deleteFavorite(Favorite(productId, userId, ""))
                             isFavorite = false
                             favoriteId = null
                             binding.ivFavButton.setImageResource(R.drawable.ic_fav)
@@ -122,9 +172,9 @@ class ProductDetailFragment : Fragment() {
                 } else {
                     val favoriteRequest = FavoriteRequest(product_id = productId, user_id = userId)
                     val response = apiService.addFavorite(favoriteRequest)
-                    if (response.isSuccessful) {
+                    if (response.code() == 201) {
                         response.body()?.id?.let { favId ->
-                            database.favoriteDao().insertFavorite(Favorite(productId, userId))
+                            database.favoriteDao().insertFavorite(Favorite(favoriteId!!, userId, ""))
                             isFavorite = true
                             favoriteId = favId
                             binding.ivFavButton.setImageResource(R.drawable.ic_fav_2)
@@ -154,7 +204,7 @@ class ProductDetailFragment : Fragment() {
                     val product = response.body()
                     if (product != null) {
                         bindProductData(product)
-                        checkFavorite(productId)
+                        checkFavorite(productId, userId)
                     } else {
                         Toast.makeText(requireContext(), "Failed to get product detail", Toast.LENGTH_SHORT).show()
                     }
@@ -190,30 +240,43 @@ class ProductDetailFragment : Fragment() {
             tvProductColor.text = product.color
             tvProductSize.text = product.size
             tvProductDescription.text = product.desc
+
+            productId = product.id
+            productName = product.productName
+            rentPrice = product.rentPrice
+            rentDuration = 1
+            productImage = product.image.toString()
+            checkOutListener()
         }
     }
 
-    private fun checkFavorite(productId: String) {
+    private fun checkFavorite(productId: String, userId: String) {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val favorite = database.favoriteDao().getFavorite(productId)
-                if (favorite != null) {
-                    isFavorite = true
-                    favoriteId = favorite.productId
-                    binding.ivFavButton.setImageResource(R.drawable.ic_fav_2)
-                } else {
-                    val token = loginSession.getSessionToken().first().toString()
+                val token = loginSession.getSessionToken().first().toString()
 
-                    val apiService = ApiConfig.getApiService(token)
-                    val response = apiService.getFavorites(userId)
-                    if (response.isSuccessful) {
+                val apiService = ApiConfig.getApiService(token)
+                val response = apiService.getFavorites(userId)
+                val favorite = database.favoriteDao().getFavorite(productId, userId)
+                if (response.code() == 200) {
+                    if (favorite != null) {
                         response.body()?.map {
-                            if (it.id == productId) {
+                            if (it.id == favorite.favId) {
                                 isFavorite = true
                                 favoriteId = it.id
                                 binding.ivFavButton.setImageResource(R.drawable.ic_fav_2)
                             }
                         }
+                    }
+                } else {
+                    isFavorite = false
+                    binding.ivFavButton.setImageResource(R.drawable.ic_fav)
+                }
+
+                binding.ivFavButton.setOnClickListener {
+                    val productsId = arguments?.getString("productId")
+                    productsId?.let {
+                        toggleFavorite(it)
                     }
                 }
             } catch (_: Exception) { }

@@ -226,6 +226,7 @@
                 app:layout_constraintTop_toBottomOf="@id/group_access_button" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:visibility="gone"
                 android:id="@+id/rv_filter_rental_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

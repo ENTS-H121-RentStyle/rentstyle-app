@@ -1,6 +1,7 @@
 package com.example.rentstyle.di
 
 import android.content.Context
+import android.util.Log
 import com.example.rentstyle.model.database.ProductDatabase
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
@@ -19,7 +20,7 @@ object Injection {
 
         val apiService = ApiConfig.getApiService(token.toString())
 
-        return SellerRepository.getInstance(apiService)
+        return SellerRepository(apiService)
     }
 
     fun provideProductRepository (context: Context): ProductRepository {
@@ -39,7 +40,7 @@ object Injection {
         val apiService = ApiConfig.getApiService(token!!)
         val userId = runBlocking { pref.getUserId().first().toString() }
 
-        return UserRepository.getInstance(apiService, userId)
+        return UserRepository(apiService, userId)
     }
 
     fun provideRecommendationRepository (context: Context): RecommendationRepository {

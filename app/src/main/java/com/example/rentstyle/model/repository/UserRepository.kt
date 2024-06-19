@@ -10,7 +10,7 @@ import com.example.rentstyle.model.remote.retrofit.ApiService
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class UserRepository private constructor(
+class UserRepository (
     private val apiService: ApiService,
     private val userId: String
 ) {
@@ -59,19 +59,5 @@ class UserRepository private constructor(
         }
 
         return userResultData
-    }
-
-    companion object {
-
-        @Volatile
-        private var instance: UserRepository? = null
-
-        fun getInstance(
-            apiService: ApiService,
-            userId: String
-        ): UserRepository =
-            instance ?: synchronized(this) {
-                instance ?: UserRepository(apiService, userId)
-            }.also { instance = it }
     }
 }

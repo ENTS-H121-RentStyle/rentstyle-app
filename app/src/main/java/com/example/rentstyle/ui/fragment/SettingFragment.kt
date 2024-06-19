@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -18,6 +19,8 @@ import com.example.rentstyle.model.local.datastore.settingDataStore
 import com.example.rentstyle.ui.MainActivity
 import com.example.rentstyle.viewmodel.SettingViewModel
 import com.example.rentstyle.viewmodel.SettingViewModelFactory
+import com.example.rentstyle.viewmodel.UserViewModel
+import com.example.rentstyle.viewmodel.UserViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -34,6 +37,10 @@ class SettingFragment : Fragment() {
     private lateinit var settingPref: SettingPref
 
     private lateinit var switchSetting: SwitchCompat
+
+    private val userViewModel: UserViewModel by activityViewModels {
+        UserViewModelFactory.getInstance(this.requireActivity().application)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,11 +76,13 @@ class SettingFragment : Fragment() {
         }
 
         binding.btnLogout.setOnClickListener {
+            auth.signOut()
+
+            userViewModel.userData.value = null
+
             viewLifecycleOwner.lifecycleScope.launch {
                 pref.clearSession()
             }
-
-            auth.signOut()
             (activity as MainActivity).navigateToVerificationActivity()
         }
 

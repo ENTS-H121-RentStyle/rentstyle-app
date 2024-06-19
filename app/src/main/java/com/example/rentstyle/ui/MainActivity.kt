@@ -53,8 +53,6 @@ class MainActivity : AppCompatActivity() {
         pref = LoginSession.getInstance(application.dataStore)
         auth = Firebase.auth
 
-        updateTokenId(this, this)
-
         supportActionBar!!.hide()
 
         isLoading = MutableLiveData(true)

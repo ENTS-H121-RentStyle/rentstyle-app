@@ -21,6 +21,7 @@ import com.example.rentstyle.databinding.FragmentExploreResultBinding
 import com.example.rentstyle.helpers.GridSpacingItemDecoration
 import com.example.rentstyle.helpers.adapter.ProductPagingAdapter
 import com.example.rentstyle.helpers.adapter.ProductSkeletonAdapter
+import com.example.rentstyle.model.Product
 import com.example.rentstyle.viewmodel.ExploreViewModel
 import com.example.rentstyle.viewmodel.ProductViewModelFactory
 import kotlinx.coroutines.launch
@@ -81,6 +82,12 @@ class ExploreResultFragment : Fragment() {
             binding.shimmerViewProductExplore.isVisible = it.source.refresh is LoadState.Loading
             productList.isVisible = it.source.refresh is LoadState.NotLoading && productAdapter.itemCount > 0
         }
+
+        productAdapter.setOnClickListener(object : ProductPagingAdapter.OnClickListener {
+            override fun onClick(position: Int, model: Product) {
+                findNavController().navigate(ExploreResultFragmentDirections.actionNavigationExploreResultToNavigationProductDetail(model.id))
+            }
+        })
 
         searchBar.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

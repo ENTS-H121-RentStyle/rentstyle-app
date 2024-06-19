@@ -7,7 +7,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class UserViewModel (private val userRepository: UserRepository): ViewModel() {
-    var userData = MutableLiveData<List<String?>>(arrayListOf())
+    var userData = MutableLiveData<List<String?>>()
 
     suspend fun getUserProfile () = userRepository.getUserData()
     suspend fun updateUserProfile(userName: RequestBody,

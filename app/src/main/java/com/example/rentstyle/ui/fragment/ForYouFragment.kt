@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -18,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
@@ -36,17 +38,20 @@ import com.example.rentstyle.model.local.datastore.dataStore
 import com.example.rentstyle.model.remote.retrofit.ApiConfig
 import com.example.rentstyle.ui.viewmodel.RecommendationViewModel
 import com.example.rentstyle.ui.viewmodel.RecommendationViewModelFactory
+import com.example.rentstyle.viewmodel.HomeViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import kotlin.math.abs
 
-class ForYouFragment : Fragment() {
+class ForYouFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private var _binding: FragmentForYouBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var carousel: ViewPager2
     private lateinit var carouselAdapter: ImageSliderAdapter
+
+    private val homeViewModel: HomeViewModel by activityViewModels()
 
     private lateinit var highestRatingRecyclerView: RecyclerView
     private lateinit var newProductRecyclerView: RecyclerView
@@ -64,6 +69,8 @@ class ForYouFragment : Fragment() {
 
     private lateinit var loginSession: LoginSession
     private lateinit var userId: String
+
+    private lateinit var swipeLayout: SwipeRefreshLayout
 
     private val handler = Handler(Looper.getMainLooper())
     private val slideRunnable = Runnable {
@@ -86,6 +93,10 @@ class ForYouFragment : Fragment() {
 
         updateTokenId(requireContext(), viewLifecycleOwner)
 
+        swipeLayout = binding.swipeRefreshLayout
+
+        swipeLayout.setOnRefreshListener(this)
+
         loginSession = LoginSession.getInstance(requireActivity().application.dataStore)
         viewLifecycleOwner.lifecycleScope.launch {
             val token = loginSession.getSessionToken().first().toString()
@@ -94,8 +105,6 @@ class ForYouFragment : Fragment() {
                 createProductRecyclerViewInstance()
                 fetchFilteredProducts(token)
                 observeRecommendationProducts()
-            } else {
-                Log.e("ForYouFragment", "Token is empty")
             }
         }
 
@@ -195,32 +204,64 @@ class ForYouFragment : Fragment() {
     }
 
     private fun fetchFilteredProducts(token: String) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                val highestRatingResponse = ApiConfig.getApiService(token).getFilteredProducts("Tertinggi", 1, 10)
-                if (highestRatingResponse.isSuccessful) {
-                    binding.shimmerViewHighestRating.isVisible = false
-                    highestRatingRecyclerView.isVisible = true
-                    highestRatingResponse.body()?.products?.let { updateHighestRatingAdapter(it) }
-                } else {
-                    binding.shimmerViewHighestRating.isVisible = false
-                    binding.rvHighestRating.isVisible = true
-                    logError(highestRatingResponse)
-                }
-
-                val newProductResponse = ApiConfig.getApiService(token).getFilteredProducts("Terbaru", 1, 10)
-                if (newProductResponse.isSuccessful) {
-                    binding.shimmerViewNewProduct.isVisible = false
-                    newProductRecyclerView.isVisible = true
-                    newProductResponse.body()?.products?.let { updateNewProductAdapter(it) }
-                } else {
-                    binding.shimmerViewHighestRating.isVisible = false
-                    binding.rvHighestRating.isVisible = true
-                    logError(newProductResponse)
-                }
-            } catch (e: Exception) {
-                Log.e("ForYouFragment", "Terjadi kesalahan: ${e.message}", e)
+        binding.shimmerViewHighestRating.isVisible = true
+        binding.shimmerViewNewProduct.isVisible = true
+        if (homeViewModel.highestRatingData.value == null) {
+            viewLifecycleOwner.lifecycleScope.launch {
+                getHighestProductList(token)
             }
+        } else {
+            binding.shimmerViewHighestRating.isVisible = false
+            highestRatingRecyclerView.isVisible = true
+            updateHighestRatingAdapter(homeViewModel.highestRatingData.value!!)
+        }
+
+        if (homeViewModel.newProductData.value == null) {
+            viewLifecycleOwner.lifecycleScope.launch {
+                getNewestProductList(token)
+            }
+        } else {
+            binding.shimmerViewNewProduct.isVisible = false
+            newProductRecyclerView.isVisible = true
+            updateNewProductAdapter(homeViewModel.newProductData.value!!)
+        }
+    }
+
+    private suspend fun getHighestProductList(token: String) {
+        try {
+            val highestRatingResponse = ApiConfig.getApiService(token).getFilteredProducts("Tertinggi", 1, 10)
+            if (highestRatingResponse.isSuccessful) {
+                binding.shimmerViewHighestRating.isVisible = false
+                highestRatingRecyclerView.isVisible = true
+                highestRatingResponse.body()?.products?.let { updateHighestRatingAdapter(it) }
+                homeViewModel.highestRatingData.value = highestRatingResponse.body()?.products
+            } else {
+                binding.shimmerViewHighestRating.isVisible = false
+                binding.rvHighestRating.isVisible = true
+                Toast.makeText(requireContext(), "Fetching data error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Swipe to refresh", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: Exception) {
+            binding.shimmerViewHighestRating.isVisible = false
+        }
+    }
+
+    private suspend fun getNewestProductList(token: String) {
+        try {
+            val newProductResponse = ApiConfig.getApiService(token).getFilteredProducts("Terbaru", 1, 10)
+            if (newProductResponse.isSuccessful) {
+                binding.shimmerViewNewProduct.isVisible = false
+                newProductRecyclerView.isVisible = true
+                newProductResponse.body()?.products?.let { updateNewProductAdapter(it) }
+                homeViewModel.newProductData.value = newProductResponse.body()?.products
+            } else {
+                binding.shimmerViewNewProduct.isVisible = false
+                newProductRecyclerView.isVisible = true
+                Toast.makeText(requireContext(), "Fetching data error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Swipe to refresh", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: Exception) {
+            binding.shimmerViewNewProduct.isVisible = false
         }
     }
 
@@ -237,13 +278,7 @@ class ForYouFragment : Fragment() {
                 recommendationViewModel.recommendationFlow(userId).observe(viewLifecycleOwner) {
                     recommendationProductAdapter.submitData(viewLifecycleOwner.lifecycle, it)
                 }
-            } catch (e: Exception) {
-                Log.e(
-                    "ForYouFragment",
-                    "Failed to observe recommendation products: ${e.message}",
-                    e
-                )
-            }
+            } catch (_: Exception) { }
         }
     }
 
@@ -253,11 +288,6 @@ class ForYouFragment : Fragment() {
 
     private fun updateNewProductAdapter(products: List<Product>) {
         newProductAdapter.submitData(lifecycle, PagingData.from(products))
-    }
-
-    private fun logError(response: Response<*>) {
-        val errorBody = response.errorBody()?.string()
-        Log.e("ForYouFragment", "Failed to load data. Status Code: ${response.code()}, Error: $errorBody")
     }
 
     private fun getDisplayWidthInDp(context: Context): Int {
@@ -270,5 +300,19 @@ class ForYouFragment : Fragment() {
         super.onDestroyView()
         handler.removeCallbacks(slideRunnable)
         _binding = null
+    }
+
+    override fun onRefresh() {
+        homeViewModel.highestRatingData.value = null
+        homeViewModel.newProductData.value = null
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            val token = loginSession.getSessionToken().first().toString()
+
+            fetchFilteredProducts(token)
+            observeRecommendationProducts()
+        }
+
+        swipeLayout.isRefreshing = false
     }
 }

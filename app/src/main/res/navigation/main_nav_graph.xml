@@ -80,6 +80,13 @@
         <action
             android:id="@+id/action_navigation_product_detail_to_navigation_shopping_cart"
             app:destination="@id/navigation_shopping_cart" />
+        <action
+            android:id="@+id/action_navigation_product_detail_to_navigation_check_out"
+            app:destination="@id/navigation_check_out" />
+        <action
+            android:id="@+id/action_navigation_product_detail_to_navigation_edit_user_profile"
+            app:destination="@id/navigation_edit_user_profile"
+            app:popUpTo="@id/navigation_home" />
     </fragment>
 
     <fragment

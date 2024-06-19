@@ -10,7 +10,7 @@ import com.example.rentstyle.model.remote.retrofit.ApiService
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class SellerRepository private constructor(
+class SellerRepository (
     private val apiService: ApiService,
 ){
     private val sellerResultData = MediatorLiveData<DataResult<SellerResponseData>>()
@@ -82,18 +82,5 @@ class SellerRepository private constructor(
         }
 
         return statusResult
-    }
-
-    companion object {
-
-        @Volatile
-        private var instance: SellerRepository? = null
-
-        fun getInstance(
-            apiService: ApiService
-        ): SellerRepository =
-            instance ?: synchronized(this) {
-                instance ?: SellerRepository(apiService)
-            }.also { instance = it }
     }
 }

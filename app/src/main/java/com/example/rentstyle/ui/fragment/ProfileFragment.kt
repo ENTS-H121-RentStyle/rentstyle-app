@@ -111,7 +111,7 @@ class ProfileFragment : Fragment() {
             setIndeterminateDrawable(WanderingCubes())
         }
 
-        if (userViewModel.userData.value!!.isEmpty()) {
+        if (userViewModel.userData.value == null) {
             viewLifecycleOwner.lifecycleScope.launch {
                 userViewModel.getUserProfile().observe(viewLifecycleOwner) { result ->
                     if (result != null) {

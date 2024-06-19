@@ -69,6 +69,7 @@ dependencies {
     implementation(libs.lottie)
     implementation(libs.android.spinkit)
     implementation(libs.shimmer)
+    implementation (libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.core.splashscreen)
 
     //Camera
