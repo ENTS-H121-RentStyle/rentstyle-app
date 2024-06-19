@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
@@ -25,6 +26,7 @@ import com.example.rentstyle.model.remote.request.CartRequest
 import com.example.rentstyle.model.remote.request.FavoriteRequest
 import com.example.rentstyle.model.remote.response.ProductDetailResponse
 import com.example.rentstyle.model.remote.retrofit.ApiConfig
+import com.example.rentstyle.helpers.adapter.ProductRatingAdapter
 import com.example.rentstyle.viewmodel.UserViewModel
 import com.example.rentstyle.viewmodel.UserViewModelFactory
 import com.github.ybq.android.spinkit.style.WanderingCubes
@@ -246,6 +248,14 @@ class ProductDetailFragment : Fragment() {
                 )
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(ivProductImage)
+            rvProductRating.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = ProductRatingAdapter(product.reviews.take(3), product.image ?: "")
+            }
+
+            val averageRating = product.reviews.map { it.rating }.average()
+            tvProductRatingScore.text = "Rating: %.1f".format(averageRating)
+
             tvProductName.text = product.productName
             tvProductPrice.text = getString(R.string.txt_per_day, product.rentPrice.toString())
             tvProductRating.text = "Rating: %.1f".format(product.reviews.map { it.rating }.average())

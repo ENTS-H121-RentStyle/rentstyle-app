@@ -13,7 +13,7 @@ class ReviewDummyAdapter(private val reviewList: List<Review>) : RecyclerView.Ad
     inner class ViewHolder(private val binding: ProductRatingItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(review: Review) {
-            binding.tvUsername.text = review.userId
+            binding.tvUsername.text = review.user.name
             binding.ivReviewRating.ratingScore = review.rating
             binding.tvReviewDescription.text = review.review
         }

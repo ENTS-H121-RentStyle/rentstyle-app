@@ -48,6 +48,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/review_card"
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:cardElevation="0dp"
@@ -69,13 +70,14 @@
     <TextView
         style="@style/TextView.Paragraph"
         android:id="@+id/tv_review_description"
-        android:layout_width="240dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="11dp"
         android:maxLines="4"
         android:ellipsize="end"
         app:layout_constraintTop_toBottomOf="@id/group_user"
-        app:layout_constraintStart_toEndOf="@id/group_user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/review_card"
         tools:text="User review"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
