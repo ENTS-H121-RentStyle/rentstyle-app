@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -63,6 +64,10 @@ class HomeFragment : Fragment(){
 
         shoppingCart.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToNavigationShoppingCart())
+        }
+
+        binding.btnChat.setOnClickListener {
+            Toast.makeText(requireContext(), "Feature is not available yet", Toast.LENGTH_SHORT).show()
         }
 
         return binding.root

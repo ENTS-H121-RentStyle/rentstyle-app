@@ -327,7 +327,7 @@ class ShoppingCartFragment : Fragment() {
                 bottomSheetTotalCost.text = "Rp. ${model.product.rentPrice * newDuration} "
                 bottomSheetDepositCost.text = "+ Rp. ${model.product.rentPrice * newDuration * 10 / 100} (Deposit)"
 
-//                productId = model.productId
+                productId = model.product.productId
                 productName = model.product.productName
                 rentPrice = model.product.rentPrice
                 rentDuration = newDuration
@@ -337,7 +337,7 @@ class ShoppingCartFragment : Fragment() {
                 bottomSheetTotalCost.text = "Rp. ${model.product.rentPrice * model.duration} "
                 bottomSheetDepositCost.text = "+ Rp. ${model.product.rentPrice * model.duration * 10 / 100} (Deposit)"
 
-                productId = "00003a3e-4aaa-4e3e-9e32-5ed1c4ee5f81"
+                productId = model.product.productId
                 productName = model.product.productName
                 rentPrice = model.product.rentPrice
                 rentDuration = model.duration

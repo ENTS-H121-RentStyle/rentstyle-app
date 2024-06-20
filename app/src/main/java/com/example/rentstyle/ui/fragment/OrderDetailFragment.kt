@@ -23,6 +23,7 @@ import com.example.rentstyle.model.remote.response.ResponseOrderItem
 import com.example.rentstyle.viewmodel.TransactionViewModel
 import com.example.rentstyle.viewmodel.UserViewModel
 import com.example.rentstyle.viewmodel.UserViewModelFactory
+import com.github.ybq.android.spinkit.style.WanderingCubes
 import kotlinx.coroutines.launch
 
 class OrderDetailFragment : Fragment() {
@@ -50,9 +51,11 @@ class OrderDetailFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        Log.d("order id", args.orderId)
-
         viewLifecycleOwner.lifecycleScope.launch {
+            binding.ivLoadingSpinner.apply {
+                isVisible = true
+                setIndeterminateDrawable(WanderingCubes())
+            }
             orderViewModel.getOrderById(args.orderId).observe(viewLifecycleOwner) { result ->
                 if (result != null) {
                     when (result) {
@@ -66,7 +69,6 @@ class OrderDetailFragment : Fragment() {
                         is DataResult.Error -> {
                             binding.ivLoadingSpinner.isVisible = false
                             Toast.makeText(requireContext(), getString(R.string.error_toast, result.error), Toast.LENGTH_SHORT).show()
-                            binding.ivLoadingSpinner.isVisible = false
                         }
                     }
                 } else {
@@ -91,16 +93,14 @@ class OrderDetailFragment : Fragment() {
                             Toast.makeText(requireContext(), getString(R.string.error_toast, result.error), Toast.LENGTH_SHORT).show()
                         }
                     }
-                    binding.ivLoadingSpinner.isVisible = false
                 } else {
-                    binding.ivLoadingSpinner.isVisible = false
                     Toast.makeText(requireContext(), "Fail to get order detail", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
-        binding.btnAccess1.text = "Nilai produk"
-        binding.btnAccess2.text = "Sewa lagi"
+        binding.btnAccess1.text = "Rate product"
+        binding.btnAccess2.text = "Rent again"
 
         return binding.root
     }
@@ -111,8 +111,6 @@ class OrderDetailFragment : Fragment() {
             tvOrderUserPhone.text = phone
             tvOrderUserAddress.text = address
         }
-
-        binding.ivLoadingSpinner.isVisible = false
     }
 
     private fun bindingOrderData(order: ResponseOrderItem) {
@@ -137,6 +135,14 @@ class OrderDetailFragment : Fragment() {
             }).toString())
             tvOrderDepositCost.text = getString(R.string.txt_order_money, order.deposit.toString())
             tvOrderPaymentCost.text = getString(R.string.txt_order_money, order.totalPayment.toString())
+        }
+
+        binding.btnAccess2.setOnClickListener {
+            findNavController().navigate(OrderDetailFragmentDirections.actionNavigationOrderDetailToNavigationCheckOut(order.productId!!, 1,order.rentPrice!!, order.product!!.productName, order.product.productImage))
+        }
+
+        binding.btnAccess1.setOnClickListener {
+            findNavController().navigate(OrderDetailFragmentDirections.actionNavigationOrderDetailToNavigationRating(null, order.id, order.productId))
         }
 
         binding.ivLoadingSpinner.isVisible = false

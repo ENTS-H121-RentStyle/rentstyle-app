@@ -135,4 +135,30 @@ class ProductRepository(
             statusResult
         }
     }
+
+    suspend fun giveProductReview(orderId: RequestBody,
+                                  productId: RequestBody,
+                                  userId: RequestBody,
+                                  sellerId: RequestBody,
+                                  rating: RequestBody,
+                                  review: RequestBody,
+                                  file: MultipartBody.Part): LiveData<StatusResult> {
+        statusResult.value = StatusResult.Loading
+
+        return try {
+            val response = apiService.makeProductReview(orderId, productId, userId, sellerId, rating, review, file)
+            if (response.code() == 201) {
+                statusResult.value = StatusResult.Success("Thank you for your review")
+            } else if (response.code() == 400) {
+                statusResult.value = StatusResult.Error("You have reviewed this product")
+            }
+            else {
+                statusResult.value = StatusResult.Error("Fail to make a review")
+            }
+            statusResult
+        } catch (e: Exception) {
+            statusResult.value = StatusResult.Error(e.toString())
+            statusResult
+        }
+    }
 }

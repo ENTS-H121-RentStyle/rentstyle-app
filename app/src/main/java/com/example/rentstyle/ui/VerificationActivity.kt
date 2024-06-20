@@ -210,6 +210,7 @@ class VerificationActivity : AppCompatActivity() {
                                 } catch (e: Exception) {
                                     Toast.makeText(this@VerificationActivity, getString(R.string.network_error), Toast.LENGTH_SHORT).show()
                                 }
+                                binding.ivLoadingSpinner.isVisible = false
                             }
                         } else {
                             lifecycleScope.launch {
@@ -227,6 +228,7 @@ class VerificationActivity : AppCompatActivity() {
                                     }
                                 } catch (_: Exception) { }
                             }
+                            binding.ivLoadingSpinner.isVisible = false
                         }
 
                     }

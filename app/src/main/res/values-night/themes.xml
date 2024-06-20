@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Base.Theme.RentStyle" parent="Theme.Material3.DayNight">
         <item name="colorPrimary">@color/orange_1</item>
+        <item name="colorSecondary">@color/orange_2</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:windowBackground">#121212</item>
         <item name="android:statusBarColor">@android:color/transparent</item>

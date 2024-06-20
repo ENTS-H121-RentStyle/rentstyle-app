@@ -67,10 +67,12 @@
             android:layout_height="wrap_content"
             android:textColor="?android:textColorPrimary"
             android:textSize="16sp"
+            android:layout_marginTop="10dp"
             android:textStyle="bold"
             tools:text="Toko xxx" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_shop_rating"
             style="@style/TextView.Paragraph"
             android:layout_width="wrap_content"
@@ -88,121 +90,39 @@
             tools:text="Jakarta" />
     </LinearLayout>
 
-    <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/group_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp"
-        android:paddingHorizontal="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_shop_image">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_chat"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="30dp"
-            android:text="Chat toko"
-            android:layout_marginEnd="10dp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/inter_regular"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:textSize="13sp"
-            android:background="@drawable/shape_grey_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_share"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="30dp"
-            android:text="Bagikan toko"
-            android:textColor="@color/white"
-            android:fontFamily="@font/inter_regular"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:textSize="13sp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/shape_grey_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_follow"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="30dp"
-            android:text="Ikuti toko"
-            android:textColor="@color/white"
-            android:fontFamily="@font/inter_regular"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:textSize="13sp"
-            android:background="@drawable/shape_orange_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-    </LinearLayout>
-
     <TextView
-        android:visibility="gone"
-        android:id="@+id/tv_heading_1"
+        android:id="@+id/tv_heading_2"
         style="@style/TextView.Heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/txt_product_rec"
+        android:text="@string/txt_all_products"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintTop_toBottomOf="@id/group_button" />
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/iv_shop_image"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:visibility="gone"
-        android:id="@+id/rv_shop_recommendation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="horizontal"
-        tools:itemCount="10"
-        android:layout_marginStart="15dp"
-        tools:listitem="@layout/product_image_item"
-        app:layout_constraintTop_toBottomOf="@id/tv_heading_1" />
-
-    <LinearLayout
+        android:id="@+id/rv_shop_all_product"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="180dp"
-        app:layout_constraintTop_toBottomOf="@+id/rv_shop_recommendation">
+        android:layout_marginTop="220dp"
+        android:nestedScrollingEnabled="false"
+        android:paddingHorizontal="5dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/tv_heading_2"
+        app:spanCount="2"
+        tools:itemCount="10"
+        tools:layout_editor_absoluteX="0dp"
+        tools:listitem="@layout/product_image_item" />
 
-        <TextView
-            android:id="@+id/tv_heading_2"
-            style="@style/TextView.Heading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_all_products"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/rv_shop_recommendation" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_shop_all_product"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:nestedScrollingEnabled="false"
-            android:paddingHorizontal="5dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/tv_heading_2"
-            app:spanCount="2"
-            tools:itemCount="10"
-            tools:layout_editor_absoluteX="0dp"
-            tools:listitem="@layout/product_image_item" />
-    </LinearLayout>
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/iv_loading_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:SpinKit_Color="@color/orange_1"
+        style="@style/SpinKitView.Large"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

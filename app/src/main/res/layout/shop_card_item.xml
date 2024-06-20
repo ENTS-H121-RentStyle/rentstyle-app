@@ -79,8 +79,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="?android:textColorPrimary"
                 android:textStyle="bold"
-                tools:text="#1"
-                android:layout_marginStart="15dp"/>
+                android:text="#1"
+                android:layout_marginStart="15dp"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <LinearLayout

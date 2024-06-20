@@ -81,6 +81,10 @@ class ExploreResultFragment : Fragment() {
         productAdapter.addLoadStateListener {
             binding.shimmerViewProductExplore.isVisible = it.source.refresh is LoadState.Loading
             productList.isVisible = it.source.refresh is LoadState.NotLoading && productAdapter.itemCount > 0
+
+            if (it.source.refresh is LoadState.NotLoading && productAdapter.itemCount == 0) {
+                binding.tvNoResult.isVisible = true
+            }
         }
 
         productAdapter.setOnClickListener(object : ProductPagingAdapter.OnClickListener {
@@ -92,6 +96,7 @@ class ExploreResultFragment : Fragment() {
         searchBar.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
+                    binding.tvNoResult.isVisible = false
                     productList.isVisible = false
                     keyword.text = query
                     viewLifecycleOwner.lifecycleScope.launch {

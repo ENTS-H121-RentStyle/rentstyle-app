@@ -17,19 +17,4 @@ data class Product(
     @SerializedName("count_num_rating") val countNumRating: Int,
     @SerializedName("avg_rating") val avgRating: Float,
     @SerializedName("reviews") val reviews: List<Review>?
-) {
-    fun toLocalProduct(): LocalProduct {
-        return LocalProduct(
-            id = id,
-            productName = productName,
-            category = category,
-            color = color,
-            size = size,
-            rentPrice = rentPrice,
-            countNumRating = countNumRating,
-            avgRating = avgRating,
-            city = city,
-            image = image
-        )
-    }
-}
+)

@@ -26,6 +26,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentCameraBinding
 import com.example.rentstyle.helpers.CacheImageManager.saveTempImage
@@ -42,6 +43,8 @@ class CameraFragment : Fragment() {
 
     private var imageCapture: ImageCapture? = null
     private lateinit var cameraExecutor: ExecutorService
+
+    private val args: CameraFragmentArgs by navArgs()
 
     private var inputUriToDelete: Uri? = null
 
@@ -82,7 +85,14 @@ class CameraFragment : Fragment() {
         if (uri != Uri.EMPTY){
             try {
                 requireContext().contentResolver.delete(inputUriToDelete!!, null, null)
-                findNavController().navigate(CameraFragmentDirections.actionNavigationCameraToNavigationAddProduct(uri = uri.toString(), id = null))
+
+                if (args.destination == "add product") {
+                    findNavController().navigate(CameraFragmentDirections.actionNavigationCameraToNavigationAddProduct(uri = uri.toString(), id = null))
+                } else {
+                    findNavController().navigate(CameraFragmentDirections.actionNavigationCameraToNavigationRating(uri.toString(), null, null))
+                }
+
+
             } catch (e: IOException) {
                 showToast(resources.getString(R.string.error_toast, e.message))
             }

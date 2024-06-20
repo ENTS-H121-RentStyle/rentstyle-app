@@ -369,7 +369,7 @@ class AddProductFragment : Fragment() {
         dialogView.findViewById<AppCompatButton>(R.id.btn_camera).setOnClickListener {
             saveProductData()
             dialogView.hide()
-            findNavController().navigate(AddProductFragmentDirections.actionNavigationAddProductToNavigationCamera())
+            findNavController().navigate(AddProductFragmentDirections.actionNavigationAddProductToNavigationCamera("add product"))
         }
 
         dialogView.findViewById<AppCompatButton>(R.id.btn_gallery).setOnClickListener {

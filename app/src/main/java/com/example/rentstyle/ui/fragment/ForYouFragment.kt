@@ -175,9 +175,9 @@ class ForYouFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         carousel = binding.vpCarousel
 
         val imageList = arrayListOf(
-            R.drawable.img_placeholder,
-            R.drawable.img_placeholder,
-            R.drawable.img_placeholder
+            R.drawable.banner3,
+            R.drawable.banner1,
+            R.drawable.banner2
         )
         carouselAdapter = ImageSliderAdapter(requireContext(), imageList, "Banner")
 

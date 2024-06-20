@@ -104,17 +104,19 @@ class ProductDetailFragment : Fragment() {
                 btnViewMore.text = getString(R.string.txt_view_more)
             }
         }
-        binding.tvViewShop.setOnClickListener {
+        binding.groupProductShop.setOnClickListener {
             if (sellerId.isNotEmpty()) {
                 findNavController().navigate(
                     ProductDetailFragmentDirections.actionNavigationProductDetailToNavigationShopDetail(sellerId)
                 )
-            } else {
-                Toast.makeText(requireContext(), "Seller ID not found", Toast.LENGTH_SHORT).show()
             }
         }
 
         fetchProductDetail()
+
+        binding.btnChat.setOnClickListener {
+            Toast.makeText(requireContext(), "Feature is not available yet", Toast.LENGTH_SHORT).show()
+        }
 
         return binding.root
     }
@@ -149,7 +151,12 @@ class ProductDetailFragment : Fragment() {
 
                             is DataResult.Error -> {
                                 binding.ivLoadingSpinner2.isVisible = false
-                                Toast.makeText(requireContext(), getString(R.string.error_toast, result.error), Toast.LENGTH_SHORT).show()
+                                if (result.error == "null") {
+                                    Toast.makeText(requireContext(), "Please complete your profile", Toast.LENGTH_SHORT).show()
+                                    findNavController().navigate(ProductDetailFragmentDirections.actionNavigationProductDetailToNavigationEditUserProfile())
+                                } else {
+                                    Toast.makeText(requireContext(), getString(R.string.error_toast, result.error), Toast.LENGTH_SHORT).show()
+                                }
                             }
                         }
                     }
@@ -253,12 +260,21 @@ class ProductDetailFragment : Fragment() {
                 adapter = ProductRatingAdapter(product.reviews.take(3), product.image ?: "")
             }
 
+            if (rvProductRating.adapter!!.itemCount == 0) {
+                binding.tvNoReview.isVisible = true
+            }
+
             val averageRating = product.reviews.map { it.rating }.average()
-            tvProductRatingScore.text = "Rating: %.1f".format(averageRating)
+            if (averageRating.isNaN()) {
+                tvProductRatingScore.text = "Rating: -"
+                tvProductRating.text = "Rating: -"
+            } else{
+                tvProductRatingScore.text = "Rating: %.1f".format(averageRating)
+                tvProductRating.text = "Rating: %.1f".format(averageRating)
+            }
 
             tvProductName.text = product.productName
             tvProductPrice.text = getString(R.string.txt_per_day, product.rentPrice.toString())
-            tvProductRating.text = "Rating: %.1f".format(product.reviews.map { it.rating }.average())
             tvProductShopName.text = product.seller.sellerName
             tvShopLocation.text = product.seller.city
             tvProductCategory.text = product.category

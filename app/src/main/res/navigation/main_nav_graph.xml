@@ -87,9 +87,6 @@
             android:id="@+id/action_navigation_product_detail_to_navigation_edit_user_profile"
             app:destination="@id/navigation_edit_user_profile"
             app:popUpTo="@id/navigation_home" />
-        <action
-            android:id="@+id/action_navigation_product_detail_to_navigation_list_review"
-            app:destination="@id/navigation_list_review" />
     </fragment>
 
     <fragment
@@ -154,6 +151,13 @@
         <argument
             android:name="orderId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_navigation_order_detail_to_navigation_rating"
+            app:destination="@id/navigation_rating"
+            app:enterAnim="@anim/slide_in_right"/>
+        <action
+            android:id="@+id/action_navigation_order_detail_to_navigation_check_out"
+            app:destination="@id/navigation_check_out" />
     </fragment>
 
     <fragment
@@ -233,6 +237,13 @@
             android:id="@+id/action_navigation_camera_to_navigation_add_product"
             app:destination="@id/navigation_add_product"
             app:popUpTo="@id/navigation_seller_dashboard" />
+        <argument
+            android:name="destination"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_navigation_camera_to_navigation_rating"
+            app:destination="@id/navigation_rating"
+            app:popUpTo="@id/navigation_rating"/>
     </fragment>
 
     <fragment
@@ -270,7 +281,27 @@
         tools:layout="@layout/fragment_contributor"/>
 
     <fragment
-        android:id="@+id/navigation_list_review"
-        android:name="com.example.rentstyle.ui.fragment.ListReviewFragment"
-        tools:layout="@layout/fragment_list_review"/>
+        android:id="@+id/navigation_rating"
+        android:name="com.example.rentstyle.ui.fragment.RateProductFragment"
+        tools:layout="@layout/fragment_rate_product">
+        <argument
+            android:name="uri"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_navigation_rating_to_navigation_camera"
+            app:destination="@id/navigation_camera" />
+        <argument
+            android:name="orderId"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="productId"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_navigation_rating_to_navigation_profile"
+            app:destination="@id/navigation_profile"
+            app:popUpTo="@id/navigation_profile" />
+    </fragment>
 </navigation>

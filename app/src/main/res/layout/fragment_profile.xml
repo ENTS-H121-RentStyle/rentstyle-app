@@ -43,11 +43,11 @@
                     android:src="@drawable/ic_cart_white"
                     android:layout_marginTop="25dp"
                     android:contentDescription="@string/cd_icon_shopping_cart"
-                    app:layout_constraintEnd_toStartOf="@id/btn_notification"
+                    app:layout_constraintEnd_toStartOf="@id/btn_chat"
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <ImageView
-                    android:id="@+id/btn_notification"
+                    android:id="@+id/btn_chat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_chat_white"
@@ -258,11 +258,31 @@
                 android:layout_marginTop="15dp"
                 tools:listitem="@layout/order_item"
                 tools:itemCount="5"
+                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:paddingBottom="@dimen/bottom_nav_height"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintTop_toBottomOf="@id/rv_filter_rental_history"
                 app:layout_constraintStart_toStartOf="parent"/>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerView_history_transaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/rv_filter_rental_history"
+                app:shimmer_duration="1000">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_history_skeleton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    tools:listitem="@layout/order_item_skeleton"
+                    tools:itemCount="5"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:paddingBottom="@dimen/bottom_nav_height"
+                    android:nestedScrollingEnabled="false"/>
+            </com.facebook.shimmer.ShimmerFrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

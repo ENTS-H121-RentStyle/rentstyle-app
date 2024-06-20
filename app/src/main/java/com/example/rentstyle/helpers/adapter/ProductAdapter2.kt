@@ -11,8 +11,7 @@ import com.example.rentstyle.R
 import com.example.rentstyle.databinding.ProductImageItemBinding
 import com.example.rentstyle.model.Product
 
-class RecyclerDummyAdapter : RecyclerView.Adapter<RecyclerDummyAdapter.ProductViewHolder>() {
-    private var productList: List<Product> = emptyList()
+class ProductAdapter2 (private val productList: List<Product>) : RecyclerView.Adapter<ProductAdapter2.ProductViewHolder>() {
     private var onClickListener: OnClickListener? = null
 
     fun setOnClickListener(onClickListener: OnClickListener) {
@@ -53,10 +52,5 @@ class RecyclerDummyAdapter : RecyclerView.Adapter<RecyclerDummyAdapter.ProductVi
             binding.tvProductRating.text = product.avgRating.toString()
             binding.tvProductLocation.text = product.city
         }
-    }
-
-    fun updateData(newProductList: List<Product>) {
-        productList = newProductList
-        notifyDataSetChanged()
     }
 }

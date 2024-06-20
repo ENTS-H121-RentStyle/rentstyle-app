@@ -237,4 +237,15 @@
     <string name="txt_no_favorite">No favorite products found</string>
     <string name="title_order_detail">Order Detail</string>
     <string name="txt_order_money">Rp. %1$s</string>
+    <string name="txt_results_are_not_found">Results are not found</string>
+    <string name="txt_review_details">Review details</string>
+    <string name="send">Send</string>
+    <string name="txt_swipe">Swipe the stars ^ ^</string>
+    <string name="title_rate_product">Rate Product</string>
+    <string name="txt_no_reviews_available">No reviews available</string>
+    <string name="txt_your_notifications">Your notifications</string>
+    <string name="txt_no_notification">You have not new notifications</string>
+    <string name="txt_new_notification">Latest</string>
+    <string name="txt_status_notification">Order Status</string>
+    <string name="txt_system_notification">System</string>
 </resources>

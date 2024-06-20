@@ -1,22 +1,15 @@
 package com.example.rentstyle.helpers
 
-object FilterModel {
-    fun getExploreFilter() : ArrayList<String> {
-        return arrayListOf(
-            "Terkait",
-            "Terbaru",
-            "Terpopuler",
-            "Termurah")
-    }
+import android.content.Context
+import androidx.core.content.ContextCompat
+import com.example.rentstyle.R
 
-    fun getOrderFilter() : ArrayList<String> {
+object FilterModel {
+
+    fun getNotificationFilter(context: Context) : ArrayList<String> {
         return arrayListOf(
-            "Semua Pesanan",
-            "Belum Dibayar",
-            "Sedang Dikemas",
-            "Sedang Disewa",
-            "Belum Dikembalikan",
-            "Pesanan Selesai",
-            "Pesanan Dibatalkan")
+            ContextCompat.getString(context, R.string.txt_new_notification),
+            ContextCompat.getString(context, R.string.txt_status_notification),
+            ContextCompat.getString(context, R.string.txt_system_notification))
     }
 }

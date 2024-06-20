@@ -1,7 +1,6 @@
 package com.example.rentstyle.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +11,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentProfileBinding
 import com.example.rentstyle.helpers.DataResult
 import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
 import com.example.rentstyle.helpers.adapter.OrderAdapter
+import com.example.rentstyle.helpers.adapter.OrderSkeletonAdapter
+import com.example.rentstyle.helpers.adapter.ProductSkeletonAdapter
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
 import com.example.rentstyle.viewmodel.ProfileViewModel
@@ -45,6 +47,9 @@ class ProfileFragment : Fragment() {
 
     private lateinit var orderListAdapter : OrderAdapter
 
+    private lateinit var historySkeleton: RecyclerView
+    private lateinit var historySkeletonAdapter: OrderSkeletonAdapter
+
     private lateinit var pref: LoginSession
     private var run = true
 
@@ -68,6 +73,10 @@ class ProfileFragment : Fragment() {
                 binding.tvBtnUserShop.text = getString(R.string.txt_join_us)
             }
         }
+
+        historySkeleton = binding.rvHistorySkeleton
+        historySkeletonAdapter = OrderSkeletonAdapter(5)
+        historySkeleton.adapter = historySkeletonAdapter
 
         setUserProfile()
 
@@ -93,14 +102,14 @@ class ProfileFragment : Fragment() {
             }
         }
 
+        binding.btnChat.setOnClickListener {
+            Toast.makeText(requireContext(), "Feature is not available yet", Toast.LENGTH_SHORT).show()
+        }
+
         return binding.root
     }
 
     private fun getOrderHistory() {
-        binding.ivLoadingSpinner.apply {
-            isVisible = true
-            setIndeterminateDrawable(WanderingCubes())
-        }
         viewLifecycleOwner.lifecycleScope.launch {
             orderViewModel.getAllOrder().observe(viewLifecycleOwner) { result ->
                 if (result != null) {
@@ -114,6 +123,7 @@ class ProfileFragment : Fragment() {
 
                             if (data.isEmpty()) {
                                 binding.tvNoHistory.isVisible = true
+                                historySkeleton.isVisible = false
                             }
 
                             orderListAdapter.setOnClickListener(object : OrderAdapter.OnClickListener {
@@ -122,18 +132,19 @@ class ProfileFragment : Fragment() {
                                 }
 
                             })
-                            binding.ivLoadingSpinner.isVisible = false
+
+                            binding.rvRentalHistory.isVisible = true
+                            historySkeleton.isVisible = false
                         }
 
                         is DataResult.Error -> {
-                            binding.ivLoadingSpinner.isVisible = false
                             Toast.makeText(requireContext(), getString(R.string.error_toast, result.error), Toast.LENGTH_SHORT).show()
-                            binding.ivLoadingSpinner.isVisible = false
+                            historySkeleton.isVisible = false
                             binding.tvNoHistory.isVisible = true
                         }
                     }
                 } else {
-                    binding.ivLoadingSpinner.isVisible = false
+                    historySkeleton.isVisible = false
                     Toast.makeText(requireContext(), "Fail to get transaction histories", Toast.LENGTH_SHORT).show()
                     binding.tvNoHistory.isVisible = true
                 }

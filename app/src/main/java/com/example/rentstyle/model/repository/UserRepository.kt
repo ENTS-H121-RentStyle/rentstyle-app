@@ -11,7 +11,7 @@ import com.example.rentstyle.model.remote.retrofit.ApiService
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class UserRepository (
+class UserRepository(
     private val apiService: ApiService,
     private val userId: String
 ) {
@@ -20,16 +20,19 @@ class UserRepository (
     private val userOrderData = MediatorLiveData<DataResult<List<ResponseOrderItem>>>()
     private val userOrder = MediatorLiveData<DataResult<ResponseOrderItem>>()
 
-    suspend fun updateUserProfile(userName: RequestBody,
-                                  birthDate: RequestBody,
-                                  address: RequestBody,
-                                  phone: RequestBody,
-                                  gender: RequestBody,
-                                  file: MultipartBody.Part): LiveData<StatusResult> {
+    suspend fun updateUserProfile(
+        userName: RequestBody,
+        birthDate: RequestBody,
+        address: RequestBody,
+        phone: RequestBody,
+        gender: RequestBody,
+        file: MultipartBody.Part
+    ): LiveData<StatusResult> {
         statusResult.value = StatusResult.Loading
 
         try {
-            val response = apiService.updateUserData(userId, userName, birthDate, address, phone, gender, file)
+            val response =
+                apiService.updateUserData(userId, userName, birthDate, address, phone, gender, file)
 
             if (response.code() == 200) {
                 statusResult.value = StatusResult.Success("Success update user data")
@@ -68,10 +71,11 @@ class UserRepository (
         userOrderData.value = DataResult.Loading
 
         try {
-            val response = apiService.getOrderByUserId(userId).body()
+            val response = apiService.getOrderByUserId(userId)
 
-            if (response!!.isNotEmpty()) {
-                val orderLiveData: LiveData<List<ResponseOrderItem>> = MutableLiveData(response)
+            if (response.code() == 200) {
+                val orderLiveData: LiveData<List<ResponseOrderItem>> =
+                    MutableLiveData(response.body())
                 userOrderData.addSource(orderLiveData) { data ->
                     userOrderData.value = DataResult.Success(data)
                 }

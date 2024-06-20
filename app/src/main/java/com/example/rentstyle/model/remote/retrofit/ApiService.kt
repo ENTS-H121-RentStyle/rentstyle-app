@@ -10,7 +10,6 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    // User Endpoints
     @POST("user")
     suspend fun createNewUser(
         @Body user: User,
@@ -33,7 +32,6 @@ interface ApiService {
         @Path("userId") userId: String
     ): Response<UserResponseData>
 
-    // User Preference Endpoints
     @POST("pref")
     suspend fun uploadUserPreference(
         @Body pref: Pref
@@ -44,7 +42,6 @@ interface ApiService {
         @Path("userId") userId: String
     ): Response<Unit>
 
-    // Product Endpoints
     @GET("product/{id}")
     suspend fun getProductDetail(
         @Path("id") productId: String
@@ -77,7 +74,6 @@ interface ApiService {
         @Part("product_price") productPrice: RequestBody
     ) : Response<Unit>
 
-    // Seller Endpoints
     @GET("seller/{userId}")
     suspend fun getSellerData(
         @Path("userId") userId: String
@@ -103,13 +99,11 @@ interface ApiService {
         @Part("description") desc: RequestBody
     ): Response<Unit>
 
-    // Cart Endpoints
     @POST("/cart")
     suspend fun addToCart(
         @Body request: CartRequest
     ): Response<CartResponse>
 
-    // Favorite Endpoints
     @POST("favorite")
     suspend fun addFavorite(
         @Body favorite: FavoriteRequest
@@ -172,4 +166,16 @@ interface ApiService {
     suspend fun getOrderByOrderId(
         @Path("orderId") orderId: String
     ): Response<ResponseOrderItem>
+
+    @Multipart
+    @POST("review")
+    suspend fun makeProductReview(
+        @Part("order_id") orderId: RequestBody,
+        @Part("product_id") productId: RequestBody,
+        @Part("user_id") userId: RequestBody,
+        @Part("seller_id") sellerId: RequestBody,
+        @Part("rating") rating: RequestBody,
+        @Part("review") review: RequestBody,
+        @Part file: MultipartBody.Part
+    ): Response<Unit>
 }

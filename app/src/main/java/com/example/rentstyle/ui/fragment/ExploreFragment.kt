@@ -29,8 +29,8 @@ class ExploreFragment : Fragment() {
         binding.rvShopList.adapter = shopListAdapter
 
         shopListAdapter.setOnClickListener(object : RecyclerDummyShopAdapter.OnClickListener {
-            override fun onClick(position: Int) {
-                findNavController().navigate(ExploreFragmentDirections.actionNavigationExploreToNavigationShopDetail(""))
+            override fun onClick(position: Int, shopId: String) {
+                findNavController().navigate(ExploreFragmentDirections.actionNavigationExploreToNavigationShopDetail(shopId))
             }
         })
 

@@ -25,12 +25,6 @@ class ProductRatingAdapter(
 
     override fun getItemCount(): Int = reviews.size
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateReviews(newReviews: List<Review>) {
-        reviews = newReviews.take(3)
-        notifyDataSetChanged()
-    }
-
     class ReviewViewHolder(private val binding: ProductRatingItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(review: Review, productImageUrl: String) {
             binding.apply {

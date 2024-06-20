@@ -12,5 +12,6 @@ data class CartResponse(
 data class Product(
     @SerializedName("product_name") val productName: String,
     @SerializedName("image") val image: String,
-    @SerializedName("rent_price") val rentPrice: Int
+    @SerializedName("rent_price") val rentPrice: Int,
+    @SerializedName("id") val productId: String
 )
