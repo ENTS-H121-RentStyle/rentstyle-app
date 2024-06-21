@@ -73,7 +73,7 @@ class OrderDetailFragment : Fragment() {
                     }
                 } else {
                     binding.ivLoadingSpinner.isVisible = false
-                    Toast.makeText(requireContext(), "Fail to get order detail", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.txt_fail_get_order_detail), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -94,13 +94,13 @@ class OrderDetailFragment : Fragment() {
                         }
                     }
                 } else {
-                    Toast.makeText(requireContext(), "Fail to get order detail", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.txt_fail_get_order_detail), Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
-        binding.btnAccess1.text = "Rate product"
-        binding.btnAccess2.text = "Rent again"
+        binding.btnAccess1.text = getString(R.string.txt_rate_product)
+        binding.btnAccess2.text = getString(R.string.txt_rent_again)
 
         return binding.root
     }

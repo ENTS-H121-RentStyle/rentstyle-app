@@ -2,18 +2,12 @@ package com.example.rentstyle.model.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import com.example.rentstyle.di.Injection
 import com.example.rentstyle.helpers.StatusResult
-import com.example.rentstyle.helpers.paging.ExplorePagingSource
 import com.example.rentstyle.model.Product
 import com.example.rentstyle.model.database.ProductDatabase
 import com.example.rentstyle.model.remote.retrofit.ApiService
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.Part
 
 class ProductRepository(
     private val database: ProductDatabase,

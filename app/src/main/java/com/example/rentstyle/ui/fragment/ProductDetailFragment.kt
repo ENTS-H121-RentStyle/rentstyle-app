@@ -19,14 +19,13 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentProductDetailBinding
 import com.example.rentstyle.helpers.DataResult
-import com.example.rentstyle.model.database.room.AppDatabase
+import com.example.rentstyle.helpers.adapter.ProductRatingAdapter
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
 import com.example.rentstyle.model.remote.request.CartRequest
 import com.example.rentstyle.model.remote.request.FavoriteRequest
 import com.example.rentstyle.model.remote.response.ProductDetailResponse
 import com.example.rentstyle.model.remote.retrofit.ApiConfig
-import com.example.rentstyle.helpers.adapter.ProductRatingAdapter
 import com.example.rentstyle.viewmodel.UserViewModel
 import com.example.rentstyle.viewmodel.UserViewModelFactory
 import com.github.ybq.android.spinkit.style.WanderingCubes
@@ -45,7 +44,6 @@ class ProductDetailFragment : Fragment() {
     private var isFavorite: Boolean = false
     private var favoriteId: String? = null
     private lateinit var userId: String
-    private lateinit var database: AppDatabase
     private lateinit var productDescription: TextView
     private lateinit var btnViewMore: TextView
 
@@ -63,7 +61,6 @@ class ProductDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProductDetailBinding.inflate(inflater, container, false)
-        database = AppDatabase.getDatabase(requireContext())
 
         binding.mainToolbar.tvToolbarTitle.text = getString(R.string.title_product_detail)
         binding.mainToolbar.ivBackButton.setOnClickListener {
@@ -115,7 +112,7 @@ class ProductDetailFragment : Fragment() {
         fetchProductDetail()
 
         binding.btnChat.setOnClickListener {
-            Toast.makeText(requireContext(), "Feature is not available yet", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.txt_feature_is_not_available), Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
@@ -142,7 +139,7 @@ class ProductDetailFragment : Fragment() {
                                     if (data.address != null && data.phone != null) {
                                         findNavController().navigate(ProductDetailFragmentDirections.actionNavigationProductDetailToNavigationCheckOut(productId, rentDuration, rentPrice, productName, productImage))
                                     } else {
-                                        Toast.makeText(requireContext(), "Please complete your profile", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(requireContext(), getString(R.string.txt_complete_profile), Toast.LENGTH_SHORT).show()
                                         findNavController().navigate(ProductDetailFragmentDirections.actionNavigationProductDetailToNavigationEditUserProfile())
                                     }
                                     binding.ivLoadingSpinner2.isVisible = false
@@ -152,7 +149,7 @@ class ProductDetailFragment : Fragment() {
                             is DataResult.Error -> {
                                 binding.ivLoadingSpinner2.isVisible = false
                                 if (result.error == "null") {
-                                    Toast.makeText(requireContext(), "Please complete your profile", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(requireContext(), getString(R.string.txt_complete_profile), Toast.LENGTH_SHORT).show()
                                     findNavController().navigate(ProductDetailFragmentDirections.actionNavigationProductDetailToNavigationEditUserProfile())
                                 } else {
                                     Toast.makeText(requireContext(), getString(R.string.error_toast, result.error), Toast.LENGTH_SHORT).show()
@@ -183,13 +180,13 @@ class ProductDetailFragment : Fragment() {
                             isFavorite = false
                             favoriteId = null
                             binding.ivFavButton.setImageResource(R.drawable.ic_fav)
-                            Toast.makeText(requireContext(), "Success removed from favorite", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), getString(R.string.txt_success_remove_fav), Toast.LENGTH_SHORT).show()
                         } else {
-                            Toast.makeText(requireContext(), "Failed to remove from favorite", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), getString(R.string.txt_fail_remove_fav), Toast.LENGTH_SHORT).show()
                         }
                         binding.ivLoadingSpinner2.isVisible = false
                     } ?: run {
-                        Toast.makeText(requireContext(), "Failed to remove from favorite", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.txt_fail_remove_fav), Toast.LENGTH_SHORT).show()
                     }
                     binding.ivLoadingSpinner2.isVisible = false
                 } else {
@@ -200,15 +197,15 @@ class ProductDetailFragment : Fragment() {
                             isFavorite = true
                             favoriteId = favId
                             binding.ivFavButton.setImageResource(R.drawable.ic_fav_2)
-                            Toast.makeText(requireContext(), "Success add to favorite", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), getString(R.string.txt_success_add_fav), Toast.LENGTH_SHORT).show()
                         }
                     } else {
-                        Toast.makeText(requireContext(), "Failed to add to favorite", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.txt_fail_add_fav), Toast.LENGTH_SHORT).show()
                     }
                     binding.ivLoadingSpinner2.isVisible = false
                 }
             } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Failed to add to favorite", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.txt_fail_add_fav), Toast.LENGTH_SHORT).show()
             }
             binding.ivLoadingSpinner2.isVisible = false
         }
@@ -230,11 +227,11 @@ class ProductDetailFragment : Fragment() {
                         bindProductData(product)
                         checkFavorite(productId, userId)
                     } else {
-                        Toast.makeText(requireContext(), "Failed to get product detail", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.txt_fail_load_product), Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     binding.loadingDetail.isVisible = false
-                    Toast.makeText(requireContext(), "Failed to load product detail", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.txt_fail_load_product), Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), e.toString(), Toast.LENGTH_SHORT).show()
@@ -344,14 +341,14 @@ class ProductDetailFragment : Fragment() {
                 if (response.isSuccessful) {
                     val cartResponse = response.body()
                     if (cartResponse != null) {
-                        Toast.makeText(requireContext(), "Added to cart successfully", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.txt_success_add_cart), Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(requireContext(), "Failed to add to cart", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.txt_fail_add_cart), Toast.LENGTH_SHORT).show()
                 }
                 binding.ivLoadingSpinner2.isVisible = false
             } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Failed to add to cart", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.txt_fail_add_cart), Toast.LENGTH_SHORT).show()
             }
             binding.ivLoadingSpinner2.isVisible = false
         }

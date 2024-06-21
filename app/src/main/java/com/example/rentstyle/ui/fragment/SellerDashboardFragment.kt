@@ -46,11 +46,11 @@ class SellerDashboardFragment : Fragment() {
         getSellerData()
 
         binding.btnSellerSelling.setOnClickListener {
-            Toast.makeText(requireContext(), "Feature is not available yet", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.txt_feature_is_not_available), Toast.LENGTH_SHORT).show()
         }
 
         binding.btnSellerWallet.setOnClickListener {
-            Toast.makeText(requireContext(), "Feature is not available yet", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.txt_feature_is_not_available), Toast.LENGTH_SHORT).show()
         }
 
         return binding.root

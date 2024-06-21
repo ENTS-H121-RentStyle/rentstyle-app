@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentEditSellerProfileBinding
 import com.example.rentstyle.helpers.DataResult
@@ -68,7 +69,12 @@ class EditSellerProfileFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            sellerId = pref.getSellerId().first()!!
+            sellerId = if (pref.getSellerId().first() != "null") {
+                pref.getSellerId().first()!!
+            } else {
+                viewModel.registeredSellerId.value!!
+            }
+
         }
 
         getSellerData()
@@ -123,7 +129,7 @@ class EditSellerProfileFragment : Fragment() {
 
             } else {
                 binding.ivLoadingSpinner.isVisible = false
-                Toast.makeText(requireContext(), "All fields must be filled!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -163,7 +169,13 @@ class EditSellerProfileFragment : Fragment() {
                                  desc: String,
                                  image: String) {
         Glide.with(requireContext())
-            .load(image).into(binding.ivShopImage)
+            .load(image)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.img_placeholder)
+                    .error(R.drawable.img_placeholder)
+            )
+            .into(binding.ivShopImage)
 
         inputName.setText(sellerName)
         inputAddress.setText(address)

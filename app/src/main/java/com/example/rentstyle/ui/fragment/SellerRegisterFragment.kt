@@ -14,6 +14,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -27,6 +28,7 @@ import com.example.rentstyle.helpers.SellerHelpers.getSellerCity
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
 import com.example.rentstyle.viewmodel.SellerRegisterViewModel
+import com.example.rentstyle.viewmodel.SellerViewModel
 import com.example.rentstyle.viewmodel.SellerViewModelFactory
 import com.github.ybq.android.spinkit.style.WanderingCubes
 import kotlinx.coroutines.flow.first
@@ -41,6 +43,10 @@ class SellerRegisterFragment : Fragment() {
     private val binding get() = _binding
 
     private lateinit var viewModel: SellerRegisterViewModel
+
+    private val sellerViewModel: SellerViewModel by activityViewModels{
+        SellerViewModelFactory.getInstance(this.requireActivity().application)
+    }
 
     private lateinit var inputName: EditText
     private lateinit var inputAddress: EditText
@@ -116,11 +122,13 @@ class SellerRegisterFragment : Fragment() {
 
                                 is DataResult.Success -> {
                                     binding.ivLoadingSpinner.isVisible = false
-                                    Toast.makeText(requireContext(), "Registering account is success", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(requireContext(), getString(R.string.txt_register_success), Toast.LENGTH_SHORT).show()
 
                                     lifecycleScope.launch {
-                                        if (result.data.id?.isNotEmpty() == true) pref.setSellerId(result.data.id)
+                                        pref.setSellerId(result.data.id.toString())
                                     }
+
+                                    sellerViewModel.registeredSellerId.value = result.data.id.toString()
 
                                     if (run && result.data.id?.isNotEmpty() == true) {
                                         run = false
@@ -139,7 +147,7 @@ class SellerRegisterFragment : Fragment() {
 
             } else {
                 binding.ivLoadingSpinner.isVisible = false
-                Toast.makeText(requireContext(), "All fields must be filled!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -166,7 +174,7 @@ class SellerRegisterFragment : Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                Toast.makeText(requireContext(), "Please select city location", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.txt_select_city_loc), Toast.LENGTH_SHORT).show()
             }
 
         }

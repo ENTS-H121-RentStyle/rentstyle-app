@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentShoppingCartBinding
 import com.example.rentstyle.helpers.DataResult
-import com.example.rentstyle.helpers.FirebaseToken
 import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
 import com.example.rentstyle.helpers.StatusResult
 import com.example.rentstyle.helpers.adapter.RecyclerShoppingCartAdapter
@@ -113,7 +112,7 @@ class ShoppingCartFragment : Fragment() {
                                             findNavController().navigate(ShoppingCartFragmentDirections.actionNavigationShoppingCartToNavigationCheckOut(rentDuration = rentDuration,
                                                 productId = productId, rentPrice = rentPrice, productName = productName, productImage = productImage))
                                         } else {
-                                            Toast.makeText(requireContext(), "Please complete your profile", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(requireContext(), getString(R.string.txt_complete_profile), Toast.LENGTH_SHORT).show()
                                             findNavController().navigate(ShoppingCartFragmentDirections.actionNavigationShoppingCartToNavigationEditUserProfile())
                                         }
                                     }
@@ -128,7 +127,7 @@ class ShoppingCartFragment : Fragment() {
                     }
                 }
             } else {
-                Toast.makeText(requireContext(), "Please select a product", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.txt_select_product), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -195,7 +194,7 @@ class ShoppingCartFragment : Fragment() {
                                 }
                             }
                         } else {
-                            Toast.makeText(requireContext(), "Error delete item from cart", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), getString(R.string.txt_error_delete_item_cart), Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -228,12 +227,11 @@ class ShoppingCartFragment : Fragment() {
 
                                 is StatusResult.Error -> {
                                     binding.ivLoadingSpinner.isVisible = false
-                                    Log.d("error", result.error)
                                     Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                                 }
                             }
                         } else {
-                            Toast.makeText(requireContext(), "Error delete item from cart", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), getString(R.string.txt_error_add_item_cart), Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -270,12 +268,11 @@ class ShoppingCartFragment : Fragment() {
 
                                     is StatusResult.Error -> {
                                         binding.ivLoadingSpinner.isVisible = false
-                                        Log.d("error", result.error)
                                         Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             } else {
-                                Toast.makeText(requireContext(), "Error delete item from cart", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), getString(R.string.txt_error_delete_item_cart), Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
@@ -297,12 +294,11 @@ class ShoppingCartFragment : Fragment() {
 
                                     is StatusResult.Error -> {
                                         binding.ivLoadingSpinner.isVisible = false
-                                        Log.d("error", result.error)
                                         Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             } else {
-                                Toast.makeText(requireContext(), "Error delete item from cart", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), getString(R.string.txt_error_delete_item_cart), Toast.LENGTH_SHORT).show()
                             }
                         }
                     }

@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentHomeBinding
 import com.example.rentstyle.helpers.adapter.HomeFragmentPageAdapter
 import com.google.android.material.tabs.TabLayout
@@ -67,7 +68,7 @@ class HomeFragment : Fragment(){
         }
 
         binding.btnChat.setOnClickListener {
-            Toast.makeText(requireContext(), "Feature is not available yet", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.txt_feature_is_not_available), Toast.LENGTH_SHORT).show()
         }
 
         return binding.root

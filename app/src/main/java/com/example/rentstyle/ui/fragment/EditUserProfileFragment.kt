@@ -28,7 +28,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentEditUserProfileBinding
 import com.example.rentstyle.helpers.CacheImageManager
@@ -182,14 +182,14 @@ class EditUserProfileFragment : Fragment() {
                         requestImageFile
                     )
 
-                    updateUserProfile(bodyUserName, bodyUserBirthDate, bodyUserAddress, bodyUserPhone, bodyUserGender, multipartBody)
+                    updateUserProfile(bodyUserName, bodyUserBirthDate, bodyUserAddress, bodyUserPhone, bodyUserGender, multipartBody, currentImageUri.toString(), name)
 
                 } else if (currentImageUri == Uri.EMPTY) {
                     binding.ivLoadingSpinner.isVisible = false
-                    Toast.makeText(requireContext(), "Please change new image to proceed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.txt_change_new_image), Toast.LENGTH_SHORT).show()
                 } else {
                     binding.ivLoadingSpinner.isVisible = false
-                    Toast.makeText(requireContext(), "All field must be filled", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 binding.ivLoadingSpinner.isVisible = false
@@ -203,7 +203,7 @@ class EditUserProfileFragment : Fragment() {
                                    address: RequestBody,
                                    phone: RequestBody,
                                    gender: RequestBody,
-                                   file: MultipartBody.Part
+                                   file: MultipartBody.Part, image: String, newUserName: String
     ) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.updateUserProfile(userName, birthDate, address,
@@ -217,8 +217,7 @@ class EditUserProfileFragment : Fragment() {
                             Toast.makeText(requireContext(), result.success, Toast.LENGTH_SHORT).show()
 
                             if (run) {
-                                viewModel.userData.value = arrayListOf()
-                                CacheImageManager.clearTempImages(requireContext())
+                                viewModel.userData.value = arrayListOf(newUserName, image)
                                 Glide.with(requireContext())
                                     .clear(binding.ivUserImage)
                                 findNavController().navigateUp()
@@ -232,7 +231,7 @@ class EditUserProfileFragment : Fragment() {
                     }
                 } else {
                     binding.ivLoadingSpinner.isVisible = false
-                    Toast.makeText(requireContext(), "Error update user data", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.txt_error_update_user), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -292,7 +291,7 @@ class EditUserProfileFragment : Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                Toast.makeText(requireContext(), "Please select user gender", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.txt_select_gender), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -350,7 +349,11 @@ class EditUserProfileFragment : Fragment() {
         }
 
         if (phone != null) {
-            userPhone.setText(phone.removePrefix("0"))
+            if (phone.isNotEmpty()) {
+                userPhone.setText(phone.removePrefix("0"))
+            } else {
+                userPhone.setText(phone)
+            }
         }
 
         when (gender) {
@@ -372,7 +375,12 @@ class EditUserProfileFragment : Fragment() {
 
     private fun setProductImage(uri: Uri) {
         Glide.with(requireContext())
-            .load(uri).diskCacheStrategy(DiskCacheStrategy.ALL)
+            .load(uri)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.img_placeholder)
+                    .error(R.drawable.img_placeholder)
+            )
             .into(binding.ivUserImage)
     }
 

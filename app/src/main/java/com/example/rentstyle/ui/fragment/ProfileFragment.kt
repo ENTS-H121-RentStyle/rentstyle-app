@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -13,16 +14,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentProfileBinding
 import com.example.rentstyle.helpers.DataResult
 import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
 import com.example.rentstyle.helpers.adapter.OrderAdapter
 import com.example.rentstyle.helpers.adapter.OrderSkeletonAdapter
-import com.example.rentstyle.helpers.adapter.ProductSkeletonAdapter
 import com.example.rentstyle.model.local.datastore.LoginSession
 import com.example.rentstyle.model.local.datastore.dataStore
 import com.example.rentstyle.viewmodel.ProfileViewModel
+import com.example.rentstyle.viewmodel.SellerViewModel
 import com.example.rentstyle.viewmodel.SellerViewModelFactory
 import com.example.rentstyle.viewmodel.TransactionViewModel
 import com.example.rentstyle.viewmodel.UserViewModel
@@ -43,6 +45,10 @@ class ProfileFragment : Fragment() {
 
     private val orderViewModel: TransactionViewModel by activityViewModels {
         UserViewModelFactory.getInstance(this.requireActivity().application)
+    }
+
+    private val sellerViewModel: SellerViewModel by activityViewModels{
+        SellerViewModelFactory.getInstance(this.requireActivity().application)
     }
 
     private lateinit var orderListAdapter : OrderAdapter
@@ -92,7 +98,8 @@ class ProfileFragment : Fragment() {
 
         binding.btnUserShop.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
-                if (pref.getSellerId().first() != null && pref.getSellerId().first() != "null") {
+                if (pref.getSellerId().first() != null
+                    && (pref.getSellerId().first() != "null" || sellerViewModel.registeredSellerId.value != null)) {
                     findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationSellerDashboard())
                 } else if (pref.getSellerId().first() == "null"){
                     findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationOnboardingSeller())
@@ -103,7 +110,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.btnChat.setOnClickListener {
-            Toast.makeText(requireContext(), "Feature is not available yet", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.txt_feature_is_not_available), Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
@@ -145,7 +152,7 @@ class ProfileFragment : Fragment() {
                     }
                 } else {
                     historySkeleton.isVisible = false
-                    Toast.makeText(requireContext(), "Fail to get transaction histories", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.txt_fail_get_transaction), Toast.LENGTH_SHORT).show()
                     binding.tvNoHistory.isVisible = true
                 }
             }
@@ -197,7 +204,12 @@ class ProfileFragment : Fragment() {
     private fun updateUserProfile (name: String?, image: String?) {
         if (image != null) {
             Glide.with(requireContext())
-                .load(image)
+                .load(image.toUri())
+                .apply(
+                    RequestOptions()
+                        .placeholder(R.drawable.img_placeholder)
+                        .error(R.drawable.img_placeholder)
+                )
                 .into(binding.ivUserImage)
         }
         binding.tvUsername.text = name

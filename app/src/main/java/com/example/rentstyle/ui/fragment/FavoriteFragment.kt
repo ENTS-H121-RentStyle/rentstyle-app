@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rentstyle.R
 import com.example.rentstyle.databinding.FragmentFavoriteBinding
 import com.example.rentstyle.helpers.FirebaseToken.updateTokenId
 import com.example.rentstyle.helpers.GridSpacingItemDecoration
@@ -68,11 +69,11 @@ class FavoriteFragment : Fragment() {
                     binding.tvNoFavorite.isVisible = true
                 }
                 else {
-                    Toast.makeText(requireContext(), "Fail to get favorite data", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.txt_fail_get_fav), Toast.LENGTH_SHORT).show()
                 }
                 binding.ivLoadingSpinner.isVisible = false
             } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Fail to get favorite data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.txt_fail_get_fav), Toast.LENGTH_SHORT).show()
             }
             binding.ivLoadingSpinner.isVisible = false
         }

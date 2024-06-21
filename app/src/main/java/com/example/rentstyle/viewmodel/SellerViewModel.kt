@@ -7,6 +7,8 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class SellerViewModel (private val sellerRepository: SellerRepository): ViewModel() {
+
+    var registeredSellerId = MutableLiveData<String?>(null)
     suspend fun getSellerData(userId: String) = sellerRepository.getSellerData(userId)
 
     suspend fun updateSellerProfile(sellerId: String,

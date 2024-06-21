@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">RentStyle</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Login and Register Layout -->
-    <string name="welcome_msg">Your Ultimate Fashion Rental App</string>
+    <string name="welcome_msg" translatable="false">Your Ultimate Fashion Rental App</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="info_register">"Don't have an Account yet?"</string>
@@ -19,22 +18,22 @@
     <string name="fail_sign_in_google">Error sign in to Google account</string>
     <string name="confirm_mismatch">Confirmed password mismatch</string>
     <string name="permission_denied">Permissions are not granted</string>
-    <string name="error_toast">Error : %1$s</string>
+    <string name="error_toast" translatable="false">Error : %1$s</string>
     <string name="choose_picture">Choose a Picture</string>
 
-    <string name="cd_brand_logo">Brand logo</string>
-    <string name="cd_icon_shopping_cart">Icon shopping cart</string>
-    <string name="cd_icon_chat">Icon chat</string>
-    <string name="txt_foryou">For you</string>
-    <string name="txt_favorite">Favorites</string>
+    <string name="cd_brand_logo" translatable="false">Brand logo</string>
+    <string name="cd_icon_shopping_cart" translatable="false">Icon shopping cart</string>
+    <string name="cd_icon_chat" translatable="false">Icon chat</string>
+    <string name="txt_foryou" translatable="false">For you</string>
+    <string name="txt_favorite" translatable="false">Favorites</string>
     <string name="txt_trending">Trending Now</string>
     <string name="txt_high_rating">Highest rating</string>
-    <string name="cd_carousel">Banner</string>
-    <string name="cd_promo">Product promo</string>
-    <string name="cd_product_image">Product image</string>
+    <string name="cd_carousel" translatable="false">Banner</string>
+    <string name="cd_promo" translatable="false">Product promo</string>
+    <string name="cd_product_image" translatable="false">Product image</string>
     <string name="txt_new_product">New products</string>
     <string name="txt_product_rec">Recommendation for you</string>
-    <string name="cd_fav_product">Favorite product</string>
+    <string name="cd_fav_product" translatable="false">Favorite product</string>
     <string name="title_add_product">Add Product</string>
 
     <!-- Terms and Services -->
@@ -52,32 +51,32 @@
     <string name="guarantee_description">The renter must provide identity guarantees and a certain deposit before collecting the items. The provider is not responsible for any loss or accident that occurs during the use of the items.</string>
     <string name="button_submit">Agree</string>
 
-    <string name="txt_home">Home</string>
-    <string name="txt_explore">Explore</string>
-    <string name="txt_notification">Notification</string>
-    <string name="txt_profile">Profile</string>
+    <string name="txt_home" translatable="false">Home</string>
+    <string name="txt_explore" translatable="false">Explore</string>
+    <string name="txt_notification" translatable="false">Notification</string>
+    <string name="txt_profile" translatable="false">Profile</string>
     <string name="txt_product_image">Product image</string>
     <string name="txt_fav_button">Add to favorite</string>
-    <string name="txt_rp">Rp</string>
+    <string name="txt_rp" translatable="false">Rp</string>
     <string name="txt_view_shop">View shop</string>
     <string name="txt_product_details">Product details</string>
     <string name="txt_category">Category</string>
     <string name="txt_color">Color</string>
     <string name="txt_size">Size</string>
-    <string name="txt_product_detail">: %1$s</string>
+    <string name="txt_product_detail" translatable="false">: %1$s</string>
     <string name="txt_view_more">View more</string>
     <string name="txt_product_reviews">Product reviews</string>
-    <string name="cd_user_photo">User photo</string>
-    <string name="cd_review_photo">Review photo</string>
+    <string name="cd_user_photo" translatable="false">User photo</string>
+    <string name="cd_review_photo" translatable="false">Review photo</string>
     <string name="tv_similar_products">Similar products</string>
     <string name="txt_rent_now">Rent this product</string>
     <string name="txt_add_to_cart">Add this to cart</string>
-    <string name="cd_navigate_up">Navigate up</string>
-    <string name="cd_icon">Icon</string>
+    <string name="cd_navigate_up" translatable="false">Navigate up</string>
+    <string name="cd_icon" translatable="false">Icon</string>
     <string name="txt_all_products">All products</string>
     <string name="txt_days">days</string>
     <string name="txt_delete_all">Delete All</string>
-    <string name="txt_check_out">Check out</string>
+    <string name="txt_check_out" translatable="false">Check out</string>
     <string name="txt_shopping_product_detail">Product lists</string>
     <string name="txt_search_results_for">Search results for</string>
     <string name="txt_edit_profile">Edit profile</string>
@@ -98,12 +97,12 @@
     <string name="empty_field">Field must be filled!</string>
     <string name="invalid_email">Invalid Email format!</string>
     <string name="password_length">Password must be 8 characters or more</string>
-    <string name="txt_email_hint">Email</string>
+    <string name="txt_email_hint" translatable="false">Email</string>
     <string name="txt_name_hint">Name</string>
-    <string name="txt_password_hint">Password</string>
+    <string name="txt_password_hint" translatable="false">Password</string>
     <string name="txt_login_with">Or login with</string>
     <string name="txt_register_with">Or register with</string>
-    <string name="txt_google">Google</string>
+    <string name="txt_google" translatable="false">Google</string>
     <string name="txt_rent_warning">You are limited to rent one product only at once!</string>
     <string name="txt_return_date">Return date</string>
     <string name="txt_delivery_options">Delivery options</string>
@@ -124,14 +123,13 @@
     <string name="txt_product_name">Product name</string>
     <string name="txt_description">Description</string>
     <string name="txt_rent_price">Rent price</string>
-    <string name="txt_currency">Rp</string>
+    <string name="txt_currency" translatable="false">Rp</string>
     <string name="txt_product_price">Product price</string>
     <string name="txt_pick_up_from">Pick up from</string>
     <string name="txt_camera">Camera</string>
     <string name="txt_gallery">Gallery</string>
 
     <!--    Interes layout-->
-    <string name="question_color">Pilih 3 warna baju favorit kamu</string>
     <string name="red">Red</string>
     <string name="blue">Blue</string>
     <string name="green">Green</string>
@@ -150,12 +148,12 @@
     <string name="txt_onboard2">Enjoy peace of mind with secure transactions, ensuring your payments are safe</string>
     <string name="txt_onboard3">Get ready to shine with your outfit and have a great time at your next party with friends</string>
     <string name="txt_skip">Skip</string>
-    <string name="cd_choose_traditional">Choose traditional</string>
-    <string name="cd_choose_party">Choose party</string>
+    <string name="cd_choose_traditional" translatable="false">Choose traditional</string>
+    <string name="cd_choose_party" translatable="false">Choose party</string>
     <string name="txt_traditional_sets">Traditional sets</string>
     <string name="txt_party_sets">Party sets</string>
-    <string name="cd_choose_formal">Choose formal</string>
-    <string name="cd_choose_character_cosplay">Choose character cosplay</string>
+    <string name="cd_choose_formal" translatable="false">Choose formal</string>
+    <string name="cd_choose_character_cosplay" translatable="false">Choose character cosplay</string>
     <string name="txt_formal_sets">Formal sets</string>
     <string name="txt_character_cosplay_sets">Character cosplay sets</string>
     <string name="txt_next_one">Next one</string>
@@ -192,32 +190,32 @@
     <string name="txt_seller_registration_heading">Seller registration</string>
 
     <string name="txt_choose">Choose</string>
-    <string name="txt_update">Update</string>
+    <string name="txt_update" translatable="false">Update</string>
     <string name="title_update_profile">Edit Profile</string>
     <string name="txt_shop_dashboard">Shop dashboard</string>
     <string name="txt_birth_date">Birth date</string>
     <string name="txt_pick_a_date">Pick a date</string>
     <string name="address">Address</string>
     <string name="txt_phone_number">Phone number</string>
-    <string name="txt_62">+62</string>
+    <string name="txt_62" translatable="false">+62</string>
     <string name="txt_gender">Gender</string>
     <string name="txt_male">Male</string>
     <string name="txt_female">Female</string>
     <string name="txt_change_theme">Change theme</string>
     <string name="txt_about_us">About us</string>
     <string name="txt_logout">Logout</string>
-    <string name="txt_rentstyle_v1_0">Rentstyle v1.0</string>
+    <string name="txt_rentstyle_v1_0" translatable="false">Rentstyle v1.0</string>
     <string name="txt_about_rentstyle">Rentstyle was developed by the ENTS-H121 team as our final capstone project for Bangkit 2024. Our goal with Rentstyle is to provide users with a seamless and convenient platform to rent outfits for various occasions, promoting accessibility and sustainability in fashion choices.</string>
     <string name="txt_machine_learning_teams">Machine learning teams :</string>
-    <string name="txt_faisal">1. Faishal Syams Afif (M011D4KY2939)</string>
-    <string name="txt_yafi">2. Muhammad Yafi (M004D4KY2720)</string>
-    <string name="txt_sueb">3. Shuhaib Yahya Banamah (M011D4KY3263)</string>
+    <string name="txt_faisal" translatable="false">1. Faishal Syams Afif (M011D4KY2939)</string>
+    <string name="txt_yafi" translatable="false">2. Muhammad Yafi (M004D4KY2720)</string>
+    <string name="txt_sueb" translatable="false">3. Shuhaib Yahya Banamah (M011D4KY3263)</string>
     <string name="txt_cloud_computing_teams">Cloud computing teams :</string>
-    <string name="txt_wildan">1. Wildan Fauzan (C291D4KY0379)</string>
-    <string name="txt_yoga">2. Yoga Permana (C369D4KY1284)</string>
+    <string name="txt_wildan" translatable="false">1. Wildan Fauzan (C291D4KY0379)</string>
+    <string name="txt_yoga" translatable="false">2. Yoga Permana (C369D4KY1284)</string>
     <string name="txt_mobile_development_teams">Mobile development teams :</string>
-    <string name="txt_akmal">1. Akmal Sidik (A193D4KY4352)</string>
-    <string name="txt_richard">2. Richard Arya Winarta (A119D4KY3884)</string>
+    <string name="txt_akmal" translatable="false">1. Akmal Sidik (A193D4KY4352)</string>
+    <string name="txt_richard" translatable="false">2. Richard Arya Winarta (A119D4KY3884)</string>
     <string name="txt_rentstyle_dev">About RentStyle</string>
     <string name="welcome_seller">Welcome %1$s!</string>
     <string name="title_product_detail">Product Detail</string>
@@ -225,7 +223,7 @@
     <string name="txt_per_day">%1$s / day</string>
     <string name="txt_total_days">Total for %1$s days</string>
     <string name="title_shopping_cart">Shopping Cart</string>
-    <string name="title_checkout">Checkout</string>
+    <string name="title_checkout" translatable="false">Checkout</string>
     <string name="product_co_price">Rp. %1$s (%2$s days)</string>
     <string name="txt_self_pick_up">Self pick up</string>
     <string name="txt_your_cart_is_empty">Your cart is empty</string>
@@ -236,7 +234,7 @@
     <string name="txt_no_transaction_histories">No transaction histories</string>
     <string name="txt_no_favorite">No favorite products found</string>
     <string name="title_order_detail">Order Detail</string>
-    <string name="txt_order_money">Rp. %1$s</string>
+    <string name="txt_order_money" translatable="false">Rp. %1$s</string>
     <string name="txt_results_are_not_found">Results are not found</string>
     <string name="txt_review_details">Review details</string>
     <string name="send">Send</string>
@@ -248,4 +246,35 @@
     <string name="txt_new_notification">Latest</string>
     <string name="txt_status_notification">Order Status</string>
     <string name="txt_system_notification">System</string>
+    <string name="txt_select_category">Please select product category</string>
+    <string name="txt_invalid_product">Invalid product size / category</string>
+    <string name="txt_error_upload_product">Error upload new product</string>
+    <string name="txt_fail_order">Fail to make order</string>
+    <string name="txt_change_new_image">Please change new image to proceed</string>
+    <string name="txt_error_update_user">Error update user data</string>
+    <string name="txt_select_gender">Please select user gender</string>
+    <string name="txt_fail_get_fav">Fail to get favorite data</string>
+    <string name="txt_swipe_to_refresh">Swipe to refresh</string>
+    <string name="txt_error_fetching_data">Fetching data error</string>
+    <string name="txt_feature_is_not_available">Feature is not available yet</string>
+    <string name="txt_fail_get_order_detail">Fail to get order detail</string>
+    <string name="txt_rate_product">Rate product</string>
+    <string name="txt_rent_again">Rent again</string>
+    <string name="txt_complete_profile">Please complete your profile</string>
+    <string name="txt_success_add_fav">Success add to favorite</string>
+    <string name="txt_fail_add_fav">Failed to add to favorite</string>
+    <string name="txt_success_remove_fav">Success removed from favorite</string>
+    <string name="txt_fail_remove_fav">Failed to remove from favorite</string>
+    <string name="txt_fail_load_product">Failed to get product detail</string>
+    <string name="txt_success_add_cart">Added to cart successfully</string>
+    <string name="txt_fail_add_cart">Failed to add to cart</string>
+    <string name="txt_fail_get_transaction">Fail to get transaction histories</string>
+    <string name="txt_try_again">Problem\'s occurred, please try again</string>
+    <string name="txt_error_give_review">Error giving a review</string>
+    <string name="txt_register_success">Registering account is success</string>
+    <string name="txt_select_city_loc">Please select city location</string>
+    <string name="txt_select_product">Please select a product</string>
+    <string name="txt_error_delete_item_cart">Error delete item from cart</string>
+    <string name="txt_error_add_item_cart">Error add item to cart</string>
+    <string name="txt_success_add_product">Success adding new product</string>
 </resources>

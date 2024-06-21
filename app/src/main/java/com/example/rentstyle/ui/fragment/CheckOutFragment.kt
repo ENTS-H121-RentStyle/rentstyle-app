@@ -177,14 +177,14 @@ class CheckOutFragment : Fragment() {
                                     isVisible = true
                                     setIndeterminateDrawable(WanderingCubes())
                                 }
-                                Toast.makeText(requireContext(), "Fail to make order", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), getString(R.string.txt_fail_order), Toast.LENGTH_SHORT).show()
                                 findNavController().navigateUp()
                             }
                     }
                 }
 
             } else {
-                Toast.makeText(requireContext(), "Failed to make order", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.txt_fail_order), Toast.LENGTH_SHORT).show()
                 findNavController().navigateUp()
             }
         }

@@ -228,7 +228,7 @@ class AddProductFragment : Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                Toast.makeText(requireContext(), "Please select product category", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.txt_select_category), Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -244,7 +244,7 @@ class AddProductFragment : Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                Toast.makeText(requireContext(), "Please select product category", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.txt_select_category), Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -292,11 +292,11 @@ class AddProductFragment : Fragment() {
 
                 } catch (e: Exception) {
                     binding.ivLoadingSpinner.isVisible = false
-                    Toast.makeText(requireContext(), "Invalid product size / category", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.txt_invalid_product), Toast.LENGTH_SHORT).show()
                 }
             } else {
                 binding.ivLoadingSpinner.isVisible = false
-                Toast.makeText(requireContext(), "All fields must be filled!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -337,7 +337,7 @@ class AddProductFragment : Fragment() {
                         }
                     } else {
                         binding.ivLoadingSpinner.isVisible = false
-                        Toast.makeText(requireContext(), "Error upload new product", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.txt_error_upload_product), Toast.LENGTH_SHORT).show()
                     }
             }
         }

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +40,6 @@ import com.example.rentstyle.ui.viewmodel.RecommendationViewModelFactory
 import com.example.rentstyle.viewmodel.HomeViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import kotlin.math.abs
 
 class ForYouFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
@@ -238,8 +236,8 @@ class ForYouFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             } else {
                 binding.shimmerViewHighestRating.isVisible = false
                 binding.rvHighestRating.isVisible = true
-                Toast.makeText(requireContext(), "Fetching data error", Toast.LENGTH_SHORT).show()
-                Toast.makeText(requireContext(), "Swipe to refresh", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.txt_error_fetching_data), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.txt_swipe_to_refresh), Toast.LENGTH_SHORT).show()
             }
         } catch (e: Exception) {
             binding.shimmerViewHighestRating.isVisible = false
@@ -257,8 +255,8 @@ class ForYouFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             } else {
                 binding.shimmerViewNewProduct.isVisible = false
                 newProductRecyclerView.isVisible = true
-                Toast.makeText(requireContext(), "Fetching data error", Toast.LENGTH_SHORT).show()
-                Toast.makeText(requireContext(), "Swipe to refresh", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.txt_error_fetching_data), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.txt_swipe_to_refresh), Toast.LENGTH_SHORT).show()
             }
         } catch (e: Exception) {
             binding.shimmerViewNewProduct.isVisible = false

@@ -120,11 +120,11 @@ class RateProductFragment : Fragment() {
                             sellerId = product.sellerId
                             postReview()
                         } else {
-                            Toast.makeText(requireContext(), "Problem's occurred, please try again", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), getString(R.string.txt_try_again), Toast.LENGTH_SHORT).show()
                         }
                     } else {
                         binding.ivLoadingSpinner.isVisible = false
-                        Toast.makeText(requireContext(), "Problem's occurred, please try again", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.txt_try_again), Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: Exception) {
                     Toast.makeText(requireContext(), e.toString(), Toast.LENGTH_SHORT).show()
@@ -188,13 +188,13 @@ class RateProductFragment : Fragment() {
                             }
                         } else {
                             binding.ivLoadingSpinner.isVisible = false
-                            Toast.makeText(requireContext(), "Error giving a review", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), getString(R.string.txt_error_give_review), Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
             } else {
                 binding.ivLoadingSpinner.isVisible = false
-                Toast.makeText(requireContext(), "Please fill al the fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show()
             }
         }
     }
